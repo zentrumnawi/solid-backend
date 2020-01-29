@@ -5,7 +5,7 @@ init:
 	pip install pipenv --upgrade
 	pipenv install --dev --skip-lock
 ci:
-	pipenv run pytest --cov=./
+	pipenv run pytest --cov=
 analyze:
 	pipenv run flake8 .
 	pipenv run isort -v
