@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     "content.apps.ContentConfig",
     "glossary.apps.GlossaryConfig",
     "quiz.apps.QuizConfig",
+    "message.apps.MessageConfig",
+    "slideshow.apps.SlideshowConfig",
 ]
 
 MIDDLEWARE = [
@@ -117,7 +119,9 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
 
-PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER = env("PROFILES_SERIALIZER", default="").rsplit(".", 1)
+PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER = env(
+    "PROFILES_SERIALIZER", default=""
+).rsplit(".", 1)
 
 # Configure this dictionary to have a mapping from database fieldnames to
 # human readable names. You might want to consider internationalizing

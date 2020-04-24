@@ -9,8 +9,8 @@ from .models import TreeNode
 class TreeNodeSerializer(serializers.ModelSerializer):
 
     profiles = getattr(
-                import_module(settings.PROFILES_SERIALIZER_MODULE), settings.PROFILES_SERIALIZER
-            )(many=True)
+        import_module(settings.PROFILES_SERIALIZER_MODULE), settings.PROFILES_SERIALIZER
+    )(many=True)
     leaf_nodes = serializers.SerializerMethodField()
 
     class Meta:

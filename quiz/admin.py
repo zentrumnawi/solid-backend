@@ -1,11 +1,18 @@
 from django.contrib import admin
 from .models import QuizQuestion, QuizAnswer
-from utility.forms import HasImgAltForm
+from utility.forms import HasImgForm
+
+
+class QuizAnswerInline(admin.TabularInline):
+    model = QuizAnswer
 
 
 class QuizQuestionAdmin(admin.ModelAdmin):
-    form = HasImgAltForm
+    form = HasImgForm
     list_display = ("id", "text")
+    inlines = [
+        QuizAnswerInline,
+    ]
 
 
 admin.site.register(QuizQuestion, QuizQuestionAdmin)

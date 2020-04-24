@@ -22,5 +22,7 @@ urlpatterns = [
     url(r"^api/", include("content.urls"), name="content"),
     url(r"^admin/", admin.site.urls),
     url(r"api/", include("glossary.urls", namespace="glossary")),
-    url(r"api/", include("quiz.urls", namespace="quiz"))
+    url(r"api/", include("quiz.urls", namespace="quiz")),
+    url(r"^api/", include("message.urls"), name="message"),
+    url(r"api/", include("slideshow.urls"), name="slideshow"),
 ]
