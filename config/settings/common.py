@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     "mptt",
     "content.apps.ContentConfig",
+    "contact.apps.ContactConfig",
     "glossary.apps.GlossaryConfig",
     "quiz.apps.QuizConfig",
     "message.apps.MessageConfig",
