@@ -16,6 +16,7 @@ djangorestframework = "*"
 django-mptt = "*"
 drf-yasg = "*"
 pillow = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 werkzeug = "*"
