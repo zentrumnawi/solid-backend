@@ -17,6 +17,7 @@ django-mptt = "*"
 drf-yasg = "*"
 pillow = "*"
 django-cors-headers = "*"
+django-cleanup = "*"
 
 [dev-packages]
 werkzeug = "*"
