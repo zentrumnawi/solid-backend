@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "quiz.apps.QuizConfig",
     "message.apps.MessageConfig",
     "slideshow.apps.SlideshowConfig",
+    "stdimage",
     "django_cleanup.apps.CleanupConfig",  # Should be placed last!
 ]
 
