@@ -31,3 +31,6 @@ htmlcov
 
 # OSX
 .DS_Store
+
+# Media files
+media/
