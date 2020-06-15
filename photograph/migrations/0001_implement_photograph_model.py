@@ -8,23 +8,62 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Photograph',
+            name="Photograph",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('img', stdimage.models.JPEGField(db_index=True, height_field='img_original_height', upload_to='photograph/', width_field='img_original_width')),
-                ('img_original_width', models.PositiveSmallIntegerField(editable=False)),
-                ('img_original_height', models.PositiveSmallIntegerField(editable=False)),
-                ('img_original_scale', models.FloatField(blank=True, help_text='Längeneinheit pro Pixel', null=True, verbose_name='scale')),
-                ('img_alt', models.CharField(max_length=200)),
-                ('description', models.TextField(blank=True, default='', verbose_name='description (Markdown)')),
-                ('date', models.DateField(blank=True, help_text='Datum der Lichtbildaufnahme', null=True)),
-                ('author', models.CharField(blank=True, default='', max_length=100)),
-                ('license', models.CharField(blank=True, default='', max_length=100)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "img",
+                    stdimage.models.JPEGField(
+                        db_index=True,
+                        height_field="img_original_height",
+                        upload_to="photograph/",
+                        width_field="img_original_width",
+                    ),
+                ),
+                (
+                    "img_original_width",
+                    models.PositiveSmallIntegerField(editable=False),
+                ),
+                (
+                    "img_original_height",
+                    models.PositiveSmallIntegerField(editable=False),
+                ),
+                (
+                    "img_original_scale",
+                    models.FloatField(
+                        blank=True,
+                        help_text="Längeneinheit pro Pixel",
+                        null=True,
+                        verbose_name="scale",
+                    ),
+                ),
+                ("img_alt", models.CharField(max_length=200)),
+                (
+                    "description",
+                    models.TextField(
+                        blank=True, default="", verbose_name="description (Markdown)"
+                    ),
+                ),
+                (
+                    "date",
+                    models.DateField(
+                        blank=True, help_text="Datum der Lichtbildaufnahme", null=True
+                    ),
+                ),
+                ("author", models.CharField(blank=True, default="", max_length=100)),
+                ("license", models.CharField(blank=True, default="", max_length=100)),
             ],
         ),
     ]
