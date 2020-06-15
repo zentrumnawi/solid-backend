@@ -54,25 +54,44 @@ class TestPhotographModelFields:
         assert isinstance(photograph_model_class._meta.get_field("img"), JPEGField)
 
     def test_field_type_img_original_width(self, photograph_model_class):
-        assert isinstance(photograph_model_class._meta.get_field("img_original_width"), models.PositiveSmallIntegerField)
+        assert isinstance(
+            photograph_model_class._meta.get_field("img_original_width"),
+            models.PositiveSmallIntegerField,
+        )
 
     def test_field_type_img_original_height(self, photograph_model_class):
-        assert isinstance(photograph_model_class._meta.get_field("img_original_height"), models.PositiveSmallIntegerField)
+        assert isinstance(
+            photograph_model_class._meta.get_field("img_original_height"),
+            models.PositiveSmallIntegerField,
+        )
 
     def test_field_type_img_original_scale(self, photograph_model_class):
-        assert isinstance(photograph_model_class._meta.get_field("img_original_scale"), models.FloatField)
+        assert isinstance(
+            photograph_model_class._meta.get_field("img_original_scale"),
+            models.FloatField,
+        )
 
     def test_field_type_img_alt(self, photograph_model_class):
-        assert isinstance(photograph_model_class._meta.get_field("img_alt"), models.CharField)
+        assert isinstance(
+            photograph_model_class._meta.get_field("img_alt"), models.CharField
+        )
 
     def test_field_type_description(self, photograph_model_class):
-        assert isinstance(photograph_model_class._meta.get_field("description"), models.TextField)
+        assert isinstance(
+            photograph_model_class._meta.get_field("description"), models.TextField
+        )
 
     def test_field_type_date(self, photograph_model_class):
-        assert isinstance(photograph_model_class._meta.get_field("date"), models.DateField)
+        assert isinstance(
+            photograph_model_class._meta.get_field("date"), models.DateField
+        )
 
     def test_field_type_author(self, photograph_model_class):
-        assert isinstance(photograph_model_class._meta.get_field("author"), models.CharField)
+        assert isinstance(
+            photograph_model_class._meta.get_field("author"), models.CharField
+        )
 
     def test_field_type_license(self, photograph_model_class):
-        assert isinstance(photograph_model_class._meta.get_field("license"), models.CharField)
+        assert isinstance(
+            photograph_model_class._meta.get_field("license"), models.CharField
+        )
