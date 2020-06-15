@@ -34,13 +34,14 @@ INSTALLED_APPS = [
     "drf_yasg",
     "mptt",
     "corsheaders",
+    "stdimage",
     "content.apps.ContentConfig",
     "contact.apps.ContactConfig",
     "glossary.apps.GlossaryConfig",
     "quiz.apps.QuizConfig",
     "message.apps.MessageConfig",
     "slideshow.apps.SlideshowConfig",
-    "stdimage",
+    "photograph.apps.PhotographConfig",
     "django_cleanup.apps.CleanupConfig",  # Should be placed last!
 ]
 
