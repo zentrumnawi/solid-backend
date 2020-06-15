@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('photograph', '0001_implement_photograph_model'),
+        ("photograph", "0001_implement_photograph_model"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='photograph',
-            name='img_original_scale',
-            field=models.FloatField(blank=True, help_text='Längenwert (in Meter) pro Pixel', null=True, verbose_name='scale'),
+            model_name="photograph",
+            name="img_original_scale",
+            field=models.FloatField(
+                blank=True,
+                help_text="Längenwert (in Meter) pro Pixel",
+                null=True,
+                verbose_name="scale",
+            ),
         ),
     ]
