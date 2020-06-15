@@ -30,7 +30,7 @@ class Photograph(models.Model):
     img_original_width = models.PositiveSmallIntegerField(editable=False)
     img_original_height = models.PositiveSmallIntegerField(editable=False)
     img_original_scale = models.FloatField(
-        verbose_name="scale", null=True, blank=True, help_text="Längeneinheit pro Pixel"
+        verbose_name="scale", null=True, blank=True, help_text="Längenwert (in Meter) pro Pixel"
     )
 
     img_alt = models.CharField(max_length=200)
