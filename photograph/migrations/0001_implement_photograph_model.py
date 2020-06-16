@@ -42,12 +42,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "img_original_scale",
-                    models.FloatField(
-                        blank=True,
-                        help_text="Längeneinheit pro Pixel",
-                        null=True,
-                        verbose_name="scale",
-                    ),
+                    models.FloatField(blank=True, null=True, verbose_name="scale",),
                 ),
                 ("img_alt", models.CharField(max_length=200)),
                 (

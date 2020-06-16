@@ -29,12 +29,7 @@ class Photograph(models.Model):
     # dzi_file = models.FileField(upload_to="dzi_files/", null=True, blank=True, editable=False)
     img_original_width = models.PositiveSmallIntegerField(editable=False)
     img_original_height = models.PositiveSmallIntegerField(editable=False)
-    img_original_scale = models.FloatField(
-        verbose_name="scale",
-        null=True,
-        blank=True,
-        help_text="Längenwert (in Meter) pro Pixel",
-    )
+    img_original_scale = models.FloatField(verbose_name="scale", null=True, blank=True,)
 
     img_alt = models.CharField(max_length=200)
     description = models.TextField(
