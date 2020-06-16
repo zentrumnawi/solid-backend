@@ -18,8 +18,8 @@ COPY pyproject.toml poetry.lock /
 RUN PATH="$PATH:$HOME/.poetry/bin" && poetry install
 
 # Copy the entrypoint.sh and start.sh and make them executable
-COPY docker/local/entrypoint.sh docker/local/start.sh /
-RUN chmod +x /entrypoint.sh /start.sh
+COPY docker/local/entrypoint.sh docker/local/start.sh docker/local/vendor/wait-for-it/wait-for-it.sh /
+RUN chmod +x /entrypoint.sh /start.sh /wait-for-it.sh
 
 # All subsequent commands will be run from the /app folder
 WORKDIR /app
