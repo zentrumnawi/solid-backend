@@ -1,10 +1,11 @@
 from django import forms
+from mutagen import File
 from .models import Photograph
 
 
 class PhotographForm(forms.ModelForm):
     """
-    Calculation of the scale is provided.
+    Calculation of the scale and determination of the audio duration is provided.
     """
 
     LENGHT_UNIT_CHOICES = [
@@ -42,6 +43,11 @@ class PhotographForm(forms.ModelForm):
 
         if pixel_number == 0:
             instance.img_original_scale = None
+
+        if instance.audio:
+            instance.audio_duration = File(instance.audio).info.length
+        else:
+            instance.audio_duration = None
 
         if commit:
             instance.save()
