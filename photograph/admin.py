@@ -10,6 +10,7 @@ class PhotographAdmin(admin.ModelAdmin):
         ("length_value", "length_unit", "pixel_number"),
         "img_alt",
         "description",
+        "audio",
         "date",
         "author",
         "license",
