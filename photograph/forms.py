@@ -8,7 +8,7 @@ class PhotographForm(forms.ModelForm):
     Calculation of the scale and determination of the audio duration is provided.
     """
 
-    LENGHT_UNIT_CHOICES = [
+    LENGTH_UNIT_CHOICES = [
         (1.00, "m"),
         (0.01, "cm"),
         (0.001, "mm"),
@@ -18,8 +18,8 @@ class PhotographForm(forms.ModelForm):
     )
     length_unit = forms.TypedChoiceField(
         coerce=float,
-        choices=LENGHT_UNIT_CHOICES,
-        initial=LENGHT_UNIT_CHOICES[1][0],
+        choices=LENGTH_UNIT_CHOICES,
+        initial=LENGTH_UNIT_CHOICES[1][0],
         label="",
         help_text="Längeneinheit",
     )
@@ -36,7 +36,7 @@ class PhotographForm(forms.ModelForm):
         length_unit = self.cleaned_data.get("length_unit")
         pixel_number = self.cleaned_data.get("pixel_number")
 
-        instance = super(PhotographForm, self).save(commit=commit)
+        instance = super(PhotographForm, self).save(commit=False)
 
         if length_value and pixel_number:
             instance.img_original_scale = length_value * length_unit / pixel_number
