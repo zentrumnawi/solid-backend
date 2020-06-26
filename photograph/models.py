@@ -35,8 +35,8 @@ class Photograph(models.Model):
     description = models.TextField(
         default="", blank=True, verbose_name="description (Markdown)"
     )
-    # audio_file = models.FileField(upload_to="audio_files/", null=True, blank=True)
-    # audio_duration = models.PositiveIntegerField(null=True, blank=True, editable=False)
+    audio = models.FileField(upload_to="audio/", null=True, blank=True)
+    audio_duration = models.FloatField(null=True, editable=False)
 
     # location =
     date = models.DateField(
