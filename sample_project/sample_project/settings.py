@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = environ.Path(__file__) - 2
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,6 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django_extensions",
+    "rest_framework",
+    "solid_backend.contact",
+    "solid_backend.content",
+    "solid_backend.glossary",
+    "solid_backend.message",
+    "solid_backend.quiz",
+    "solid_backend.slideshow"
 ]
 
 MIDDLEWARE = [
@@ -74,9 +83,13 @@ WSGI_APPLICATION = 'sample_project.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "local_db",
+        "USER": "localuser",
+        "PASSWORD": "localpass",
+        "HOST": "localhost",
+        "PORT": "",
     }
 }
 
@@ -118,3 +131,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER = "sample_content.serializers", "ExampleSerializer"
+DATABASE_FIELD_MAPPING = {}
