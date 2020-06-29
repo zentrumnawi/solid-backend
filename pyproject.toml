@@ -1,8 +1,17 @@
 [tool.poetry]
 name = "solid-backend"
 version = "0.1.0"
-description = ""
-authors = ["Your Name <you@example.com>"]
+description = "Clean Django App for E-Learning apllication with "
+authors = [
+	"Christian Grossmüller <chgad.games@gmail.com>",
+	"Timotheus Kozlowski <kozlowski@th.physik.uni-frankfurt.de>"
+]
+license = "MIT"
+
+readme = "README.md"
+homepage = "https://github.com/zentrumnawi/solid-backend"
+repository = "https://github.com/zentrumnawi/solid-backend"
+
 
 [tool.poetry.dependencies]
 python = "^3.7"
