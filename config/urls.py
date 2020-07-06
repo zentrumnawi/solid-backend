@@ -24,6 +24,7 @@ urlpatterns = [
     url(r"^api/", include("contact.urls"), name="contact"),
     url(r"^api/", include("glossary.urls"), name="glossary"),
     url(r"^api/", include("message.urls"), name="message"),
+    url(r"^api/", include("photograph.urls"), name="photograph"),
     url(r"^api/", include("quiz.urls"), name="quiz"),
     url(r"^api/", include("slideshow.urls"), name="slideshow"),
 ]

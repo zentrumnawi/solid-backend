@@ -18,6 +18,8 @@ drf-yasg = "*"
 pillow = "*"
 django-cors-headers = "*"
 django-cleanup = "*"
+django-stdimage = "*"
+mutagen = "*"
 
 [dev-packages]
 werkzeug = "*"
