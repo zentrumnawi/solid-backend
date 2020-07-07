@@ -1,7 +1,12 @@
 from django.contrib import admin
+from django.contrib.contenttypes.admin import GenericTabularInline
 
 from .forms import PhotographForm
 from .models import Photograph
+
+
+class PhotographInline(GenericTabularInline):
+    model = Photograph
 
 
 class PhotographAdmin(admin.ModelAdmin):
