@@ -1,5 +1,5 @@
 import pytest
-from photograph.models import Photograph
+from solid_backend.photograph import Photograph
 
 
 @pytest.fixture
