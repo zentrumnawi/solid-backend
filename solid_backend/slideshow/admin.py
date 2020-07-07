@@ -1,6 +1,8 @@
 from django.contrib import admin
-from .models import Slideshow, SlideshowPage, SlideshowImage
+
 from solid_backend.utility.forms import HasImgForm
+
+from .models import Slideshow, SlideshowImage, SlideshowPage
 
 
 class SlideshowPageInline(admin.TabularInline):

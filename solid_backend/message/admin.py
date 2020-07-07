@@ -1,6 +1,8 @@
 from django.contrib import admin
+
+from solid_backend.utility.forms import DateOrderForm, HasImgForm
+
 from .models import Message
-from solid_backend.utility.forms import HasImgForm, DateOrderForm
 
 
 class MessageForm(HasImgForm, DateOrderForm):

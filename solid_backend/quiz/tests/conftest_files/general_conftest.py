@@ -1,5 +1,6 @@
 import pytest
-from solid_backend.quiz.models import QuizQuestion, QuizAnswer
+
+from solid_backend.quiz.models import QuizAnswer, QuizQuestion
 
 
 @pytest.fixture

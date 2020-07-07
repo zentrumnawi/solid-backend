@@ -1,6 +1,6 @@
 from rest_framework.routers import SimpleRouter
-from .views import MessageEndpoint
 
+from .views import MessageEndpoint
 
 app_name = "message"
 router = SimpleRouter()

@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from rest_framework.routers import SimpleRouter
 
-from .views import ProfilesEndpoint, FieldMappingEndpoint
+from .views import FieldMappingEndpoint, ProfilesEndpoint
 
 app_name = "content"
 

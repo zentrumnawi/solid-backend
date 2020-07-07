@@ -1,6 +1,8 @@
 from django.contrib import admin
-from .models import QuizQuestion, QuizAnswer
+
 from solid_backend.utility.forms import HasImgForm
+
+from .models import QuizAnswer, QuizQuestion
 
 
 class QuizAnswerInline(admin.TabularInline):

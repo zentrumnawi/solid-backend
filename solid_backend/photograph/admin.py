@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Photograph
+
 from .forms import PhotographForm
+from .models import Photograph
 
 
 class PhotographAdmin(admin.ModelAdmin):

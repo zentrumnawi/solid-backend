@@ -1,6 +1,7 @@
-from rest_framework import generics, status, response
-from django.core.mail import send_mail
 from django.conf import settings
+from django.core.mail import send_mail
+from rest_framework import generics, response, status
+
 from .serializers import ContactSerializer
 
 

@@ -1,6 +1,6 @@
 from rest_framework.routers import SimpleRouter
-from .views import PhotographEndpoint
 
+from .views import PhotographEndpoint
 
 app_name = "photograph"
 router = SimpleRouter()

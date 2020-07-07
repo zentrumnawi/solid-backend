@@ -1,6 +1,7 @@
+from datetime import date
+
 from django.db import models
 from stdimage import JPEGField
-from datetime import date
 
 
 class Photograph(models.Model):
