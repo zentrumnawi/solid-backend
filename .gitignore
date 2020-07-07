@@ -31,3 +31,10 @@ htmlcov
 
 # OSX
 .DS_Store
+
+# Media files
+media/
+
+# build files
+dist
+*.egg*

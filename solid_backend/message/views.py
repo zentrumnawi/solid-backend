@@ -1,0 +1,18 @@
+from datetime import date
+
+from rest_framework.viewsets import ReadOnlyModelViewSet
+
+from .models import Message
+from .serializers import MessageSerializer
+
+
+class MessageEndpoint(ReadOnlyModelViewSet):
+    """
+    Endpoint that provides the database table of currently valid messages.
+    """
+
+    queryset = Message.objects.filter(
+        valid_from__lte=date.today(), valid_to__gte=date.today()
+    )
+    serializer_class = MessageSerializer
+    name = "message"
