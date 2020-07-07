@@ -1,6 +1,7 @@
+from rest_framework.viewsets import ReadOnlyModelViewSet
+
 from .models import GlossaryEntry
 from .serializers import GlossaryEntrySerializer
-from rest_framework.viewsets import ReadOnlyModelViewSet
 
 
 class GlossaryEntryEndpoint(ReadOnlyModelViewSet):

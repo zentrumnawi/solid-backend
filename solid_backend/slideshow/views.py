@@ -1,9 +1,10 @@
 from rest_framework.viewsets import ReadOnlyModelViewSet
-from .models import Slideshow, SlideshowPage, SlideshowImage
+
+from .models import Slideshow, SlideshowImage, SlideshowPage
 from .serializers import (
-    SlideshowSerializer,
-    SlideshowPageSerializer,
     SlideshowImageSerializer,
+    SlideshowPageSerializer,
+    SlideshowSerializer,
 )
 
 

@@ -1,4 +1,5 @@
 import pytest
+
 from solid_backend.glossary.models import GlossaryEntry
 
 

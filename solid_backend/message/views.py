@@ -1,5 +1,7 @@
-from rest_framework.viewsets import ReadOnlyModelViewSet
 from datetime import date
+
+from rest_framework.viewsets import ReadOnlyModelViewSet
+
 from .models import Message
 from .serializers import MessageSerializer
 

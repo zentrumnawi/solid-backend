@@ -1,6 +1,7 @@
 from rest_framework.viewsets import ReadOnlyModelViewSet
-from .models import QuizQuestion, QuizAnswer
-from .serializers import QuizQuestionSerializer, QuizAnswerSerializer
+
+from .models import QuizAnswer, QuizQuestion
+from .serializers import QuizAnswerSerializer, QuizQuestionSerializer
 
 
 class QuizQuestionEndpoint(ReadOnlyModelViewSet):

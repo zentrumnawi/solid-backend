@@ -1,5 +1,6 @@
 import pytest
-from solid_backend.slideshow.models import Slideshow, SlideshowPage, SlideshowImage
+
+from solid_backend.slideshow.models import Slideshow, SlideshowImage, SlideshowPage
 
 
 @pytest.fixture

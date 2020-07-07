@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
 from mptt.models import MPTTModel, TreeForeignKey
 
 # Custom Models, representing the actual data of a profile, implement here.

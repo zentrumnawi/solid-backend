@@ -1,6 +1,6 @@
 from rest_framework.routers import SimpleRouter
-from .views import QuizQuestionEndpoint, QuizAnswerEndpoint
 
+from .views import QuizAnswerEndpoint, QuizQuestionEndpoint
 
 app_name = "quiz"
 router = SimpleRouter()

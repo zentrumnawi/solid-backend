@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Slideshow, SlideshowPage, SlideshowImage
+
+from .models import Slideshow, SlideshowImage, SlideshowPage
 
 
 class SlideshowImageLessSerializer(serializers.ModelSerializer):
