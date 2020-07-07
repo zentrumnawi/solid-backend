@@ -5,23 +5,34 @@ services:
 
 language: python
 python:
-  - "3.6"
+  - "3.7"
 
 env:
-  - TRAVIS_CI=True PROFILES_SERIALIZER=some.module.ExampleSerializer
+  - TRAVIS_CI=True PROFILES_SERIALIZER=some.module.ExampleSerializer PATH="$PATH:$HOME/.poetry/bin"
 
 cache:
   directories:
     - $HOME/.cache/pip
 
-install:
-  - make
-before_script:
-  - psql -c "CREATE DATABASE test_db_app;" -U postgres
-  - psql -c "CREATE USER db_user WITH PASSWORD 'db_pass';" -U postgres
 
-script:
-  - make ci
-  - black . --check
-after_success:
-  - codecov
+jobs:
+  include:
+    - stage: "Unit tests and linting"
+      name: "Unit tests with Python 3.7"
+      before_script:
+        - psql -c "CREATE DATABASE test_db_app;" -U postgres
+        - psql -c "CREATE USER db_user WITH PASSWORD 'db_pass';" -U postgres
+      script: make ci
+      after_success: codecov
+    - name: "Formatting with black"
+      script: poetry run make reformat-check
+    - name: "Linting with flake8"
+      script: poetry run make flake8
+    - name: "Sorting with isort"
+      script: poetry run make isort-check
+
+before_install:
+  - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+
+install:
+  - make init
