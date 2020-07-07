@@ -1,10 +1,10 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.contenttypes.fields import GenericRelation
-
 from mptt.models import MPTTModel, TreeForeignKey
 
 from solid_backend.photograph.models import Photograph
+
 # Custom Models, representing the actual data of a profile, implement here.
 # At least one model needs to have a ForeignKey field to the TreeNode model
 # with related_name="profiles". If not, the profiles endpoint will throw an
@@ -16,6 +16,7 @@ class BaseProfile(models.Model):
     A base model used for inharitance such that we have a Generic Many (Photograph) to One (Profile)
     Relation.
     """
+
     photographs = GenericRelation(Photograph, null=True)
 
     class Meta:

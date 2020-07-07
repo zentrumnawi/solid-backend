@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     "solid_backend.quiz",
     "solid_backend.slideshow",
     "solid_backend.photograph",
-    "sample_content.apps.SampleContentConfig"
+    "sample_content.apps.SampleContentConfig",
 ]
 
 MIDDLEWARE = [
