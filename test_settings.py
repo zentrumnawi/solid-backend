@@ -25,12 +25,14 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "mptt",
+    "stdimage",
     "solid_backend.content.apps.ContentConfig",
     "solid_backend.contact.apps.ContactConfig",
     "solid_backend.glossary.apps.GlossaryConfig",
     "solid_backend.quiz.apps.QuizConfig",
     "solid_backend.message.apps.MessageConfig",
     "solid_backend.slideshow.apps.SlideshowConfig",
+    "solid_backend.photograph.apps.PhotographConfig",
     "django_cleanup.apps.CleanupConfig",  # Should be placed last!
     "django_extensions",
 ]

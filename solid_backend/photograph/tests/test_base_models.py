@@ -11,7 +11,7 @@ class TestPhotographModelExists:
         pass
 
     def test_model_is_django_model(self):
-        from solid_backend.photograph import Photograph
+        from solid_backend.photograph.models import Photograph
 
         assert issubclass(Photograph, models.Model)
 
