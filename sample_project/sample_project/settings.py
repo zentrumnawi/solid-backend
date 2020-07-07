@@ -40,12 +40,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "django_extensions",
     "rest_framework",
+    "mptt",
+    "stdimage",
     "solid_backend.contact",
     "solid_backend.content",
     "solid_backend.glossary",
     "solid_backend.message",
     "solid_backend.quiz",
-    "solid_backend.slideshow"
+    "solid_backend.slideshow",
+    "solid_backend.photograph"
 ]
 
 MIDDLEWARE = [
