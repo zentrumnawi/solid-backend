@@ -1,6 +1,8 @@
 from datetime import date
 
 from django.db import models
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from stdimage import JPEGField
 
 
@@ -9,11 +11,9 @@ class Photograph(models.Model):
     Model for a photograph.
     """
 
-    # profile = models.ForeignKey(to=Profile,
-    #    on_delete=models.CASCADE,
-    #    related_name="photographs",
-    #    related_query_name="photograph",
-    # )
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
+    object_id = models.PositiveIntegerField(default=0)
+    profile = GenericForeignKey("content_type", "object_id")
     img = JPEGField(
         upload_to="photograph/",
         width_field="img_original_width",
