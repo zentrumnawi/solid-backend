@@ -1,0 +1,9 @@
+[flake8]
+ignore = N806, N803, N802, I100, I101, I201, F401, F811, W503, E203, E501
+exclude =
+  manage.py
+  solid_backend/*/migrations
+  solid_backend/*/tests/conftest.py
+  sample_project/
+  some/
+  test_settings.py
