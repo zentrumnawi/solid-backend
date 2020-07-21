@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericTabularInline
 
-from .models import Photograph
 from .forms import PhotographForm
+from .models import Photograph
 
 
 class PhotographInline(GenericTabularInline):
