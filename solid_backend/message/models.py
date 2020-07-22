@@ -16,7 +16,7 @@ class Message(models.Model):
     img = models.ImageField(upload_to="message/", null=True, blank=True)
     img_alt = models.CharField(max_length=200, default="", blank=True)
     valid_from = models.DateField(default=date.today)
-    valid_to = models.DateField(default=date.today)
+    valid_to = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return self.title

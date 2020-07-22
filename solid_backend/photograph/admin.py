@@ -7,15 +7,27 @@ from .models import Photograph
 
 class PhotographInline(GenericTabularInline):
     model = Photograph
+    form = PhotographForm
+    extra = 1
+    fields = [
+        "img",
+        "img_alt",
+        "description",
+        ("length_value", "length_unit", "pixel_number"),
+        "audio",
+        "date",
+        "author",
+        "license",
+    ]
 
 
 class PhotographAdmin(admin.ModelAdmin):
     form = PhotographForm
     fields = [
         "img",
-        ("length_value", "length_unit", "pixel_number"),
         "img_alt",
         "description",
+        ("length_value", "length_unit", "pixel_number"),
         "audio",
         "date",
         "author",

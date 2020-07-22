@@ -6,7 +6,7 @@ from .models import Photograph
 
 class PhotographForm(forms.ModelForm):
     """
-    Calculation of the scale and determination of the audio duration is provided.
+    Calculate the scale and determine the audio duration.
     """
 
     LENGTH_UNIT_CHOICES = [
@@ -15,7 +15,7 @@ class PhotographForm(forms.ModelForm):
         (0.001, "mm"),
     ]
     length_value = forms.FloatField(
-        min_value=0.000001, required=False, label="Scale", help_text="Längenwert",
+        min_value=0.001, required=False, label="Scale", help_text="Längenwert",
     )
     length_unit = forms.TypedChoiceField(
         coerce=float,
