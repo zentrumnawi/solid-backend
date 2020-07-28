@@ -11,7 +11,7 @@ class HasImgForm(forms.ModelForm):
         img_alt = self.cleaned_data.get("img_alt")
 
         if img and not img_alt:
-            error_message = "An alternate text for the image needs to be provided."
+            error_message = "Provide an alternate text for the image."
             self.add_error("img_alt", error_message)
 
         if img_alt and not img:
@@ -34,7 +34,7 @@ class DateOrderForm(forms.ModelForm):
 
         if valid_to is not None and valid_to < valid_from:
             error_message = (
-                "The validity end date must be equel with or after the start date."
+                "Ensure the end date is equal with or after the start date."
             )
             self.add_error("valid_to", error_message)
 
