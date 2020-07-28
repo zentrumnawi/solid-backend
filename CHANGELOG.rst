@@ -1,3 +1,9 @@
+Version 0.1.6 (28.07.2020)
+***************************
+- Display automatically populated fields in the Photograph admin interface.
+- Amend error messages in HasImgForm and DateOrderForm.
+
+
 Version 0.1.5 (22.07.2020)
 ***************************
 - Change `valid_to` field to optional in Message model. (`valid_to`=NULL stands for endless.)
