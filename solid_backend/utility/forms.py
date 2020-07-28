@@ -33,9 +33,7 @@ class DateOrderForm(forms.ModelForm):
         valid_to = self.cleaned_data.get("valid_to")
 
         if valid_to is not None and valid_to < valid_from:
-            error_message = (
-                "Ensure the end date is equal with or after the start date."
-            )
+            error_message = "Ensure the end date is equal with or after the start date."
             self.add_error("valid_to", error_message)
 
         super(DateOrderForm, self).clean()

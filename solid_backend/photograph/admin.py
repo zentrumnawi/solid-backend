@@ -4,7 +4,6 @@ from django.contrib.contenttypes.admin import GenericTabularInline
 from .forms import PhotographForm
 from .models import Photograph
 
-
 fields = [
     "img",
     "img_alt",
