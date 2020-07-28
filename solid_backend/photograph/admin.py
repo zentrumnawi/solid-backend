@@ -23,7 +23,7 @@ readonly_fields = [
     "img_original_width",
     "img_original_height",
     "img_original_scale",
-    "audio_duration"
+    "audio_duration",
 ]
 
 

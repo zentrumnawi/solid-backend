@@ -6,18 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('photograph', '0003_create_generic_foreign_key'),
+        ("photograph", "0003_create_generic_foreign_key"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='photograph',
-            name='img_original_height',
-            field=models.PositiveSmallIntegerField(editable=False, verbose_name='img height'),
+            model_name="photograph",
+            name="img_original_height",
+            field=models.PositiveSmallIntegerField(
+                editable=False, verbose_name="img height"
+            ),
         ),
         migrations.AlterField(
-            model_name='photograph',
-            name='img_original_width',
-            field=models.PositiveSmallIntegerField(editable=False, verbose_name='img width'),
+            model_name="photograph",
+            name="img_original_width",
+            field=models.PositiveSmallIntegerField(
+                editable=False, verbose_name="img width"
+            ),
         ),
     ]

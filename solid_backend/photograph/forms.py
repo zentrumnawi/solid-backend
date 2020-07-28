@@ -15,7 +15,10 @@ class PhotographForm(forms.ModelForm):
         (0.001, "mm"),
     ]
     length_value = forms.FloatField(
-        min_value=0.001, required=False, label="Scale calculator", help_text="Längenwert",
+        min_value=0.001,
+        required=False,
+        label="Scale calculator",
+        help_text="Längenwert",
     )
     length_unit = forms.TypedChoiceField(
         coerce=float,
