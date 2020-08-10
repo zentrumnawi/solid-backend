@@ -33,8 +33,9 @@ INSTALLED_APPS = [
     "solid_backend.message.apps.MessageConfig",
     "solid_backend.slideshow.apps.SlideshowConfig",
     "solid_backend.photograph.apps.PhotographConfig",
-    "django_cleanup.apps.CleanupConfig",  # Should be placed last!
     "django_extensions",
+    "django_cleanup.apps.CleanupConfig",  # Should be placed last!
+
 ]
 
 MIDDLEWARE = [
