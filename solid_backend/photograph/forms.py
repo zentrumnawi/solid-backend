@@ -1,8 +1,6 @@
 from django import forms
 from mutagen import File
 
-from .models import Photograph
-
 
 class PhotographForm(forms.ModelForm):
     """
@@ -41,7 +39,7 @@ class PhotographForm(forms.ModelForm):
         pixel_number = self.cleaned_data.get("pixel_number")
 
         instance = super(PhotographForm, self).save(commit=False)
-
+        print(instance.audio)
         if length_value and pixel_number:
             instance.img_original_scale = length_value * length_unit / pixel_number
 

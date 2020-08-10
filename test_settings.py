@@ -33,8 +33,9 @@ INSTALLED_APPS = [
     "solid_backend.message.apps.MessageConfig",
     "solid_backend.slideshow.apps.SlideshowConfig",
     "solid_backend.photograph.apps.PhotographConfig",
-    "django_cleanup.apps.CleanupConfig",  # Should be placed last!
     "django_extensions",
+    "django_cleanup.apps.CleanupConfig",  # Should be placed last!
+
 ]
 
 MIDDLEWARE = [
@@ -71,10 +72,14 @@ WSGI_APPLICATION = "config.wsgi.application"
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
-    # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-    "default": env.db(
-        "DATABASE_URL", default="postgres://postgres@localhost:5432/postgres"
-    ),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "local_db",
+        "USER": "localuser",
+        "PASSWORD": "localpass",
+        "HOST": "localhost",
+        "PORT": "",
+    }
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
@@ -106,7 +111,7 @@ USE_TZ = True
 # MEDIA CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = "/media"
+MEDIA_ROOT = "./media"
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = "/media/"

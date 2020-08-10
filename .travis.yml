@@ -20,8 +20,9 @@ jobs:
     - stage: "Unit tests and linting"
       name: "Unit tests with Python 3.7"
       before_script:
-        - psql -c "CREATE DATABASE test_db_app;" -U postgres
-        - psql -c "CREATE USER db_user WITH PASSWORD 'db_pass';" -U postgres
+        - psql -c "CREATE DATABASE local_db;" -U postgres
+        - psql -c "CREATE USER localuser WITH PASSWORD 'localpass';" -U postgres
+        - psql -c "ALTER USER localuser CREATEDB;"
       script: make ci
       after_success: codecov
     - name: "Formatting with black"
