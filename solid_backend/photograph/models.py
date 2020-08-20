@@ -6,6 +6,18 @@ from django.db import models
 from stdimage import JPEGField
 
 
+class DeepZoom(models.Model):
+    """
+    Abstract Model for creation of Deep Zoom images
+    """
+
+    dzi_option = models.BooleanField(default=False, verbose_name="Deep Zoom option")
+    dzi_file = models.FileField(null=True, editable=False, verbose_name="Deep Zoom file")
+
+    class Meta:
+        abstract = True
+
+
 class Photograph(models.Model):
     """
     Model for a photograph.
