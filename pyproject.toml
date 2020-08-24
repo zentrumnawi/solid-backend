@@ -4,7 +4,7 @@ version = "0.1.6"
 description = "Clean Django App for E-Learning apllication with "
 authors = [
 	"Christian Grossmüller <chgad.games@gmail.com>",
-	"Timotheus Kozlowski <kozlowski@th.physik.uni-frankfurt.de>"
+	"Timotheus Kozlowski <kozlowski@itp.uni-frankfurt.de>"
 ]
 license = "MIT"
 
