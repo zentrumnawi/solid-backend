@@ -5,9 +5,10 @@ from .forms import PhotographForm
 from .models import Photograph
 
 fields = [
-    "img",
+    ("img", "dzi_option"),
     "img_alt",
     "description",
+    "dzi_file",
     "img_original_width",
     "img_original_height",
     ("length_value", "length_unit", "pixel_number"),
@@ -19,6 +20,7 @@ fields = [
     "license",
 ]
 readonly_fields = [
+    "dzi_file",
     "img_original_width",
     "img_original_height",
     "img_original_scale",
@@ -45,11 +47,11 @@ class PhotographInline(GenericTabularInline):
     readonly_fields = readonly_fields
 
 
-class PhotographAdmin(admin.ModelAdmin):
+class PhotographAdmin(DeepZoomAdmin):
     form = PhotographForm
     fields = fields
     readonly_fields = readonly_fields
-    list_display = ["id", "img", "author", "license"]
+    list_display = ["id", "img", "dzi_file", "author", "license"]
 
 
 admin.site.register(Photograph, PhotographAdmin)
