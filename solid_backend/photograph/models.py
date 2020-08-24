@@ -8,6 +8,7 @@ from stdimage import JPEGField
 from django.conf import settings
 from os import path, makedirs
 import deepzoom
+from shutil import rmtree
 
 import django.db.models.options as options
 
@@ -52,10 +53,15 @@ class DeepZoom(models.Model):
         creator.create(image_absolute_path_file, dzi_absolute_path_file)
         self.dzi_file = dzi_relative_path_file
 
+    def delete_deepzoom_files(self):
+        rmtree(path.dirname(self.dzi_file.path))
+        self.dzi_file = None
+
 
     class Meta:
         abstract = True
         # An option 'image_field_name' must be set in the child class.
+
 
 class Photograph(models.Model):
     """
