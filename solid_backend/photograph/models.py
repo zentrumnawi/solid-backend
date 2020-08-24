@@ -5,6 +5,14 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from stdimage import JPEGField
 
+from django.conf import settings
+from os import path, makedirs
+import deepzoom
+
+import django.db.models.options as options
+
+options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('image_field_name',)
+
 
 class DeepZoom(models.Model):
     """
@@ -14,9 +22,40 @@ class DeepZoom(models.Model):
     dzi_option = models.BooleanField(default=False, verbose_name="Deep Zoom option")
     dzi_file = models.FileField(null=True, editable=False, verbose_name="Deep Zoom file")
 
+
+    def create_deepzoom_files(self, upload_to="dzi"):
+        # Generate Deep Zoom directory and file name form the image file name.
+        image_absolute_path_file = getattr(self, self._meta.image_field_name).path
+        slug = path.basename(image_absolute_path_file).split('.')[0]
+        dzi_file_name = slug + ".dzi"
+        dzi_absolute_path = path.join(settings.MEDIA_ROOT, upload_to, slug)
+        dzi_absolute_path_file = path.join(dzi_absolute_path, dzi_file_name)
+        dzi_relative_path_file = path.join(upload_to, slug, dzi_file_name)
+        
+        if self.dzi_file:
+            if self.dzi_file.path != dzi_absolute_path_file:
+                # Delete existing Deep Zoom directory before update.
+                self.delete_deepzoom_files()
+            else:
+                # No update.
+                return
+        
+        # Create Deep Zoom image files.
+        makedirs(dzi_absolute_path)
+        creator = deepzoom.ImageCreator(
+            tile_size=254,
+            tile_overlap=1,
+            tile_format="jpg",
+            image_quality=0.9,
+            resize_filter="antialias"
+        )
+        creator.create(image_absolute_path_file, dzi_absolute_path_file)
+        self.dzi_file = dzi_relative_path_file
+
+
     class Meta:
         abstract = True
-
+        # An option 'image_field_name' must be set in the child class.
 
 class Photograph(models.Model):
     """
