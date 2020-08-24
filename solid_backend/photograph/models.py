@@ -77,7 +77,7 @@ class DeepZoom(models.Model):
         # An option 'image_field_name' must be set in the child class.
 
 
-class Photograph(models.Model):
+class Photograph(DeepZoom):
     """
     Model for a photograph.
     """
@@ -98,7 +98,6 @@ class Photograph(models.Model):
         db_index=True,
         delete_orphans=True,
     )
-    # dzi_file = models.FileField(upload_to="dzi_files/", null=True, blank=True, editable=False)
     img_original_width = models.PositiveSmallIntegerField(
         editable=False, verbose_name="img width"
     )
@@ -123,3 +122,7 @@ class Photograph(models.Model):
 
     def __str__(self):
         return str(self.img)
+
+
+    class Meta:
+        image_field_name = "img"
