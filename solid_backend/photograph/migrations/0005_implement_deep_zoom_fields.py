@@ -6,18 +6,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('photograph', '0004_add_verbose_names'),
+        ("photograph", "0004_add_verbose_names"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='photograph',
-            name='dzi_file',
-            field=models.FileField(editable=False, null=True, upload_to='', verbose_name='Deep Zoom file'),
+            model_name="photograph",
+            name="dzi_file",
+            field=models.FileField(
+                editable=False, null=True, upload_to="", verbose_name="Deep Zoom file"
+            ),
         ),
         migrations.AddField(
-            model_name='photograph',
-            name='dzi_option',
-            field=models.BooleanField(default=False, verbose_name='Deep Zoom option'),
+            model_name="photograph",
+            name="dzi_option",
+            field=models.BooleanField(default=False, verbose_name="Deep Zoom option"),
         ),
     ]
