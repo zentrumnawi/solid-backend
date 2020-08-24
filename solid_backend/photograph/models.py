@@ -66,6 +66,11 @@ class DeepZoom(models.Model):
 
         super().save(*args, **kwargs)
 
+    def delete(self, *args, **kwargs):
+        if self.dzi_file:
+            self.delete_deepzoom_files()
+        super().delete(*args, **kwargs)
+
 
     class Meta:
         abstract = True
