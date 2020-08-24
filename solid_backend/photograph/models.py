@@ -57,6 +57,15 @@ class DeepZoom(models.Model):
         rmtree(path.dirname(self.dzi_file.path))
         self.dzi_file = None
 
+    def save(self, *args, **kwargs):
+        if self.dzi_option:
+            super().save(*args, **kwargs) # Get image file path.
+            self.create_deepzoom_files()
+        elif self.dzi_file:
+            self.delete_deepzoom_files()
+
+        super().save(*args, **kwargs)
+
 
     class Meta:
         abstract = True
