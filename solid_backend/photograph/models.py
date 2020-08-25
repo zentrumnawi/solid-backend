@@ -33,12 +33,11 @@ class DeepZoom(models.Model):
         dzi_relative_path_file = path.join(upload_to, slug, dzi_file_name)
 
         if self.dzi_file:
-            if self.dzi_file.path != dzi_absolute_path_file:
+            if self.dzi_file.name == dzi_relative_path_file:
+                return  # No update
+            else:
                 # Delete existing Deep Zoom directory before update.
                 self.delete_deepzoom_files()
-            else:
-                # No update.
-                return
 
         # Create Deep Zoom image files.
         makedirs(dzi_absolute_path)
