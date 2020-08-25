@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "solid_backend.slideshow",
     "solid_backend.photograph",
     "sample_content.apps.SampleContentConfig",
+    "django_cleanup.apps.CleanupConfig",  # Should be placed last!
 ]
 
 MIDDLEWARE = [
