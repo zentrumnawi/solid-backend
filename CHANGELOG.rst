@@ -1,3 +1,10 @@
+Version 0.1.7 (26.08.2020)
+***************************
+- Deep Zoom image option is available for Photograph model.
+- Added media configuration to settings of the sample project.
+- Set time zone to "Europe/Berlin" in the sample project.
+
+
 Version 0.1.6 (28.07.2020)
 ***************************
 - Display automatically populated fields in the Photograph admin interface.
