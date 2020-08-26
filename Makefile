@@ -19,6 +19,6 @@ isort:
 	isort -y
 
 isort-check:
-	isort --check-only --diff
+	isort --check-only --diff .
 
 lint: reformat-check flake8 isort-check

@@ -2,9 +2,46 @@ from django.db import models
 from stdimage import JPEGField
 
 
+class TestDeepZoomModelExists:
+    """
+    Test whether an object DeepZoom can be imported and is a Django model.
+    """
+
+    def test_model_exists(self):
+        pass
+
+    def test_model_is_django_model(self):
+        from solid_backend.photograph.models import DeepZoom
+
+        assert issubclass(DeepZoom, models.Model)
+
+
+class TestDeepZoomModelFields:
+    """
+    Test suite with basic field tests whether all fields of the DeepZoom
+    object exist and have the correct class instance.
+    """
+
+    def test_model_has_field_dzi_option(self, deepzoom_model_class):
+        assert hasattr(deepzoom_model_class, "dzi_option")
+
+    def test_model_has_field_dzi_file(self, deepzoom_model_class):
+        assert hasattr(deepzoom_model_class, "dzi_file")
+
+    def test_field_type_dzi_option(self, deepzoom_model_class):
+        assert isinstance(
+            deepzoom_model_class._meta.get_field("dzi_option"), models.BooleanField
+        )
+
+    def test_field_type_dzi_file(self, deepzoom_model_class):
+        assert isinstance(
+            deepzoom_model_class._meta.get_field("dzi_file"), models.FileField
+        )
+
+
 class TestPhotographModelExists:
     """
-    Test whether an object Phtotograph can be imported and is a Django model.
+    Test whether an object Photograph can be imported and is a Django model.
     """
 
     def test_model_exists(self):

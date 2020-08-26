@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_extensions",
     "rest_framework",
     "mptt",
     "stdimage",
@@ -34,7 +35,6 @@ INSTALLED_APPS = [
     "solid_backend.slideshow.apps.SlideshowConfig",
     "solid_backend.photograph.apps.PhotographConfig",
     "django_cleanup.apps.CleanupConfig",  # Should be placed last!
-    "django_extensions",
 ]
 
 MIDDLEWARE = [
@@ -106,7 +106,7 @@ USE_TZ = True
 # MEDIA CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = "/media"
+MEDIA_ROOT = "./media"
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = "/media/"
