@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "solid_backend.slideshow",
     "solid_backend.photograph",
     "sample_content.apps.SampleContentConfig",
+    "django_cleanup.apps.CleanupConfig",  # Should be placed last!
 ]
 
 MIDDLEWARE = [
@@ -117,13 +118,21 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Berlin"
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
+
+# MEDIA CONFIGURATION
+# ------------------------------------------------------------------------------
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
+MEDIA_ROOT = "./media"
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
+MEDIA_URL = "/media/"
 
 
 # Static files (CSS, JavaScript, Images)
