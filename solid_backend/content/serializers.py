@@ -10,7 +10,7 @@ class TreeNodeSerializer(serializers.ModelSerializer):
 
     profiles = getattr(
         import_module(settings.PROFILES_SERIALIZER_MODULE), settings.PROFILES_SERIALIZER
-    )(many=True)
+    )(many=True, required=True)
     leaf_nodes = serializers.SerializerMethodField()
 
     class Meta:

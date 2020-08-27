@@ -1,3 +1,7 @@
+Version 0.1.9 (27.08.2020)
+***************************
+- Make porfiles explicitly not required in TreeNode serializer
+
 Version 0.1.8 (27.08.2020)
 ***************************
 - Deep Zoom image option is available for Photograph model.
