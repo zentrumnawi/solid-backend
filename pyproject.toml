@@ -23,7 +23,6 @@ django-cleanup = "4.0.0"
 psycopg2-binary = "^2.8.5"
 mutagen = "^1.44.0"
 django-stdimage = "^5.1.1"
-deepzoomtools = { git = "https://github.com/openzoom/deepzoom.py.git" }
 
 
 [tool.poetry.dev-dependencies]

@@ -144,21 +144,6 @@ version = "4.4.2"
 
 [[package]]
 category = "main"
-description = "Python tools for generating Deep Zoom images (DZI) and collections (DZC) for the use with Silverlight Deep Zoom, Seadragon Ajax, Seadragon Mobile, and OpenZoom."
-name = "DeepZoomTools"
-optional = false
-python-versions = "*"
-version = "2.0.0a2"
-
-[package.dependencies]
-Pillow = ">=6"
-
-[package.source]
-reference = "f2a1fa746910d1eb7d3ff4877c94385701b482d5"
-type = "git"
-url = "https://github.com/openzoom/deepzoom.py.git"
-[[package]]
-category = "main"
 description = "A high-level Python Web framework that encourages rapid development and clean, pragmatic design."
 name = "django"
 optional = false
@@ -833,7 +818,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "217d866755afc28e2984c55b996b0848ff03735e3394f63fcd0c601698141cf4"
+content-hash = "ffa50c9827ab3334af3e38bfa881cbd415bc59b14326f6c1096d7f67348fa9f1"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -923,7 +908,6 @@ decorator = [
     {file = "decorator-4.4.2-py2.py3-none-any.whl", hash = "sha256:41fa54c2a0cc4ba648be4fd43cff00aedf5b9465c9bf18d64325bc225f08f760"},
     {file = "decorator-4.4.2.tar.gz", hash = "sha256:e3a62f0520172440ca0dcc823749319382e377f37f140a0b99ef45fecb84bfe7"},
 ]
-DeepZoomTools = []
 django = [
     {file = "Django-3.0.9-py3-none-any.whl", hash = "sha256:96fbe04e8ba0df289171e7f6970e0ff8b472bf4f909ed9e0e5beccbac7e1dbbe"},
     {file = "Django-3.0.9.tar.gz", hash = "sha256:c22b4cd8e388f8219dc121f091e53a8701f9f5bca9aa132b5254263cab516215"},
