@@ -1,5 +1,5 @@
 [run]
 include = contact/*, content/*, glossary/*, message/*, photograph/*, quiz/*, slideshow/*
-omit = *migrations*, */tests/*, .*, *config*, dist/, manage.py, openzoom/*, sample_project/, some/
+omit = *migrations*, */tests/*, .*, *config*, dist/, manage.py, solid_backend/openzoom/*, sample_project/, some/
 plugins =
     django_coverage_plugin

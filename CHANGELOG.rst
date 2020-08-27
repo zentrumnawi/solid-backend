@@ -1,4 +1,4 @@
-Version 0.1.7 (26.08.2020)
+Version 0.1.7 (27.08.2020)
 ***************************
 - Deep Zoom image option is available for Photograph model.
 - Added media configuration to settings of the sample project.
