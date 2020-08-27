@@ -2,13 +2,14 @@ from datetime import date
 from os import makedirs, path
 from shutil import rmtree
 
-import deepzoom
 import django.db.models.options as options
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from stdimage import JPEGField
+
+from openzoom import deepzoom
 
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ("image_field_name",)
 
