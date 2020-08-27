@@ -9,7 +9,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from stdimage import JPEGField
 
-from openzoom import deepzoom
+from solid_backend.openzoom import deepzoom
 
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ("image_field_name",)
 
