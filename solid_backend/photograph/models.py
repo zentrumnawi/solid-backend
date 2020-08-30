@@ -88,9 +88,9 @@ class Photograph(DeepZoom):
         width_field="img_original_width",
         height_field="img_original_height",
         variations={
-            "large": (1200, 800),
-            "medium": (900, 600),
-            "small": (600, 400),
+            "large": (1200, None),
+            "medium": (900, None),
+            "small": (600, None),
             "thumbnail": (100, 100, True),
         },
         db_index=True,
