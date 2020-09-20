@@ -52,9 +52,6 @@ class TestQuizQuestionModelFields:
     def test_model_has_field_img(self, quiz_question_model_class):
         assert hasattr(quiz_question_model_class, "img")
 
-    def test_model_has_field_img_alt(self, quiz_question_model_class):
-        assert hasattr(quiz_question_model_class, "img_alt")
-
     def test_model_has_field_tags(self, quiz_question_model_class):
         assert hasattr(quiz_question_model_class, "tags")
 
@@ -76,12 +73,7 @@ class TestQuizQuestionModelFields:
 
     def test_field_type_img(self, quiz_question_model_class):
         assert isinstance(
-            quiz_question_model_class._meta.get_field("img"), models.ImageField
-        )
-
-    def test_field_type_img_alt(self, quiz_question_model_class):
-        assert isinstance(
-            quiz_question_model_class._meta.get_field("img_alt"), models.CharField
+            quiz_question_model_class._meta.get_field("img"), models.ManyToManyField
         )
 
     def test_field_type_tags(self, quiz_question_model_class):
