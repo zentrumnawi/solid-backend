@@ -33,9 +33,6 @@ class TestMessageModelFields:
     def test_model_has_field_img(self, message_model_class):
         assert hasattr(message_model_class, "img")
 
-    def test_model_has_field_img_alt(self, message_model_class):
-        assert hasattr(message_model_class, "img_alt")
-
     def test_model_has_field_valid_from(self, message_model_class):
         assert hasattr(message_model_class, "valid_from")
 
@@ -54,12 +51,7 @@ class TestMessageModelFields:
         assert isinstance(message_model_class._meta.get_field("text"), models.TextField)
 
     def test_field_type_img(self, message_model_class):
-        assert isinstance(message_model_class._meta.get_field("img"), models.ImageField)
-
-    def test_field_type_img_alt(self, message_model_class):
-        assert isinstance(
-            message_model_class._meta.get_field("img_alt"), models.CharField
-        )
+        assert isinstance(message_model_class._meta.get_field("img"), models.ForeignKey)
 
     def test_field_type_valid_from(self, message_model_class):
         assert isinstance(
