@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from solid_backend.photograph.serializers import PhotographSerializer
+
 from .models import Slideshow, SlideshowImage, SlideshowPage
 
 
@@ -18,6 +20,7 @@ class SlideshowPageLessSerializer(serializers.ModelSerializer):
 
 
 class SlideshowSerializer(serializers.ModelSerializer):
+    img = PhotographSerializer()
     pages = SlideshowPageLessSerializer(many=True)
 
     class Meta:
