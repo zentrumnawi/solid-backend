@@ -7,8 +7,9 @@ class Slideshow(models.Model):
     """
 
     title = models.CharField(max_length=100)
-    img = models.ImageField(upload_to="slideshow/", null=True, blank=True)
-    img_alt = models.CharField(max_length=200, default="", blank=True)
+    img = models.OneToOneField(
+        to="photograph.Photograph", on_delete=models.PROTECT, null=True, blank=True
+    )
 
     def __str__(self):
         return self.title
