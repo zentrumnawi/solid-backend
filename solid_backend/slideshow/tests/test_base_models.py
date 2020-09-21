@@ -124,9 +124,6 @@ class TestSlideshowImageModelFields:
     def test_model_has_field_img(self, slideshow_image_model_class):
         assert hasattr(slideshow_image_model_class, "img")
 
-    def test_model_has_field_img_alt(self, slideshow_image_model_class):
-        assert hasattr(slideshow_image_model_class, "img_alt")
-
     def test_model_has_field_caption(self, slideshow_image_model_class):
         assert hasattr(slideshow_image_model_class, "caption")
 
@@ -148,12 +145,7 @@ class TestSlideshowImageModelFields:
 
     def test_field_type_img(self, slideshow_image_model_class):
         assert isinstance(
-            slideshow_image_model_class._meta.get_field("img"), models.ImageField
-        )
-
-    def test_field_type_img_alt(self, slideshow_image_model_class):
-        assert isinstance(
-            slideshow_image_model_class._meta.get_field("img_alt"), models.CharField
+            slideshow_image_model_class._meta.get_field("img"), models.ForeignKey
         )
 
     def test_field_type_caption(self, slideshow_image_model_class):
