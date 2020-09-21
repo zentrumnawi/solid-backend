@@ -6,9 +6,11 @@ from .models import Slideshow, SlideshowImage, SlideshowPage
 
 
 class SlideshowImageLessSerializer(serializers.ModelSerializer):
+    img = PhotographSerializer()
+
     class Meta:
         model = SlideshowImage
-        fields = ["id", "position", "title", "img", "img_alt", "caption"]
+        fields = ["id", "position", "title", "img", "caption"]
 
 
 class SlideshowPageLessSerializer(serializers.ModelSerializer):
@@ -37,6 +39,8 @@ class SlideshowPageSerializer(serializers.ModelSerializer):
 
 
 class SlideshowImageSerializer(serializers.ModelSerializer):
+    img = PhotographSerializer()
+
     class Meta:
         model = SlideshowImage
         fields = "__all__"
