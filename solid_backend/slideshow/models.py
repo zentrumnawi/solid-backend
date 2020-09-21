@@ -53,8 +53,9 @@ class SlideshowImage(models.Model):
         default=1,  # validators=[validate_position_occupied]
     )
     title = models.CharField(max_length=100)
-    img = models.ImageField(upload_to="slideshow/")
-    img_alt = models.CharField(max_length=200)
+    img = models.ForeignKey(
+        to="photograph.Photograph", on_delete=models.CASCADE, null=True, blank=True
+    )
     caption = models.TextField(
         default="", blank=True, verbose_name="caption (Markdown)"
     )
