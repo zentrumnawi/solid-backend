@@ -10,6 +10,7 @@ class SlideshowPageInline(admin.TabularInline):
 
 class SlideshowImageInline(admin.TabularInline):
     model = SlideshowImage
+    extra = 1
 
 
 class SlideshowAdmin(admin.ModelAdmin):
