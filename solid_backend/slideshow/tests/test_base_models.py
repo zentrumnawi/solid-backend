@@ -45,8 +45,8 @@ class TestSlideshowImageModelExists:
 
 class TestSlideshowModelFields:
     """
-    Test suite with basic field tests whether all fields of the Slideshow
-    object exist and have the correct class instance.
+    Test suite with basic field tests whether all fields of the Slideshow object exist
+    and have the correct class instance and field attribute values.
     """
 
     def test_model_has_field_titel(self, slideshow_model_class):
@@ -65,11 +65,17 @@ class TestSlideshowModelFields:
             slideshow_model_class._meta.get_field("img"), models.OneToOneField
         )
 
+    def test_field_attribute_values_img(
+        self, slideshow_model_class, photograph_model_class
+    ):
+        field = slideshow_model_class._meta.get_field("img")
+        assert issubclass(field.related_model, photograph_model_class)
+
 
 class TestSlideshowPageModelFields:
     """
-    Test suite with basic field tests whether all fields of the SlideshowPage
-    object exist and have the correct class instance.
+    Test suite with basic field tests whether all fields of the SlideshowPage object
+    exist and have the correct class instance.
     """
 
     def test_model_has_field_show(self, slideshow_page_model_class):
@@ -108,8 +114,8 @@ class TestSlideshowPageModelFields:
 
 class TestSlideshowImageModelFields:
     """
-    Test suite with basic field tests whether all fields of the SlideshowImage
-    object exist and have the correct class instance.
+    Test suite with basic field tests whether all fields of the SlideshowImage object
+    exist and have the correct class instance and field attribute values.
     """
 
     def test_model_has_field_page(self, slideshow_image_model_class):
@@ -152,3 +158,9 @@ class TestSlideshowImageModelFields:
         assert isinstance(
             slideshow_image_model_class._meta.get_field("caption"), models.TextField
         )
+
+    def test_field_attribute_values_img(
+        self, slideshow_image_model_class, photograph_model_class
+    ):
+        field = slideshow_image_model_class._meta.get_field("img")
+        assert issubclass(field.related_model, photograph_model_class)
