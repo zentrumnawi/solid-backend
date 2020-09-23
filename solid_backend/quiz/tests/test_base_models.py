@@ -36,8 +36,8 @@ class TestQuizAnswerModelExists:
 
 class TestQuizQuestionModelFields:
     """
-    Test suite with basic field tests whether all fields of the QuizQuestion
-    object exist and have the correct class instance.
+    Test suite with basic field tests whether all fields of the QuizQuestion object
+    exist and have the correct class instance and field attribute values.
     """
 
     def test_model_has_field_type(self, quiz_question_model_class):
@@ -51,9 +51,6 @@ class TestQuizQuestionModelFields:
 
     def test_model_has_field_img(self, quiz_question_model_class):
         assert hasattr(quiz_question_model_class, "img")
-
-    def test_model_has_field_img_alt(self, quiz_question_model_class):
-        assert hasattr(quiz_question_model_class, "img_alt")
 
     def test_model_has_field_tags(self, quiz_question_model_class):
         assert hasattr(quiz_question_model_class, "tags")
@@ -76,22 +73,23 @@ class TestQuizQuestionModelFields:
 
     def test_field_type_img(self, quiz_question_model_class):
         assert isinstance(
-            quiz_question_model_class._meta.get_field("img"), models.ImageField
-        )
-
-    def test_field_type_img_alt(self, quiz_question_model_class):
-        assert isinstance(
-            quiz_question_model_class._meta.get_field("img_alt"), models.CharField
+            quiz_question_model_class._meta.get_field("img"), models.ManyToManyField
         )
 
     def test_field_type_tags(self, quiz_question_model_class):
         assert isinstance(quiz_question_model_class._meta.get_field("tags"), ArrayField)
 
+    def test_field_attribute_values_img(
+        self, quiz_question_model_class, photograph_model_class
+    ):
+        field = quiz_question_model_class._meta.get_field("img")
+        assert issubclass(field.related_model, photograph_model_class)
+
 
 class TestQuizAnswerModelFields:
     """
-    Test suite with basic field tests whether all fields of the QuizAnswer
-    object exist and have the correct class instance.
+    Test suite with basic field tests whether all fields of the QuizAnswer object exist
+    and have the correct class instance.
     """
 
     def test_model_has_field_question(self, quiz_answer_model_class):

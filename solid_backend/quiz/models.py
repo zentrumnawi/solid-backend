@@ -25,8 +25,7 @@ class QuizQuestion(models.Model):
     type = models.CharField(max_length=2, choices=QTYPE_CHOICES)
     difficulty = models.PositiveSmallIntegerField(choices=QDIFFICULTY_CHOICES)
     text = models.TextField(verbose_name="text (Markdown)")
-    img = models.ImageField(upload_to="quiz/", null=True, blank=True)
-    img_alt = models.CharField(max_length=200, default="", blank=True)
+    img = models.ManyToManyField(to="photograph.Photograph", blank=True)
     tags = ArrayField(
         base_field=models.CharField(max_length=100),
         default=list,
