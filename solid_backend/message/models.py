@@ -13,8 +13,9 @@ class Message(models.Model):
     type = models.CharField(max_length=2, choices=MTYPE_CHOICES)
     title = models.CharField(max_length=100)
     text = models.TextField(default="", blank=True, verbose_name="text (Markdown)")
-    img = models.ImageField(upload_to="message/", null=True, blank=True)
-    img_alt = models.CharField(max_length=200, default="", blank=True)
+    img = models.ForeignKey(
+        to="photograph.Photograph", on_delete=models.PROTECT, null=True, blank=True
+    )
     valid_from = models.DateField(default=date.today)
     valid_to = models.DateField(null=True, blank=True)
 

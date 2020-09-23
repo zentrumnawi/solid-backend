@@ -1,12 +1,16 @@
 from rest_framework import serializers
 
+from solid_backend.photograph.serializers import PhotographSerializer
+
 from .models import Slideshow, SlideshowImage, SlideshowPage
 
 
 class SlideshowImageLessSerializer(serializers.ModelSerializer):
+    img = PhotographSerializer()
+
     class Meta:
         model = SlideshowImage
-        fields = ["id", "position", "title", "img", "img_alt", "caption"]
+        fields = ["id", "position", "title", "img", "caption"]
 
 
 class SlideshowPageLessSerializer(serializers.ModelSerializer):
@@ -18,6 +22,7 @@ class SlideshowPageLessSerializer(serializers.ModelSerializer):
 
 
 class SlideshowSerializer(serializers.ModelSerializer):
+    img = PhotographSerializer()
     pages = SlideshowPageLessSerializer(many=True)
 
     class Meta:
@@ -34,6 +39,8 @@ class SlideshowPageSerializer(serializers.ModelSerializer):
 
 
 class SlideshowImageSerializer(serializers.ModelSerializer):
+    img = PhotographSerializer()
+
     class Meta:
         model = SlideshowImage
         fields = "__all__"

@@ -1,20 +1,19 @@
 from django.contrib import admin
 
-from solid_backend.utility.forms import HasImgForm
-
 from .models import Slideshow, SlideshowImage, SlideshowPage
 
 
 class SlideshowPageInline(admin.TabularInline):
     model = SlideshowPage
+    extra = 1
 
 
 class SlideshowImageInline(admin.TabularInline):
     model = SlideshowImage
+    extra = 1
 
 
 class SlideshowAdmin(admin.ModelAdmin):
-    form = HasImgForm
     list_display = ["id", "title", "img"]
     inlines = [SlideshowPageInline]
 

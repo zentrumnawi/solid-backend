@@ -51,7 +51,7 @@ class PhotographAdmin(DeepZoomAdmin):
     form = PhotographForm
     fields = fields
     readonly_fields = readonly_fields
-    list_display = ["id", "img", "dzi_file", "author", "license"]
+    list_display = ["id", "img", "dzi_option", "author", "license"]
 
 
 admin.site.register(Photograph, PhotographAdmin)

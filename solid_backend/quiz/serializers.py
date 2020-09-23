@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from solid_backend.photograph.serializers import PhotographSerializer
+
 from .models import QuizAnswer, QuizQuestion
 
 
@@ -17,6 +19,7 @@ class QuizAnswerLessSerializer(serializers.ModelSerializer):
 
 class QuizQuestionSerializer(serializers.ModelSerializer):
     answers = QuizAnswerLessSerializer(many=True)
+    img = PhotographSerializer(many=True)
 
     class Meta:
         model = QuizQuestion
