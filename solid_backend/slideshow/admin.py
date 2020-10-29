@@ -24,7 +24,8 @@ admin.site.register(Slideshow, SlideshowAdmin)
 
 
 class SlideshowPageAdmin(admin.ModelAdmin):
-    list_display = ["id", "show", "position", "title"]
+    list_display = ["id", "title", "position", "show"]
+    list_display_links = ["title"]
     inlines = [SlideshowImageInline]
 
 
