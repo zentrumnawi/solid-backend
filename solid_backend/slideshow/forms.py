@@ -3,6 +3,29 @@ from django import forms
 from .models import Slideshow, SlideshowImage, SlideshowPage
 
 
+class SlideshowInlineAdminFormSet(forms.BaseInlineFormSet):
+    """
+    Validate if position is available and order froms by position.
+    """
+
+    def clean(self):
+        super().clean()
+
+        positions = []
+
+        for form in self.forms:
+            if form.cleaned_data.get("DELETE"):
+                continue
+            position = form.cleaned_data.get("position")
+            positions.append(position)
+
+            if positions.count(position) > 1:
+                form.add_error("position", "This position is not available.")
+
+    def get_queryset(self):
+        return super().get_queryset().order_by("position")
+
+
 class SlideshowAdminForm(forms.ModelForm):
     """
     Validate if position is available.
