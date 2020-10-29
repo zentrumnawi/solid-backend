@@ -33,7 +33,15 @@ admin.site.register(SlideshowPage, SlideshowPageAdmin)
 
 
 class SlideshowImageAdmin(admin.ModelAdmin):
-    list_display = ["id", "page", "position", "title", "img"]
+    list_display = ["id", "title", "position", "show_page", "img"]
+    list_display_links = ["title"]
+
+    def show_page(self, obj):
+        return "{} : {}".format(
+            getattr(SlideshowPage.objects.get(id=obj.page.id), "show"), obj.page
+        )
+
+    show_page.short_description = "Show : Page"
 
 
 admin.site.register(SlideshowImage, SlideshowImageAdmin)
