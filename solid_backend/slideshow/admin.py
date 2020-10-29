@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from .forms import SlideshowAdminForm
 from .models import Slideshow, SlideshowImage, SlideshowPage
 
 
@@ -14,6 +15,7 @@ class SlideshowImageInline(admin.TabularInline):
 
 
 class SlideshowAdmin(admin.ModelAdmin):
+    form = SlideshowAdminForm
     fields = [("position", "active"), "title", "img"]
     list_display = ["id", "title", "position", "img", "active"]
     list_display_links = ["title"]
@@ -24,6 +26,7 @@ admin.site.register(Slideshow, SlideshowAdmin)
 
 
 class SlideshowPageAdmin(admin.ModelAdmin):
+    form = SlideshowAdminForm
     list_display = ["id", "title", "position", "show"]
     list_display_links = ["title"]
     inlines = [SlideshowImageInline]
@@ -33,6 +36,7 @@ admin.site.register(SlideshowPage, SlideshowPageAdmin)
 
 
 class SlideshowImageAdmin(admin.ModelAdmin):
+    form = SlideshowAdminForm
     list_display = ["id", "title", "position", "show_page", "img"]
     list_display_links = ["title"]
 
