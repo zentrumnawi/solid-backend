@@ -6,6 +6,8 @@ class Slideshow(models.Model):
     Model for a series of pages that can be switched back and forth.
     """
 
+    active = models.BooleanField(default=True)
+    position = models.PositiveSmallIntegerField(default=1)
     title = models.CharField(max_length=100)
     img = models.OneToOneField(
         to="photograph.Photograph", on_delete=models.PROTECT, null=True, blank=True
