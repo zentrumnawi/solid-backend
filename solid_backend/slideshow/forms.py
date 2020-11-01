@@ -34,8 +34,8 @@ class SlideshowAdminForm(forms.ModelForm):
     def clean(self):
         super().clean()
 
-        field = self.fields.get("position")
-        initial = self.get_initial_for_field(field, "position")
+        position_field = self.fields.get("position")
+        initial_position = self.get_initial_for_field(position_field, "position")
         position = self.cleaned_data.get("position")
         model = type(self.instance)
 
@@ -48,7 +48,7 @@ class SlideshowAdminForm(forms.ModelForm):
         else:
             raise TypeError("Only Slideshow, SlideshowPage, SlideshowImage allowed.")
 
-        if field.has_changed(initial, position):
+        if position_field.has_changed(initial_position, position):
             for obj in objects:
                 if position == obj.position:
                     self.add_error("position", "This position is not available.")
