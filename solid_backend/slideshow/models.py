@@ -6,6 +6,8 @@ class Slideshow(models.Model):
     Model for a series of pages that can be switched back and forth.
     """
 
+    active = models.BooleanField(default=True)
+    position = models.PositiveSmallIntegerField()
     title = models.CharField(max_length=100)
     img = models.OneToOneField(
         to="photograph.Photograph", on_delete=models.PROTECT, null=True, blank=True
@@ -27,9 +29,7 @@ class SlideshowPage(models.Model):
         related_query_name="page",
         db_index=False,
     )
-    position = models.PositiveSmallIntegerField(
-        default=1,  # validators=[validate_position_occupied]
-    )
+    position = models.PositiveSmallIntegerField()
     title = models.CharField(max_length=100)
     text = models.TextField(verbose_name="text (Markdown)")
 
@@ -49,9 +49,7 @@ class SlideshowImage(models.Model):
         related_query_name="image",
         db_index=False,
     )
-    position = models.PositiveSmallIntegerField(
-        default=1,  # validators=[validate_position_occupied]
-    )
+    position = models.PositiveSmallIntegerField()
     title = models.CharField(max_length=100)
     img = models.ForeignKey(
         to="photograph.Photograph", on_delete=models.CASCADE, null=True, blank=True
