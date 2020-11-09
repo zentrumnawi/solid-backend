@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericTabularInline
 
-from .forms import PhotographForm, PhotographInlineFormSet
+from .forms import PhotographAdminForm, PhotographInlineFormSet
 from .models import Photograph
 
-fields = ["profile_position",
+fields = [
+    "profile_position",
     ("img", "dzi_option"),
     "img_alt",
     "description",
@@ -41,7 +42,7 @@ class DeepZoomAdmin(admin.ModelAdmin):
 
 class PhotographInline(GenericTabularInline):
     model = Photograph
-    form = PhotographForm
+    form = PhotographAdminForm
     formset = PhotographInlineFormSet
     extra = 1
     fields = fields
@@ -49,9 +50,9 @@ class PhotographInline(GenericTabularInline):
 
 
 class PhotographAdmin(DeepZoomAdmin):
-    form = PhotographForm
+    form = PhotographAdminForm
     fields = ["profile"] + fields
-    readonly_fields = [ "profile", "profile_position"] + readonly_fields
+    readonly_fields = ["profile", "profile_position"] + readonly_fields
     list_display = ["id", "profile", "img", "dzi_option", "author", "license"]
 
     def profile(self, obj):

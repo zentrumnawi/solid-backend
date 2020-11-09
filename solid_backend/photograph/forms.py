@@ -28,7 +28,7 @@ class PhotographInlineFormSet(BaseGenericInlineFormSet):
         return super().get_queryset().order_by("profile_position")
 
 
-class PhotographForm(forms.ModelForm):
+class PhotographAdminForm(forms.ModelForm):
     """
     Calculate the scale and determine the audio duration.
     """
@@ -64,7 +64,7 @@ class PhotographForm(forms.ModelForm):
         length_unit = self.cleaned_data.get("length_unit")
         pixel_number = self.cleaned_data.get("pixel_number")
 
-        instance = super(PhotographForm, self).save(commit=False)
+        instance = super(PhotographAdminForm, self).save(commit=False)
 
         if length_value and pixel_number:
             instance.img_original_scale = length_value * length_unit / pixel_number
