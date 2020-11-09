@@ -1,7 +1,31 @@
 from django import forms
+from django.contrib.contenttypes.forms import BaseGenericInlineFormSet
 from mutagen import File
 
 from .models import Photograph
+
+
+class PhotographInlineFormSet(BaseGenericInlineFormSet):
+    """
+    Validate if profile position is available and order froms by profile position.
+    """
+
+    def clean(self):
+        super().clean()
+
+        positions = []
+
+        for form in self.forms:
+            if form.cleaned_data.get("DELETE"):
+                continue
+            position = form.cleaned_data.get("profile_position")
+            positions.append(position)
+
+            if positions.count(position) > 1:
+                form.add_error("profile_position", "This position is not available.")
+
+    def get_queryset(self):
+        return super().get_queryset().order_by("profile_position")
 
 
 class PhotographForm(forms.ModelForm):
