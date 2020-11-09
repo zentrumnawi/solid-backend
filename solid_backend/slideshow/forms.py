@@ -3,7 +3,7 @@ from django import forms
 from .models import Slideshow, SlideshowImage, SlideshowPage
 
 
-class SlideshowInlineAdminFormSet(forms.BaseInlineFormSet):
+class SlideshowInlineFormSet(forms.BaseInlineFormSet):
     """
     Validate if position is available and order froms by position.
     """
