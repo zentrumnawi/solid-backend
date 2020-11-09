@@ -4,7 +4,7 @@ from django.contrib.contenttypes.admin import GenericTabularInline
 from .forms import PhotographForm
 from .models import Photograph
 
-fields = [
+fields = ["profile_position",
     ("img", "dzi_option"),
     "img_alt",
     "description",
@@ -49,9 +49,14 @@ class PhotographInline(GenericTabularInline):
 
 class PhotographAdmin(DeepZoomAdmin):
     form = PhotographForm
-    fields = fields
-    readonly_fields = readonly_fields
-    list_display = ["id", "img", "dzi_option", "author", "license"]
+    fields = ["profile"] + fields
+    readonly_fields = [ "profile", "profile_position"] + readonly_fields
+    list_display = ["id", "profile", "img", "dzi_option", "author", "license"]
+
+    def profile(self, obj):
+        if not obj.profile:
+            return "-"
+        return str(obj.profile)
 
 
 admin.site.register(Photograph, PhotographAdmin)
