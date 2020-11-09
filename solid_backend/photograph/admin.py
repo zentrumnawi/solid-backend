@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericTabularInline
 
-from .forms import PhotographForm
+from .forms import PhotographForm, PhotographInlineFormSet
 from .models import Photograph
 
 fields = ["profile_position",
@@ -42,6 +42,7 @@ class DeepZoomAdmin(admin.ModelAdmin):
 class PhotographInline(GenericTabularInline):
     model = Photograph
     form = PhotographForm
+    formset = PhotographInlineFormSet
     extra = 1
     fields = fields
     readonly_fields = readonly_fields
