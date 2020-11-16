@@ -1,3 +1,11 @@
+Version 0.1.12 (16.11.2020)
+***************************
+- Add active and position field to Slideshow model.
+- Implement position validation for Slideshow, SlideshowPage, SlideshowImage models.
+- Add profile position field to Photograph model.
+- Implement PhotographInlineFormSet for profile position validation.
+
+
 Version 0.1.11 (23.09.2020)
 ***************************
 - Replace image fields with relations to the Photograph model in Message, QuizQuestion,
