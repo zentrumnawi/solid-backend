@@ -1,10 +1,34 @@
 from django import forms
+from django.contrib.contenttypes.forms import BaseGenericInlineFormSet
 from mutagen import File
 
 from .models import Photograph
 
 
-class PhotographForm(forms.ModelForm):
+class PhotographInlineFormSet(BaseGenericInlineFormSet):
+    """
+    Validate if profile position is available and order froms by profile position.
+    """
+
+    def clean(self):
+        super().clean()
+
+        positions = []
+
+        for form in self.forms:
+            if form.cleaned_data.get("DELETE"):
+                continue
+            position = form.cleaned_data.get("profile_position")
+            positions.append(position)
+
+            if positions.count(position) > 1:
+                form.add_error("profile_position", "This position is not available.")
+
+    def get_queryset(self):
+        return super().get_queryset().order_by("profile_position")
+
+
+class PhotographAdminForm(forms.ModelForm):
     """
     Calculate the scale and determine the audio duration.
     """
@@ -40,7 +64,7 @@ class PhotographForm(forms.ModelForm):
         length_unit = self.cleaned_data.get("length_unit")
         pixel_number = self.cleaned_data.get("pixel_number")
 
-        instance = super(PhotographForm, self).save(commit=False)
+        instance = super(PhotographAdminForm, self).save(commit=False)
 
         if length_value and pixel_number:
             instance.img_original_scale = length_value * length_unit / pixel_number

@@ -1,18 +1,18 @@
 from django.contrib import admin
 
-from .forms import SlideshowAdminForm, SlideshowInlineAdminFormSet
+from .forms import SlideshowAdminForm, SlideshowInlineFormSet
 from .models import Slideshow, SlideshowImage, SlideshowPage
 
 
 class SlideshowPageInline(admin.TabularInline):
     model = SlideshowPage
-    formset = SlideshowInlineAdminFormSet
+    formset = SlideshowInlineFormSet
     extra = 1
 
 
 class SlideshowImageInline(admin.TabularInline):
     model = SlideshowImage
-    formset = SlideshowInlineAdminFormSet
+    formset = SlideshowInlineFormSet
     extra = 1
 
 

@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericTabularInline
 
-from .forms import PhotographForm
+from .forms import PhotographAdminForm, PhotographInlineFormSet
 from .models import Photograph
 
 fields = [
+    "profile_position",
     ("img", "dzi_option"),
     "img_alt",
     "description",
@@ -41,17 +42,23 @@ class DeepZoomAdmin(admin.ModelAdmin):
 
 class PhotographInline(GenericTabularInline):
     model = Photograph
-    form = PhotographForm
+    form = PhotographAdminForm
+    formset = PhotographInlineFormSet
     extra = 1
     fields = fields
     readonly_fields = readonly_fields
 
 
 class PhotographAdmin(DeepZoomAdmin):
-    form = PhotographForm
-    fields = fields
-    readonly_fields = readonly_fields
-    list_display = ["id", "img", "dzi_option", "author", "license"]
+    form = PhotographAdminForm
+    fields = ["profile"] + fields
+    readonly_fields = ["profile", "profile_position"] + readonly_fields
+    list_display = ["id", "profile", "img", "dzi_option", "author", "license"]
+
+    def profile(self, obj):
+        if not obj.profile:
+            return "-"
+        return str(obj.profile)
 
 
 admin.site.register(Photograph, PhotographAdmin)
