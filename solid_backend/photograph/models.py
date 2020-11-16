@@ -83,6 +83,8 @@ class Photograph(DeepZoom):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
     object_id = models.PositiveIntegerField(default=0)
     profile = GenericForeignKey("content_type", "object_id")
+    profile_position = models.PositiveSmallIntegerField(null=True, blank=True)
+
     img = JPEGField(
         upload_to="photograph/",
         width_field="img_original_width",
@@ -111,7 +113,6 @@ class Photograph(DeepZoom):
     audio = models.FileField(upload_to="audio/", null=True, blank=True)
     audio_duration = models.FloatField(null=True, editable=False)
 
-    # location =
     date = models.DateField(
         null=True, blank=True, help_text="Datum der Lichtbildaufnahme"
     )

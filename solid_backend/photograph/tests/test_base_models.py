@@ -83,6 +83,9 @@ class TestPhotographModelFields:
     def test_model_has_field_audio_duration(self, photograph_model_class):
         assert hasattr(photograph_model_class, "audio_duration")
 
+    def test_model_has_field_profile_position(self, photograph_model_class):
+        assert hasattr(photograph_model_class, "profile_position")
+
     def test_model_has_field_date(self, photograph_model_class):
         assert hasattr(photograph_model_class, "date")
 
@@ -131,6 +134,12 @@ class TestPhotographModelFields:
     def test_field_type_audio_duration(self, photograph_model_class):
         assert isinstance(
             photograph_model_class._meta.get_field("audio_duration"), models.FloatField
+        )
+
+    def test_field_type_profile_position(self, photograph_model_class):
+        assert isinstance(
+            photograph_model_class._meta.get_field("profile_position"),
+            models.PositiveSmallIntegerField,
         )
 
     def test_field_type_date(self, photograph_model_class):
