@@ -7,12 +7,11 @@ class ConcatWidget(forms.MultiWidget):
     A Widget consisting of multiple Select inputs
     depending on how many sets of choices are provided.
     """
+
     def __init__(self, concat_choices, seperators, attrs=None):
         self.seperators = seperators
         self.choice_cnt = len(concat_choices)
-        widgets = [
-            forms.Select(choices=choices_set) for choices_set in concat_choices
-        ]
+        widgets = [forms.Select(choices=choices_set) for choices_set in concat_choices]
         display_field = forms.Textarea()
         display_field.attrs["readonly"] = True
         display_field.attrs["style"] = "border: none; font-weight: bold; resize: none;"
@@ -31,7 +30,9 @@ class ConcatWidget(forms.MultiWidget):
             ret_list.extend(last_value.split(f"{self.seperators[1]}"))
             # raise Exception(ret_list)
         if len(ret_list) < self.choice_cnt:
-            ret_list.extend((self.choice_cnt-len(ret_list)) * ["", ])
+            ret_list.extend(
+                (self.choice_cnt - len(ret_list)) * ["",]
+            )
         ret_list.append("Saved value: {}".format(value))
         return ret_list
 
@@ -41,6 +42,7 @@ class ConcatFormField(forms.MultiValueField):
     A form field accepting multiple sets of choices
     and concatenates them.
     """
+
     def __init__(self, **kwargs):
         kwargs.pop("max_length")
         self.concat_choices = kwargs.pop("concat_choices", None)
@@ -48,8 +50,12 @@ class ConcatFormField(forms.MultiValueField):
         assert self.concat_choices
         assert self.seperators
         fields = [forms.CharField(required=False) for choice_set in self.concat_choices]
-        super(ConcatFormField, self).__init__(fields=fields, require_all_fields=False, **kwargs)
-        self.widget = ConcatWidget(concat_choices=self.concat_choices, seperators=self.seperators)
+        super(ConcatFormField, self).__init__(
+            fields=fields, require_all_fields=False, **kwargs
+        )
+        self.widget = ConcatWidget(
+            concat_choices=self.concat_choices, seperators=self.seperators
+        )
 
     def compress(self, data_list):
         """
@@ -96,6 +102,7 @@ class ConcatCharField(models.CharField):
     """
     Database Field which takes choices to be concatenated.
     """
+
     def __init__(self, concat_choices, seperators, *args, **kwargs):
         self.concat_choices = concat_choices
         self.seperators = seperators
@@ -107,7 +114,7 @@ class ConcatCharField(models.CharField):
         defaults = {
             "form_class": ConcatFormField,
             "concat_choices": self.concat_choices,
-            "seperators": self.seperators
+            "seperators": self.seperators,
         }
         defaults.update(kwargs)
         return super().formfield(**defaults)
@@ -121,10 +128,11 @@ class ConcatCharField(models.CharField):
 
 # TODO: There has to be a more elegent way of defining this Field than to "copy&paste" it.
 class FromToConcatField(models.CharField):
-
     def __init__(self, from_choices, to_choices, *args, **kwargs):
         self.concat_choices = [from_choices, to_choices]
-        self.seperators = [" bis ",]
+        self.seperators = [
+            " bis ",
+        ]
         super(FromToConcatField, self).__init__(*args, **kwargs)
 
     def formfield(self, **kwargs):
@@ -133,7 +141,7 @@ class FromToConcatField(models.CharField):
         defaults = {
             "form_class": ConcatFormField,
             "concat_choices": self.concat_choices,
-            "seperators": self.seperators
+            "seperators": self.seperators,
         }
         defaults.update(kwargs)
         return super().formfield(**defaults)
