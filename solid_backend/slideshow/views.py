@@ -49,6 +49,6 @@ class SlideshowImageEndpoint(ReadOnlyModelViewSet):
     Endpoint that provides the database table of all slideshow images.
     """
 
-    queryset = SlideshowImage.objects.all()
+    queryset = SlideshowImage.objects.order_by("page", "position")
     serializer_class = SlideshowImageSerializer
     name = "slideshowimage"
