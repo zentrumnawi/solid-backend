@@ -29,9 +29,10 @@ admin.site.register(Slideshow, SlideshowAdmin)
 
 class SlideshowPageAdmin(admin.ModelAdmin):
     form = SlideshowAdminForm
-    list_display = ["id", "title", "position", "show"]
+    list_display = ["id", "title", "show", "position"]
     list_display_links = ["title"]
     inlines = [SlideshowImageInline]
+    ordering = ["show__position", "position"]
 
 
 admin.site.register(SlideshowPage, SlideshowPageAdmin)
