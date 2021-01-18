@@ -28,4 +28,4 @@ class SlideshowSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Slideshow
-        fields = "__all__"
+        exclude = ["active"]
