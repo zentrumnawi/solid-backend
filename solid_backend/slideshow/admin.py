@@ -40,8 +40,9 @@ admin.site.register(SlideshowPage, SlideshowPageAdmin)
 
 class SlideshowImageAdmin(admin.ModelAdmin):
     form = SlideshowAdminForm
-    list_display = ["id", "title", "position", "show_page", "img"]
+    list_display = ["id", "title", "show_page", "position", "img"]
     list_display_links = ["title"]
+    ordering = ["page__show__position", "page__position", "position"]
 
     def show_page(self, obj):
         return "{} : {}".format(
