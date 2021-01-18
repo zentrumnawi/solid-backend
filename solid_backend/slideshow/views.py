@@ -34,10 +34,12 @@ class SlideshowEndpoint(ReadOnlyModelViewSet):
 
 class SlideshowPageEndpoint(ReadOnlyModelViewSet):
     """
-    Endpoint that provides the database table of all slideshow pages including their images.
+    Endpoint that provides the database table of all slideshow pages including their related images.
     """
 
-    queryset = SlideshowPage.objects.all()
+    queryset = SlideshowPage.objects.order_by("show", "position").prefetch_related(
+        Prefetch("images", queryset=SlideshowImage.objects.order_by("position"))
+    )
     serializer_class = SlideshowPageSerializer
     name = "slideshowpage"
 
