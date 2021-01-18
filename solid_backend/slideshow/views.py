@@ -1,3 +1,4 @@
+from django.db.models import Prefetch
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from .models import Slideshow, SlideshowImage, SlideshowPage
@@ -10,10 +11,23 @@ from .serializers import (
 
 class SlideshowEndpoint(ReadOnlyModelViewSet):
     """
-    Endpoint that provides the database table of all slideshows including their pages and images.
+    Endpoint that provides the database table of all active slideshows including their related pages with their related images.
     """
 
-    queryset = Slideshow.objects.all()
+    queryset = (
+        Slideshow.objects.filter(active=True)
+        .order_by("position")
+        .prefetch_related(
+            Prefetch(
+                "pages",
+                queryset=SlideshowPage.objects.order_by("position").prefetch_related(
+                    Prefetch(
+                        "images", queryset=SlideshowImage.objects.order_by("position")
+                    )
+                ),
+            )
+        )
+    )
     serializer_class = SlideshowSerializer
     name = "slideshow"
 
