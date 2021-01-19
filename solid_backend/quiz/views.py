@@ -16,7 +16,7 @@ class QuizQuestionEndpoint(ReadOnlyModelViewSet):
 
 class QuizAnswerEndpoint(ReadOnlyModelViewSet):
     """
-    Endpoint that provides the database table of all quiz answers including their related questions.
+    Endpoint that provides the database table of all quiz answers.
     """
 
     queryset = QuizAnswer.objects.all()
