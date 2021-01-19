@@ -29,10 +29,17 @@ admin.site.register(Slideshow, SlideshowAdmin)
 
 class SlideshowPageAdmin(admin.ModelAdmin):
     form = SlideshowAdminForm
-    list_display = ["id", "title", "show", "position"]
+    list_display = ["id", "title", "show_with_position", "position"]
     list_display_links = ["title"]
     inlines = [SlideshowImageInline]
     ordering = ["show__position", "position"]
+
+    def show_with_position(self, obj):
+        # Show field that is sortable by it's position
+        return "{} ({})".format(obj.show, obj.show.position)
+
+    show_with_position.short_description = "Show (position)"
+    show_with_position.admin_order_field = "show__position"
 
 
 admin.site.register(SlideshowPage, SlideshowPageAdmin)
