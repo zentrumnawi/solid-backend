@@ -1,3 +1,8 @@
+Version 0.1.13 (23.01.2021)
+***************************
+- Add ConcatCharField and FromToConcatField fields
+
+
 Version 0.1.12 (16.11.2020)
 ***************************
 - Add active and position field to Slideshow model.
