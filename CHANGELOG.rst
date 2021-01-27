@@ -1,3 +1,9 @@
+Version 0.1.14 (27.01.2021)
+***************************
+- SlideshowEndpoint provides only active objects ordered by position
+- GlossaryEntryEndpoint provides objects ordered by term
+
+
 Version 0.1.13 (23.01.2021)
 ***************************
 - Add ConcatCharField and FromToConcatField fields
