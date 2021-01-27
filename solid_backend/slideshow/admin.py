@@ -29,9 +29,17 @@ admin.site.register(Slideshow, SlideshowAdmin)
 
 class SlideshowPageAdmin(admin.ModelAdmin):
     form = SlideshowAdminForm
-    list_display = ["id", "title", "position", "show"]
+    list_display = ["id", "title", "show_with_position", "position"]
     list_display_links = ["title"]
     inlines = [SlideshowImageInline]
+    ordering = ["show__position", "position"]
+
+    def show_with_position(self, obj):
+        # Show field that is sortable by it's position
+        return "{} ({})".format(obj.show, obj.show.position)
+
+    show_with_position.short_description = "Show (position)"
+    show_with_position.admin_order_field = "show__position"
 
 
 admin.site.register(SlideshowPage, SlideshowPageAdmin)
@@ -39,15 +47,30 @@ admin.site.register(SlideshowPage, SlideshowPageAdmin)
 
 class SlideshowImageAdmin(admin.ModelAdmin):
     form = SlideshowAdminForm
-    list_display = ["id", "title", "position", "show_page", "img"]
+    list_display = [
+        "id",
+        "title",
+        "show_with_position",
+        "page_with_position",
+        "position",
+        "img",
+    ]
     list_display_links = ["title"]
+    ordering = ["page__show__position", "page__position", "position"]
 
-    def show_page(self, obj):
-        return "{} : {}".format(
-            getattr(SlideshowPage.objects.get(id=obj.page.id), "show"), obj.page
-        )
+    def show_with_position(self, obj):
+        # Show field that is sortable by it's position
+        return "{} ({})".format(obj.page.show, obj.page.show.position)
 
-    show_page.short_description = "Show : Page"
+    show_with_position.short_description = "Show (position)"
+    show_with_position.admin_order_field = "page__show__position"
+
+    def page_with_position(self, obj):
+        # Page field that is sortable by it's position
+        return "{} ({})".format(obj.page, obj.page.position)
+
+    page_with_position.short_description = "Page (position)"
+    page_with_position.admin_order_field = "page__position"
 
 
 admin.site.register(SlideshowImage, SlideshowImageAdmin)

@@ -12,16 +12,34 @@ class MyProfile(BaseProfile):
         max_length=600,
         concat_choices=[
             [(None, "---------"), (1, 1), (2, 2), (3, 3), (4, 4)],
-            [(None, "---------"), ("Bonbon/s", "Bonbon/s"), ("Tüte/n Popcorn", "Tüte/n Popcorn"), ("Plätzchen", "Plätzchen"), ("Lutscher", "Lutscher")]
+            [
+                (None, "---------"),
+                ("Bonbon/s", "Bonbon/s"),
+                ("Tüte/n Popcorn", "Tüte/n Popcorn"),
+                ("Plätzchen", "Plätzchen"),
+                ("Lutscher", "Lutscher"),
+            ],
         ],
         seperators=[", ", " und "],
         default="",
-        blank=True
+        blank=True,
     )
     color = FromToConcatField(
         max_length=100,
-        from_choices=[(None, "---------"), ("blau", "blau"), ("grün", "grün"), ("gelb", "gelb"), ("rot", "rot")],
-        to_choices=[(None, "---------"), ("blau", "blau"), ("grün", "grün"), ("gelb", "gelb"), ("rot", "rot")],
+        from_choices=[
+            (None, "---------"),
+            ("blau", "blau"),
+            ("grün", "grün"),
+            ("gelb", "gelb"),
+            ("rot", "rot"),
+        ],
+        to_choices=[
+            (None, "---------"),
+            ("blau", "blau"),
+            ("grün", "grün"),
+            ("gelb", "gelb"),
+            ("rot", "rot"),
+        ],
         default="",
         blank=True,
     )
