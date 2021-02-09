@@ -18,6 +18,13 @@ class BaseProfile(models.Model):
     """
 
     photographs = GenericRelation(Photograph, null=True)
+    tree_node = TreeForeignKey(
+        "content.TreeNode",
+        on_delete=models.DO_NOTHING,
+        null=True,
+        related_name="profiles",
+        related_query_name="profile",
+    )
 
     class Meta:
         abstract = True
