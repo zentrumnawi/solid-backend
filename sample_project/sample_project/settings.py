@@ -142,6 +142,6 @@ STATIC_URL = "/static/"
 
 PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER = (
     "sample_content.serializers",
-    "ExampleSerializer",
+    "SampleProfileSerializer",
 )
 DATABASE_FIELD_MAPPING = {}
