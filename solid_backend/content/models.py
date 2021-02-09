@@ -30,14 +30,15 @@ class TreeNode(MPTTModel):
         on_delete=models.CASCADE,
         null=True,
         blank=True,
-        related_name="leaf_nodes",
+        related_name="children",
+        related_query_name="child",
     )
-    name = models.CharField(max_length=200, verbose_name=_("node name"), unique=True)
+    name = models.CharField(max_length=200, unique=True)
     info = models.TextField(max_length=500, blank=True)
 
     class Meta:
-        verbose_name = _("Tree Node")
-        verbose_name_plural = _("Tree Nodes")
+        verbose_name = _("Tree node")
+        verbose_name_plural = _("Tree nodes")
 
     def __str__(self):
         return self.name
