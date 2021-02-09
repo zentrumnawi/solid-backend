@@ -37,7 +37,6 @@ class TreeNode(MPTTModel):
     )
 
     info_text = models.TextField(max_length=500, blank=True)
-    is_top_level = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _("Tree Node")
