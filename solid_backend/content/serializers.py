@@ -11,12 +11,12 @@ class TreeNodeSerializer(serializers.ModelSerializer):
     profiles = getattr(
         import_module(settings.PROFILES_SERIALIZER_MODULE), settings.PROFILES_SERIALIZER
     )(many=True, required=False)
-    leaf_nodes = serializers.SerializerMethodField()
+    children = serializers.SerializerMethodField()
 
     class Meta:
         depth = 1
         model = TreeNode
-        fields = ("node_name", "profiles", "leaf_nodes", "info_text")
+        fields = ("name", "info", "profiles", "children")
 
-    def get_leaf_nodes(self, obj):
+    def get_children(self, obj):
         return TreeNodeSerializer(obj.get_children(), many=True).data
