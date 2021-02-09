@@ -44,7 +44,7 @@ class SampleProfile(BaseProfile):
     systematics = models.ForeignKey(
         null=True,
         on_delete=models.DO_NOTHING,
-        related_name="profiles",
+        related_name="systematics",
         to=TreeNode,
         verbose_name="Steckbrief-Ebene",
     )
