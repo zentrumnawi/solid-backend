@@ -33,7 +33,7 @@ class TreeNode(MPTTModel):
         related_name="leaf_nodes",
     )
     name = models.CharField(max_length=200, verbose_name=_("node name"), unique=True)
-    info_text = models.TextField(max_length=500, blank=True)
+    info = models.TextField(max_length=500, blank=True)
 
     class Meta:
         verbose_name = _("Tree Node")
