@@ -5,16 +5,12 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 from solid_backend.photograph.models import Photograph
 
-# Custom Models, representing the actual data of a profile, implement here.
-# At least one model needs to have a ForeignKey field to the TreeNode model
-# with related_name="profiles". If not, the profiles endpoint will throw an
-# error.
-
 
 class BaseProfile(models.Model):
     """
-    A base model used for inharitance such that we have a Generic Many (Photograph) to One (Profile)
-    Relation.
+    Abstract base model for profiles that provides a relation to the TreeNode model and
+    a one-to-many relation to the Photograph model via a generic relation. This base
+    model is to be inheriated only once!
     """
 
     photographs = GenericRelation(Photograph, null=True)
@@ -30,8 +26,11 @@ class BaseProfile(models.Model):
         abstract = True
 
 
-# Model for the tree representation of the profiles
 class TreeNode(MPTTModel):
+    """
+    Model for a tree structure to repesent the systematics of the profiles.
+    """
+
     parent = TreeForeignKey(
         "self",
         on_delete=models.CASCADE,
