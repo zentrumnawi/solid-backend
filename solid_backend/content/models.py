@@ -25,9 +25,6 @@ class BaseProfile(models.Model):
 
 # Model for the tree representation of the profiles
 class TreeNode(MPTTModel):
-    node_name = models.CharField(
-        max_length=200, verbose_name=_("node name"), unique=True
-    )
     parent = TreeForeignKey(
         "self",
         on_delete=models.CASCADE,
@@ -35,7 +32,7 @@ class TreeNode(MPTTModel):
         blank=True,
         related_name="leaf_nodes",
     )
-
+    name = models.CharField(max_length=200, verbose_name=_("node name"), unique=True)
     info_text = models.TextField(max_length=500, blank=True)
 
     class Meta:
@@ -43,4 +40,4 @@ class TreeNode(MPTTModel):
         verbose_name_plural = _("Tree Nodes")
 
     def __str__(self):
-        return self.node_name
+        return self.name
