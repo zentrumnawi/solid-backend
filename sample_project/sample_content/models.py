@@ -3,10 +3,8 @@ from django.db import models
 from solid_backend.content.fields import ConcatCharField, FromToConcatField
 from solid_backend.content.models import BaseProfile, TreeNode
 
-# Create your models here.
 
-
-class MyProfile(BaseProfile):
+class SampleProfile(BaseProfile):
     name = models.CharField(max_length=200, default="")
     my_concat = ConcatCharField(
         max_length=600,
@@ -50,3 +48,6 @@ class MyProfile(BaseProfile):
         to=TreeNode,
         verbose_name="Steckbrief-Ebene",
     )
+
+    def __str__(self):
+        return self.name
