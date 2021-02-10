@@ -144,4 +144,3 @@ PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER = (
     "sample_content.serializers",
     "SampleProfileSerializer",
 )
-DATABASE_FIELD_MAPPING = {}

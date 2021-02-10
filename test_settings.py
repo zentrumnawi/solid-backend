@@ -122,8 +122,3 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
-
-# Configure this dictionary to have a mapping from database fieldnames to
-# human readable names. You might want to consider internationalizing
-# the human readable names.
-DATABASE_FIELD_MAPPING = {}
