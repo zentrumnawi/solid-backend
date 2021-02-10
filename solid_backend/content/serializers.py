@@ -15,12 +15,13 @@ class TreeNodeSerializer(serializers.ModelSerializer):
             settings.PROFILES_SERIALIZER,
         )(many=True)
 
-    children = serializers.SerializerMethodField()
-
     class Meta:
         model = TreeNode
         fields = ("name", "info", "profiles", "children")
         depth = 2
 
-    def get_children(self, obj):
-        return TreeNodeSerializer(obj.get_children(), many=True).data
+    def get_fields(self):
+        # Serialize self-referential children field recursively.
+        fields = super().get_fields()
+        fields['children'] = TreeNodeSerializer(many=True)
+        return fields
