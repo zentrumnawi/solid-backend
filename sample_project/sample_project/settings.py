@@ -142,7 +142,7 @@ STATIC_URL = "/static/"
 
 
 # TreeNodeSerializer profiles field serializer
-PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER = (
+PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER_NAME = (
     "sample_content.serializers",
     "SampleProfileSerializer",
 )
