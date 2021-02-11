@@ -6,9 +6,9 @@ from .models import SampleProfile
 
 
 class SampleProfileAdmin(admin.ModelAdmin):
-    inlines = [
-        PhotographInline,
-    ]
+    list_display = ("id", "name", "tree_node")
+    list_display_links = ("name",)
+    inlines = [PhotographInline]
 
 
 admin.site.register(SampleProfile, SampleProfileAdmin)
