@@ -1,7 +1,7 @@
 from django.db import models
 
 from solid_backend.content.fields import ConcatCharField, FromToConcatField
-from solid_backend.content.models import BaseProfile, TreeNode
+from solid_backend.content.models import BaseProfile
 
 
 class SampleProfile(BaseProfile):
@@ -40,13 +40,6 @@ class SampleProfile(BaseProfile):
         ],
         default="",
         blank=True,
-    )
-    systematics = models.ForeignKey(
-        null=True,
-        on_delete=models.DO_NOTHING,
-        related_name="systematics",
-        to=TreeNode,
-        verbose_name="Steckbrief-Ebene",
     )
 
     def __str__(self):
