@@ -13,7 +13,7 @@ class BaseProfile(models.Model):
     model is to be inheriated only once!
     """
 
-    photographs = GenericRelation(Photograph, null=True)
+    photographs = GenericRelation(Photograph)
     tree_node = TreeForeignKey(
         "content.TreeNode",
         on_delete=models.DO_NOTHING,
