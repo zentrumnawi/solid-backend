@@ -5,9 +5,11 @@ from .models import TreeNode
 from .serializers import TreeNodeSerializer
 
 
-class ProfilesEndpoint(ReadOnlyModelViewSet):
-    model = TreeNode
-    queryset = model.objects.root_nodes()
+class ProfileEndpoint(ReadOnlyModelViewSet):
+    """
+    Endpoint that provides the database table of the tree structure of all profiles with their related photographs
+    """
+
+    queryset = TreeNode.objects.root_nodes()
     serializer_class = TreeNodeSerializer
-    name = "profiles"
-    app = "api"
+    name = "profile"

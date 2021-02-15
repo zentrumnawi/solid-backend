@@ -1,9 +1,9 @@
 from rest_framework.routers import SimpleRouter
 
-from .views import ProfilesEndpoint
+from .views import ProfileEndpoint
 
 app_name = "content"
 router = SimpleRouter()
-router.register(r"profiles", ProfilesEndpoint, basename="profiles")
+router.register(r"profiles", ProfileEndpoint, basename="profile")
 urlpatterns = []
 urlpatterns += router.urls
