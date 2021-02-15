@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from mptt.models import TreeForeignKey
 
@@ -14,6 +15,29 @@ class TestBaseProfileModelExists:
         from solid_backend.content.models import BaseProfile
 
         assert issubclass(BaseProfile, models.Model)
+
+
+class TestBaseProfileModelFields:
+    """
+    Test suite with basic field tests whether all fields of the BaseProfile object
+    exist and have the correct class instance and field attribute values.
+    """
+
+    def test_model_has_field_photographs(self, base_profile_model_class):
+        assert hasattr(base_profile_model_class, "photographs")
+
+    def test_model_has_field_tree_node(self, base_profile_model_class):
+        assert hasattr(base_profile_model_class, "tree_node")
+
+    def test_field_type_photographs(self, base_profile_model_class):
+        assert isinstance(
+            base_profile_model_class._meta.get_field("photographs"), GenericRelation
+        )
+
+    def test_field_type_tree_node(self, base_profile_model_class):
+        assert isinstance(
+            base_profile_model_class._meta.get_field("tree_node"), TreeForeignKey
+        )
 
 
 class TestTreeNodeModelExists:
