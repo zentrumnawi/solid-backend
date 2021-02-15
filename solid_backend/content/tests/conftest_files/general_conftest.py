@@ -1,6 +1,11 @@
 import pytest
 
-from solid_backend.content.models import TreeNode
+from solid_backend.content.models import BaseProfile, TreeNode
+
+
+@pytest.fixture
+def base_profile_model_class():
+    return BaseProfile
 
 
 @pytest.fixture
