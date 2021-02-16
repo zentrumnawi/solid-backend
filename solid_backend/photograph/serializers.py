@@ -56,4 +56,4 @@ class PhotographSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Photograph
-        exclude = ["dzi_option"]
+        exclude = ["content_type", "object_id", "dzi_option"]

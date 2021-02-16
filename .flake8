@@ -6,5 +6,4 @@ exclude =
   solid_backend/*/migrations
   solid_backend/*/tests/conftest.py
   solid_backend/openzoom/
-  some/
   test_settings.py

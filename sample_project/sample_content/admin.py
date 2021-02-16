@@ -2,15 +2,13 @@ from django.contrib import admin
 
 from solid_backend.photograph.admin import PhotographInline
 
-from .models import MyProfile
-
-# Register your models here.
+from .models import SampleProfile
 
 
-class MyProfileAdmin(admin.ModelAdmin):
-    inlines = [
-        PhotographInline,
-    ]
+class SampleProfileAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "tree_node")
+    list_display_links = ("name",)
+    inlines = [PhotographInline]
 
 
-admin.site.register(MyProfile, MyProfileAdmin)
+admin.site.register(SampleProfile, SampleProfileAdmin)

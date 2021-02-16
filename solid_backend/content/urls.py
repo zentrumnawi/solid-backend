@@ -1,15 +1,9 @@
-from django.conf.urls import url
 from rest_framework.routers import SimpleRouter
 
-from .views import FieldMappingEndpoint, ProfilesEndpoint
+from .views import ProfileEndpoint
 
 app_name = "content"
-
 router = SimpleRouter()
-router.register(r"profiles", ProfilesEndpoint, basename="profiles")
-
-urlpatterns = [
-    url(r"field-mapping", FieldMappingEndpoint.as_view(), name="field-mapping"),
-]
-
+router.register(r"profiles", ProfileEndpoint, basename="profile")
+urlpatterns = []
 urlpatterns += router.urls

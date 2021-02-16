@@ -19,6 +19,8 @@ class PhotographInlineFormSet(BaseGenericInlineFormSet):
             if form.cleaned_data.get("DELETE"):
                 continue
             position = form.cleaned_data.get("profile_position")
+            if not position:
+                continue
             positions.append(position)
 
             if positions.count(position) > 1:

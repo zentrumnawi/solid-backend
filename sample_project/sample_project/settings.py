@@ -140,8 +140,9 @@ MEDIA_URL = "/media/"
 
 STATIC_URL = "/static/"
 
-PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER = (
+
+# TreeNodeSerializer profiles field serializer
+PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER_NAME = (
     "sample_content.serializers",
-    "ExampleSerializer",
+    "SampleProfileSerializer",
 )
-DATABASE_FIELD_MAPPING = {}
