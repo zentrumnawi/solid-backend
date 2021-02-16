@@ -8,7 +8,7 @@ python:
   - "3.7"
 
 env:
-  - TRAVIS_CI=True PROFILES_SERIALIZER=some.module.ExampleSerializer PATH="$PATH:$HOME/.poetry/bin"
+  - TRAVIS_CI=True PATH="$PATH:$HOME/.poetry/bin"
 
 cache:
   directories:
