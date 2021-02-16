@@ -1,3 +1,13 @@
+Version 0.1.15 (16.02.2021)
+***************************
+- TreeNode fields are modified
+- BaseProfile has an additional TreeForeignKey field to TreeNode
+- TreeNodeSerializer is adapted and improved
+- FieldMappingsEndpoint is removed
+- Tests for BaseProfile and TreeNode are added
+- ProfileEndpoint provides Photographs ordered by profile_position
+
+
 Version 0.1.14 (27.01.2021)
 ***************************
 - SlideshowEndpoint provides only active objects ordered by position
