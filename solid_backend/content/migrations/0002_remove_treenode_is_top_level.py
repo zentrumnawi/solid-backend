@@ -6,12 +6,9 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('content', '0001_create_tree_node_model'),
+        ("content", "0001_create_tree_node_model"),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='treenode',
-            name='is_top_level',
-        ),
+        migrations.RemoveField(model_name="treenode", name="is_top_level",),
     ]

@@ -28,7 +28,7 @@ def populate_systematics_with_tree_node(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sample_content', '0007_add_sampleprofile_tree_node'),
+        ("sample_content", "0007_add_sampleprofile_tree_node"),
     ]
 
     operations = [

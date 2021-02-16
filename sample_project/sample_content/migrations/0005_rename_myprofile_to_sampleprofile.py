@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sample_content', '0004_myprofile_color'),
+        ("sample_content", "0004_myprofile_color"),
     ]
 
     operations = [

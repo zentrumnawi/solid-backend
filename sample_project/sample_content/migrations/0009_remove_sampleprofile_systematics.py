@@ -6,12 +6,9 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sample_content', '0008_populate_sampleprofile_tree_node'),
+        ("sample_content", "0008_populate_sampleprofile_tree_node"),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='sampleprofile',
-            name='systematics',
-        ),
+        migrations.RemoveField(model_name="sampleprofile", name="systematics",),
     ]

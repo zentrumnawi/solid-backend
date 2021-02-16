@@ -6,13 +6,11 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('content', '0002_remove_treenode_is_top_level'),
+        ("content", "0002_remove_treenode_is_top_level"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='treenode',
-            old_name='node_name',
-            new_name='name',
+            model_name="treenode", old_name="node_name", new_name="name",
         ),
     ]
