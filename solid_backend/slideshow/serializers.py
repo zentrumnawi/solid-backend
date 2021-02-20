@@ -23,7 +23,7 @@ class SlideshowPageSerializer(DynamicExcludeModelSerializer):
 
 
 class SlideshowSerializer(serializers.ModelSerializer):
-    img = PhotographSerializer()
+    title_image = PhotographSerializer()
     pages = SlideshowPageSerializer(exclude="show", many=True)
 
     class Meta:
