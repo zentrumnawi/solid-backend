@@ -9,7 +9,7 @@ class Slideshow(models.Model):
     active = models.BooleanField(default=True)
     position = models.PositiveSmallIntegerField()
     title = models.CharField(max_length=100)
-    img = models.OneToOneField(
+    title_image = models.OneToOneField(
         to="photograph.Photograph", on_delete=models.PROTECT, null=True, blank=True
     )
 
