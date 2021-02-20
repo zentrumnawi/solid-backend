@@ -58,8 +58,8 @@ class TestSlideshowModelFields:
     def test_model_has_field_titel(self, slideshow_model_class):
         assert hasattr(slideshow_model_class, "title")
 
-    def test_model_has_field_img(self, slideshow_model_class):
-        assert hasattr(slideshow_model_class, "img")
+    def test_model_has_field_title_image(self, slideshow_model_class):
+        assert hasattr(slideshow_model_class, "title_image")
 
     def test_field_type_active(self, slideshow_model_class):
         assert isinstance(
@@ -77,15 +77,15 @@ class TestSlideshowModelFields:
             slideshow_model_class._meta.get_field("title"), models.CharField
         )
 
-    def test_field_type_img(self, slideshow_model_class):
+    def test_field_type_title_image(self, slideshow_model_class):
         assert isinstance(
-            slideshow_model_class._meta.get_field("img"), models.OneToOneField
+            slideshow_model_class._meta.get_field("title_image"), models.OneToOneField
         )
 
-    def test_field_attribute_values_img(
+    def test_field_attribute_values_title_image(
         self, slideshow_model_class, photograph_model_class
     ):
-        field = slideshow_model_class._meta.get_field("img")
+        field = slideshow_model_class._meta.get_field("title_image")
         assert issubclass(field.related_model, photograph_model_class)
 
 
