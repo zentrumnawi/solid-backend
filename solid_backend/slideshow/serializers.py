@@ -7,7 +7,7 @@ from .models import Slideshow, SlideshowImage, SlideshowPage
 
 
 class SlideshowImageSerializer(DynamicExcludeModelSerializer):
-    img = PhotographSerializer()
+    image = PhotographSerializer()
 
     class Meta:
         model = SlideshowImage
