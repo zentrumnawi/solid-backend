@@ -47,6 +47,10 @@ class TestTreeNodeModelFields:
             tree_node_model_class._meta.get_field("info"), models.TextField
         )
 
+    def test_field_attribute_values_parent(self, tree_node_model_class):
+        field = tree_node_model_class._meta.get_field("parent")
+        assert issubclass(field.related_model, tree_node_model_class)
+
 
 class TestBaseProfileModelExists:
     """
