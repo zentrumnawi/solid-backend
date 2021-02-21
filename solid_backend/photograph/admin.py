@@ -31,13 +31,10 @@ readonly_fields = [
 
 class DeepZoomAdmin(admin.ModelAdmin):
     def delete_queryset(self, request, queryset):
-        """
-        Call DeepZoom model delete method for each object during bulk delete via admin
-        action to ensure that the Deep Zoom directory trees will be deleted.
-        """
-
-        for object in queryset:
-            object.delete()
+        # Call DeepZoom model delete method for each selected object during bulk delete
+        # via admin action to ensure that the Deep Zoom directory trees will be deleted.
+        for obj in queryset:
+            obj.delete()
 
 
 class PhotographInline(GenericTabularInline):
