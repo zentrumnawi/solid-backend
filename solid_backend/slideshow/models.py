@@ -51,7 +51,7 @@ class SlideshowImage(models.Model):
     )
     position = models.PositiveSmallIntegerField()
     title = models.CharField(max_length=100)
-    img = models.ForeignKey(
+    image = models.ForeignKey(
         to="photograph.Photograph", on_delete=models.CASCADE, null=True, blank=True
     )
     caption = models.TextField(
@@ -59,4 +59,4 @@ class SlideshowImage(models.Model):
     )
 
     def __str__(self):
-        return str(self.img)
+        return str(self.image)
