@@ -8,7 +8,7 @@ from solid_backend.photograph.models import Photograph
 
 class TreeNode(MPTTModel):
     """
-    Model for a tree structure to repesent the systematics of the profiles.
+    Model for a tree structure to repesent the systematics of profiles.
     """
 
     parent = TreeForeignKey(
