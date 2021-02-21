@@ -182,6 +182,12 @@ class TestSlideshowImageModelFields:
             slideshow_image_model_class._meta.get_field("caption"), models.TextField
         )
 
+    def test_field_attribute_values_page(
+        self, slideshow_image_model_class, slideshow_page_model_class
+    ):
+        field = slideshow_image_model_class._meta.get_field("page")
+        assert issubclass(field.related_model, slideshow_page_model_class)
+
     def test_field_attribute_values_image(
         self, slideshow_image_model_class, photograph_model_class
     ):
