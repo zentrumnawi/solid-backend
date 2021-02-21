@@ -128,6 +128,12 @@ class TestSlideshowPageModelFields:
             slideshow_page_model_class._meta.get_field("text"), models.TextField
         )
 
+    def test_field_attribute_values_show(
+        self, slideshow_page_model_class, slideshow_model_class
+    ):
+        field = slideshow_page_model_class._meta.get_field("show")
+        assert issubclass(field.related_model, slideshow_model_class)
+
 
 class TestSlideshowImageModelFields:
     """
