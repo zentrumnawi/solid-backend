@@ -39,6 +39,12 @@ class TestBaseProfileModelFields:
             base_profile_model_class._meta.get_field("tree_node"), TreeForeignKey
         )
 
+    def test_field_attribute_values_tree_node(
+        self, base_profile_model_class, tree_node_model_class
+    ):
+        field = base_profile_model_class._meta.get_field("tree_node")
+        assert issubclass(field.related_model, tree_node_model_class)
+
 
 class TestTreeNodeModelExists:
     """
