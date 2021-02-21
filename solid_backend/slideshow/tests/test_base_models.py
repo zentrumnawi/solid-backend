@@ -144,8 +144,8 @@ class TestSlideshowImageModelFields:
     def test_model_has_field_title(self, slideshow_image_model_class):
         assert hasattr(slideshow_image_model_class, "title")
 
-    def test_model_has_field_img(self, slideshow_image_model_class):
-        assert hasattr(slideshow_image_model_class, "img")
+    def test_model_has_field_image(self, slideshow_image_model_class):
+        assert hasattr(slideshow_image_model_class, "image")
 
     def test_model_has_field_caption(self, slideshow_image_model_class):
         assert hasattr(slideshow_image_model_class, "caption")
@@ -166,9 +166,9 @@ class TestSlideshowImageModelFields:
             slideshow_image_model_class._meta.get_field("title"), models.CharField
         )
 
-    def test_field_type_img(self, slideshow_image_model_class):
+    def test_field_type_image(self, slideshow_image_model_class):
         assert isinstance(
-            slideshow_image_model_class._meta.get_field("img"), models.ForeignKey
+            slideshow_image_model_class._meta.get_field("image"), models.ForeignKey
         )
 
     def test_field_type_caption(self, slideshow_image_model_class):
@@ -176,8 +176,8 @@ class TestSlideshowImageModelFields:
             slideshow_image_model_class._meta.get_field("caption"), models.TextField
         )
 
-    def test_field_attribute_values_img(
+    def test_field_attribute_values_image(
         self, slideshow_image_model_class, photograph_model_class
     ):
-        field = slideshow_image_model_class._meta.get_field("img")
+        field = slideshow_image_model_class._meta.get_field("image")
         assert issubclass(field.related_model, photograph_model_class)
