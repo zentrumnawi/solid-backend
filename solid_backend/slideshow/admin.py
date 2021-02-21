@@ -53,7 +53,7 @@ class SlideshowImageAdmin(admin.ModelAdmin):
         "show_with_position",
         "page_with_position",
         "position",
-        "img",
+        "image",
     ]
     list_display_links = ["title"]
     ordering = ["page__show__position", "page__position", "position"]
