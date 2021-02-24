@@ -24,9 +24,3 @@ class TreeNodeSerializer(serializers.ModelSerializer):
         model = TreeNode
         fields = ("name", "info", "profiles", "children")
         depth = 2
-
-    def get_fields(self):
-        # Serialize self-referential children field recursively.
-        fields = super().get_fields()
-        fields["children"] = TreeNodeSerializer(many=True)
-        return fields
