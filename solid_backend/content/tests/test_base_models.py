@@ -3,43 +3,6 @@ from django.db import models
 from mptt.models import TreeForeignKey
 
 
-class TestBaseProfileModelExists:
-    """
-    Test whether an object BaseProfile can be imported and is a Django model.
-    """
-
-    def test_model_exists(self):
-        pass
-
-    def test_model_is_django_model(self):
-        from solid_backend.content.models import BaseProfile
-
-        assert issubclass(BaseProfile, models.Model)
-
-
-class TestBaseProfileModelFields:
-    """
-    Test suite with basic field tests whether all fields of the BaseProfile object
-    exist and have the correct class instance and field attribute values.
-    """
-
-    def test_model_has_field_photographs(self, base_profile_model_class):
-        assert hasattr(base_profile_model_class, "photographs")
-
-    def test_model_has_field_tree_node(self, base_profile_model_class):
-        assert hasattr(base_profile_model_class, "tree_node")
-
-    def test_field_type_photographs(self, base_profile_model_class):
-        assert isinstance(
-            base_profile_model_class._meta.get_field("photographs"), GenericRelation
-        )
-
-    def test_field_type_tree_node(self, base_profile_model_class):
-        assert isinstance(
-            base_profile_model_class._meta.get_field("tree_node"), TreeForeignKey
-        )
-
-
 class TestTreeNodeModelExists:
     """
     Test whether an object TreeNode can be imported and is a Django model.
@@ -83,3 +46,50 @@ class TestTreeNodeModelFields:
         assert isinstance(
             tree_node_model_class._meta.get_field("info"), models.TextField
         )
+
+    def test_field_attribute_values_parent(self, tree_node_model_class):
+        field = tree_node_model_class._meta.get_field("parent")
+        assert issubclass(field.related_model, tree_node_model_class)
+
+
+class TestBaseProfileModelExists:
+    """
+    Test whether an object BaseProfile can be imported and is a Django model.
+    """
+
+    def test_model_exists(self):
+        pass
+
+    def test_model_is_django_model(self):
+        from solid_backend.content.models import BaseProfile
+
+        assert issubclass(BaseProfile, models.Model)
+
+
+class TestBaseProfileModelFields:
+    """
+    Test suite with basic field tests whether all fields of the BaseProfile object
+    exist and have the correct class instance and field attribute values.
+    """
+
+    def test_model_has_field_photographs(self, base_profile_model_class):
+        assert hasattr(base_profile_model_class, "photographs")
+
+    def test_model_has_field_tree_node(self, base_profile_model_class):
+        assert hasattr(base_profile_model_class, "tree_node")
+
+    def test_field_type_photographs(self, base_profile_model_class):
+        assert isinstance(
+            base_profile_model_class._meta.get_field("photographs"), GenericRelation
+        )
+
+    def test_field_type_tree_node(self, base_profile_model_class):
+        assert isinstance(
+            base_profile_model_class._meta.get_field("tree_node"), TreeForeignKey
+        )
+
+    def test_field_attribute_values_tree_node(
+        self, base_profile_model_class, tree_node_model_class
+    ):
+        field = base_profile_model_class._meta.get_field("tree_node")
+        assert issubclass(field.related_model, tree_node_model_class)

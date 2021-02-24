@@ -6,29 +6,9 @@ from mptt.models import MPTTModel, TreeForeignKey
 from solid_backend.photograph.models import Photograph
 
 
-class BaseProfile(models.Model):
-    """
-    Abstract base model for profiles that provides a relation to the TreeNode model and
-    a one-to-many relation to the Photograph model via a generic relation. This base
-    model is to be inheriated only once!
-    """
-
-    photographs = GenericRelation(Photograph)
-    tree_node = TreeForeignKey(
-        "content.TreeNode",
-        on_delete=models.DO_NOTHING,
-        null=True,
-        related_name="profiles",
-        related_query_name="profile",
-    )
-
-    class Meta:
-        abstract = True
-
-
 class TreeNode(MPTTModel):
     """
-    Model for a tree structure to repesent the systematics of the profiles.
+    Model for a tree structure to repesent the systematics of profiles.
     """
 
     parent = TreeForeignKey(
@@ -48,3 +28,23 @@ class TreeNode(MPTTModel):
 
     def __str__(self):
         return self.name
+
+
+class BaseProfile(models.Model):
+    """
+    Abstract base model for profiles that provides a relation to the TreeNode model and
+    a one-to-many relation to the Photograph model via a generic relation. This base
+    model is to be inheriated only once!
+    """
+
+    photographs = GenericRelation(Photograph)
+    tree_node = TreeForeignKey(
+        to=TreeNode,
+        on_delete=models.DO_NOTHING,
+        null=True,
+        related_name="profiles",
+        related_query_name="profile",
+    )
+
+    class Meta:
+        abstract = True
