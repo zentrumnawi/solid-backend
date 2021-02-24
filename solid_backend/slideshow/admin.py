@@ -18,8 +18,8 @@ class SlideshowImageInline(admin.TabularInline):
 
 class SlideshowAdmin(admin.ModelAdmin):
     form = SlideshowAdminForm
-    fields = [("position", "active"), "title", "img"]
-    list_display = ["id", "title", "position", "img", "active"]
+    fields = [("position", "active"), "title", "title_image"]
+    list_display = ["id", "title", "position", "title_image", "active"]
     list_display_links = ["title"]
     inlines = [SlideshowPageInline]
 
@@ -53,7 +53,7 @@ class SlideshowImageAdmin(admin.ModelAdmin):
         "show_with_position",
         "page_with_position",
         "position",
-        "img",
+        "image",
     ]
     list_display_links = ["title"]
     ordering = ["page__show__position", "page__position", "position"]

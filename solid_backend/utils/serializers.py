@@ -17,3 +17,13 @@ class DynamicExcludeModelSerializer(serializers.ModelSerializer):
             for field in set(self.fields):
                 if field in exclude:
                     self.fields.pop(field)
+
+
+class RecursiveSerializer(serializers.Serializer):
+    """
+    Serializer that represents a self-referential field recursively.
+    """
+
+    def to_representation(self, value):
+        serializer = self.parent.parent.__class__(value, context=self.context)
+        return serializer.data

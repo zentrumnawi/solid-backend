@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.contrib.contenttypes.admin import GenericTabularInline
 
 from .forms import PhotographAdminForm, PhotographInlineFormSet
@@ -30,14 +30,37 @@ readonly_fields = [
 
 
 class DeepZoomAdmin(admin.ModelAdmin):
-    def delete_queryset(self, request, queryset):
-        """
-        Call DeepZoom model delete method for each object during bulk delete via admin
-        action to ensure that the Deep Zoom directory trees will be deleted.
-        """
+    actions = ["switch_dzi_option"]
 
-        for object in queryset:
-            object.delete()
+    def delete_queryset(self, request, queryset):
+        # Call DeepZoom model delete method for each selected object during bulk delete
+        # via admin action to ensure that the Deep Zoom directory trees will be deleted.
+        for obj in queryset:
+            obj.delete()
+
+    def switch_dzi_option(self, request, queryset):
+        # Switch the Deep Zoom option for each selected object and either create or
+        # delete its Deep Zoom image files.
+        for obj in queryset:
+            if not obj.dzi_option:
+                obj.dzi_option = True
+            else:
+                obj.dzi_option = False
+            obj.save()
+
+        n = queryset.count()
+
+        self.message_user(
+            request,
+            "Successfully switched Deep Zoom option on {} {}.".format(
+                n, admin.utils.model_ngettext(self.opts, n)
+            ),
+            messages.SUCCESS,
+        )
+
+    switch_dzi_option.short_description = (
+        "Switch Deep Zoom option on selected photographs"
+    )
 
 
 class PhotographInline(GenericTabularInline):
