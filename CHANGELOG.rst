@@ -1,3 +1,12 @@
+Version 0.1.16 (24.02.2021)
+***************************
+- Rename the Slideshow and SlideshowImage 'img' fields
+- Add tests for relationship fields
+- Create admin action that switches Deep Zoom image options
+- Fix false declared 'required' attribute of some fields in swagger
+- Fix swagger crash caused by a self-referential TreeNodeSerializer field
+
+
 Version 0.1.15 (16.02.2021)
 ***************************
 - TreeNode fields are modified
