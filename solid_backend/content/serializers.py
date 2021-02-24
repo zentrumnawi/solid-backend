@@ -3,6 +3,8 @@ from importlib import import_module
 from django.conf import settings
 from rest_framework import serializers
 
+from solid_backend.utils.serializers import RecursiveSerializer
+
 from .models import TreeNode
 
 PROFILES_SERIALIZER = None
@@ -19,6 +21,8 @@ class TreeNodeSerializer(serializers.ModelSerializer):
     # settings with PROFILES_SERIALIZER_MODULE and PROFILES_SERIALIZER_NAME.
     if PROFILES_SERIALIZER:
         profiles = PROFILES_SERIALIZER
+
+    children = RecursiveSerializer(many=True, required=False)
 
     class Meta:
         model = TreeNode
