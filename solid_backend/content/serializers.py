@@ -11,7 +11,7 @@ if hasattr(settings, "PROFILES_SERIALIZER_MODULE"):
     PROFILES_SERIALIZER = getattr(
         import_module(settings.PROFILES_SERIALIZER_MODULE),
         settings.PROFILES_SERIALIZER_NAME,
-    )(many=True)
+    )(many=True, required=False)
 
 
 class TreeNodeSerializer(serializers.ModelSerializer):

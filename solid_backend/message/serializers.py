@@ -6,7 +6,7 @@ from .models import Message
 
 
 class MessageSerializer(serializers.ModelSerializer):
-    img = PhotographSerializer()
+    img = PhotographSerializer(required=False)
 
     class Meta:
         model = Message

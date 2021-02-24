@@ -13,8 +13,8 @@ class QuizAnswerSerializer(DynamicExcludeModelSerializer):
 
 
 class QuizQuestionSerializer(serializers.ModelSerializer):
-    answers = QuizAnswerSerializer(exclude="question", many=True)
-    img = PhotographSerializer(many=True)
+    answers = QuizAnswerSerializer(exclude="question", many=True, required=False)
+    img = PhotographSerializer(many=True, required=False)
 
     class Meta:
         model = QuizQuestion
