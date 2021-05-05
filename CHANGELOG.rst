@@ -1,3 +1,8 @@
+Version 0.1.17 (05.05.2021)
+***************************
+- Hotfix contact App.
+
+
 Version 0.1.16 (24.02.2021)
 ***************************
 - Rename the Slideshow and SlideshowImage 'img' fields
