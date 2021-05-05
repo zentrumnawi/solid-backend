@@ -41,7 +41,7 @@ class ContactView(generics.GenericAPIView):
             ),
             from_email="Feedback <{}>".format(settings.SYSTEM_EMAIL),
             to=[settings.SYSTEM_EMAIL],
-            reply_to=[data["email"], settings.SYSTEM_EMAIL]
+            reply_to=[data["email"], ]
         )
         message.send(fail_silently=False)
 
