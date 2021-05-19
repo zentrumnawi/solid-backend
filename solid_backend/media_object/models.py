@@ -7,9 +7,12 @@ from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from stdimage import JPEGField
+from django.forms import FileField, ImageField
+from stdimage.models import JPEGFieldFile, StdImageField, JPEGField
+from django.utils.translation import ugettext_lazy as _
 
 from solid_backend.openzoom import deepzoom
+from .forms import MediaObjectFormField
 
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ("image_field_name",)
 
@@ -75,6 +78,31 @@ class DeepZoom(models.Model):
         # An option 'image_field_name' must be set in the child class.
 
 
+class MediaObjectFieldFile(JPEGFieldFile):
+
+    def render_variations(self, replace=True):
+        if self.instance.media_format == "image":
+            super(MediaObjectFieldFile, self).render_variations(replace)
+
+    def delete_variations(self):
+        if self.instance.media_format == "image":
+            super(MediaObjectFieldFile, self).delete_variations()
+
+
+class MediaObjectField(StdImageField):
+    """
+    A JPEGFieldField which acts like JPEGFieldField if the provided media
+    is of image type and in other cases as FileField.
+    """
+    attr_class = MediaObjectFieldFile
+
+    def formfield(self, **kwargs):
+        return super().formfield(**{
+            'form_class': MediaObjectFormField,
+            **kwargs,
+        })
+
+
 class MediaObject(DeepZoom):
     """
     Model for a photograph.
@@ -85,8 +113,18 @@ class MediaObject(DeepZoom):
     profile = GenericForeignKey("content_type", "object_id")
     profile_position = models.PositiveSmallIntegerField(null=True, blank=True)
 
-    file = JPEGField(
-        upload_to="photograph/",
+    media_format = models.CharField(
+        max_length=5,
+        choices=(
+            ("image", _("image")),
+            ("audio", _("audio")),
+            ("video", _("video")),
+        ),
+        verbose_name=_("media format"),
+    )
+
+    file = MediaObjectField(
+        upload_to="media_object/",
         width_field="img_original_width",
         height_field="img_original_height",
         variations={
@@ -98,23 +136,29 @@ class MediaObject(DeepZoom):
         db_index=True,
         delete_orphans=True,
     )
+
     img_original_width = models.PositiveSmallIntegerField(
-        editable=False, verbose_name="img width"
+        editable=False, null=True, blank=True, verbose_name="img width"
     )
     img_original_height = models.PositiveSmallIntegerField(
-        editable=False, verbose_name="img height"
+        editable=False, null=True, blank=True, verbose_name="img height"
     )
-    img_original_scale = models.FloatField(verbose_name="scale", null=True, blank=True,)
+    img_original_scale = models.FloatField(verbose_name="scale", null=True, blank=True)
 
-    img_alt = models.CharField(max_length=200)
+    img_alt = models.CharField(max_length=200, null=True, blank=True, verbose_name=_("alternative text"))
+
     description = models.TextField(
-        default="", blank=True, verbose_name="description (Markdown)"
+        default="", null=True, blank=True, verbose_name="description (Markdown)"
     )
     audio = models.FileField(upload_to="audio/", null=True, blank=True)
-    audio_duration = models.FloatField(null=True, editable=False)
+    audio_duration = models.FloatField(null=True, blank=True, editable=False)
+
+    media_duration = models.FloatField(null=True, editable=False, verbose_name=_("duration of audio/video file"))
+
+    title = models.CharField(max_length=200, null=True, blank=True, verbose_name=_("title of image/audio/video file"))
 
     date = models.DateField(
-        null=True, blank=True, help_text="Datum der Lichtbildaufnahme"
+        null=True, blank=True, help_text=_("Date of creation")
     )
     author = models.CharField(max_length=100, default="", blank=True)
     license = models.CharField(max_length=100, default="", blank=True)
