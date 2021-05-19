@@ -1,10 +1,10 @@
 from django.db import models
 
 from solid_backend.content.fields import ConcatCharField, FromToConcatField
-from solid_backend.content.models import BaseProfile
+from solid_backend.content.models import BaseProfile, SolidBaseProfile
 
 
-class SampleProfile(BaseProfile):
+class SampleProfile(SolidBaseProfile):
     name = models.CharField(max_length=200, default="")
     my_concat = ConcatCharField(
         max_length=600,
