@@ -41,6 +41,34 @@ class MediaObjectInlineFormSet(BaseGenericInlineFormSet):
         return super().get_queryset().order_by("profile_position")
 
 
+# Field Lists for validating the MediaObjectForm
+GENERAL_FIELDS = [
+    "media_format",
+    "file",
+    "title",
+    "description",
+    "date",
+    "author",
+    "license",
+]
+
+# length_unit is missing from this list since it always has a non-False default anyways
+IMG_FIELDS = [
+    "dzi_option",
+    "img_alt",
+    "dzi_file",
+    "img_original_width",
+    "img_original_height",
+    ("length_value", "length_unit", "pixel_number"),
+    "img_original_scale",
+    "audio",
+    "audio_duration",
+    "length_value",
+    "pixel_number",
+]
+AUDIO_VIDEO_FIELDS = ["media_duration", ]
+
+
 class MediaObjectAdminForm(forms.ModelForm):
     """
     Calculate the scale and determine the audio duration.
@@ -101,3 +129,17 @@ class MediaObjectAdminForm(forms.ModelForm):
             instance.save()
 
         return instance
+
+    def clean(self):
+        """
+        Validate whether fields for not matching media_formats were submitted.
+        :return:
+        """
+        cleaned_data = super(MediaObjectAdminForm, self).clean()
+
+        if cleaned_data["media_format"] == "image":
+            if any(cleaned_data.get(x, False) for x in AUDIO_VIDEO_FIELDS):
+                raise forms.ValidationError(_("You submitted value(s) for field(s) which are not supported for the media_format image."))
+        else:
+            if any(cleaned_data.get(x, False) for x in IMG_FIELDS):
+                raise forms.ValidationError(_("You submitted value(s) for field(s) which are not supported for the media_format audio/video."))
