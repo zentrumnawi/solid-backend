@@ -110,7 +110,7 @@ class MediaObjectAdminForm(forms.ModelForm):
     def save(self, commit=True):
         length_value = self.cleaned_data.get("length_value")
         length_unit = self.cleaned_data.get("length_unit")
-        pixel_number = self.cleaned_data.get("pixel_number")
+        pixel_number = self.cleaned_data.get("pixel_number", 0)
 
         instance = super(MediaObjectAdminForm, self).save(commit=False)
 
@@ -138,8 +138,18 @@ class MediaObjectAdminForm(forms.ModelForm):
         cleaned_data = super(MediaObjectAdminForm, self).clean()
 
         if cleaned_data["media_format"] == "image":
+            
+            FileExtensionValidator(allowed_extensions=["jpg", "jpeg"])(cleaned_data["file"])
+
             if any(cleaned_data.get(x, False) for x in AUDIO_VIDEO_FIELDS):
                 raise forms.ValidationError(_("You submitted value(s) for field(s) which are not supported for the media_format image."))
+
+            if not cleaned_data["img_alt"]:
+                raise forms.ValidationError(_("You need to provide an alternative text to be displayed for this image."))
+
         else:
+
+            FileExtensionValidator(allowed_extensions=["mp3", "mp4"])(cleaned_data["file"])
+
             if any(cleaned_data.get(x, False) for x in IMG_FIELDS):
                 raise forms.ValidationError(_("You submitted value(s) for field(s) which are not supported for the media_format audio/video."))
