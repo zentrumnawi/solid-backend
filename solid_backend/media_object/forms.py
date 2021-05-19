@@ -1,6 +1,8 @@
 from django import forms
+from django.db.models.fields.files import FieldFile
 from django.contrib.contenttypes.forms import BaseGenericInlineFormSet
-from mutagen import File
+from mutagen import File, MutagenError
+from mutagen.mp4 import MP4
 from django.core.validators import FileExtensionValidator
 from django.utils.translation import ugettext_lazy as _
 
@@ -125,6 +127,25 @@ class MediaObjectAdminForm(forms.ModelForm):
         else:
             instance.audio_duration = None
 
+        if instance.media_format == "image":
+            instance.media_duration = None
+
+        # The try-excepts are quite random.
+        # If the file is not yet uploaded we need instance.file
+        # If it is uploaded already we need instance.file.path
+        if instance.media_format == "audio":
+            try:
+                instance.media_duration = File(instance.file).info.length
+            except MutagenError:
+                instance.media_duration = File(instance.file.path).info.length
+
+        if instance.media_format == "video":
+            try:
+                instance.media_duration = MP4(instance.file).info.length
+            except (MutagenError, ValueError):
+                instance.media_duration = MP4(instance.file.path).info.length
+                raise Exception(MP4(instance.file.path).info.length)
+
         if commit:
             instance.save()
 
@@ -138,7 +159,7 @@ class MediaObjectAdminForm(forms.ModelForm):
         cleaned_data = super(MediaObjectAdminForm, self).clean()
 
         if cleaned_data["media_format"] == "image":
-            
+
             FileExtensionValidator(allowed_extensions=["jpg", "jpeg"])(cleaned_data["file"])
 
             if any(cleaned_data.get(x, False) for x in AUDIO_VIDEO_FIELDS):
