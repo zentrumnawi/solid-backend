@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "solid_backend.quiz",
     "solid_backend.slideshow",
     "solid_backend.photograph",
+    "solid_backend.media_object",
     "sample_content.apps.SampleContentConfig",
     "django_cleanup.apps.CleanupConfig",  # Should be placed last!
 ]
