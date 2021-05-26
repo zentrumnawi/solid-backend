@@ -1,8 +1,5 @@
 from django import forms
-from django.db.models.fields.files import FieldFile
 from django.contrib.contenttypes.forms import BaseGenericInlineFormSet
-from mutagen import File, MutagenError
-from mutagen.mp4 import MP4
 from django.core.validators import FileExtensionValidator
 from django.utils.translation import ugettext_lazy as _
 
@@ -64,11 +61,7 @@ IMG_FIELDS = [
     ("length_value", "length_unit", "pixel_number"),
     "img_original_scale",
     "audio",
-    "audio_duration",
-    "length_value",
-    "pixel_number",
 ]
-AUDIO_VIDEO_FIELDS = ["media_duration", ]
 
 
 class MediaObjectAdminForm(forms.ModelForm):
@@ -122,30 +115,6 @@ class MediaObjectAdminForm(forms.ModelForm):
         if pixel_number == 0:
             instance.img_original_scale = None
 
-        if instance.audio:
-            instance.audio_duration = File(instance.audio).info.length
-        else:
-            instance.audio_duration = None
-
-        if instance.media_format == "image":
-            instance.media_duration = None
-
-        # The try-excepts are quite random.
-        # If the file is not yet uploaded we need instance.file
-        # If it is uploaded already we need instance.file.path
-        if instance.media_format == "audio":
-            try:
-                instance.media_duration = File(instance.file).info.length
-            except MutagenError:
-                instance.media_duration = File(instance.file.path).info.length
-
-        if instance.media_format == "video":
-            try:
-                instance.media_duration = MP4(instance.file).info.length
-            except (MutagenError, ValueError):
-                instance.media_duration = MP4(instance.file.path).info.length
-                raise Exception(MP4(instance.file.path).info.length)
-
         if commit:
             instance.save()
 
@@ -162,9 +131,6 @@ class MediaObjectAdminForm(forms.ModelForm):
 
             FileExtensionValidator(allowed_extensions=["jpg", "jpeg"])(cleaned_data["file"])
 
-            if any(cleaned_data.get(x, False) for x in AUDIO_VIDEO_FIELDS):
-                raise forms.ValidationError(_("You submitted value(s) for field(s) which are not supported for the media_format image."))
-
             if not cleaned_data["img_alt"]:
                 raise forms.ValidationError(_("You need to provide an alternative text to be displayed for this image."))
 
@@ -174,3 +140,36 @@ class MediaObjectAdminForm(forms.ModelForm):
 
             if any(cleaned_data.get(x, False) for x in IMG_FIELDS):
                 raise forms.ValidationError(_("You submitted value(s) for field(s) which are not supported for the media_format audio/video."))
+
+
+class ImageMediaObjectForm(MediaObjectAdminForm):
+
+    media_format = forms.ChoiceField(
+        choices=(
+            ("image", _("image")),
+        ),
+        widget=forms.RadioSelect(),
+        initial="image"
+    )
+
+
+# We can't use the MediaObejctAdminForm for inheritance
+# since it defines the scale calculator and the custom
+# clean method is unneccessary.
+class AudioVideoMediaObjectForm(forms.ModelForm):
+    media_format = forms.ChoiceField(
+        choices=(
+            ("audio", _("audio")),
+            ("video", _("video")),
+        ),
+        widget=forms.RadioSelect(),
+    )
+
+    def clean(self):
+        """
+        Extend clean method by checkong wether the uploaded file is a mp3 or mp4.
+        :return:
+        """
+        cleaned_data = super(AudioVideoMediaObjectForm, self).clean()
+
+        FileExtensionValidator(allowed_extensions=["mp3", "mp4"])(cleaned_data["file"])
