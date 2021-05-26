@@ -24,7 +24,7 @@ class DeepZoom(models.Model):
 
     dzi_option = models.BooleanField(default=False, verbose_name="Deep Zoom option")
     dzi_file = models.FileField(
-        null=True, editable=False, verbose_name="Deep Zoom file"
+        null=True, editable=False, verbose_name="Deep Zoom file", max_length=200
     )
 
     def create_deepzoom_files(self, upload_to="dzi"):
@@ -151,9 +151,7 @@ class MediaObject(DeepZoom):
         default="", null=True, blank=True, verbose_name="description (Markdown)"
     )
     audio = models.FileField(upload_to="audio/", null=True, blank=True)
-    audio_duration = models.FloatField(null=True, blank=True, editable=False)
 
-    media_duration = models.FloatField(null=True, editable=False, verbose_name=_("duration of audio/video file"))
 
     title = models.CharField(max_length=200, null=True, blank=True, verbose_name=_("title of image/audio/video file"))
 
@@ -168,3 +166,31 @@ class MediaObject(DeepZoom):
 
     class Meta:
         image_field_name = "file"
+
+
+class ImageManager(models.Manager):
+
+    def get_queryset(self):
+        return super(ImageManager, self).get_queryset().filter(media_format="image")
+
+
+class AudioVideoManager(models.Manager):
+
+    def get_queryset(self):
+        return super(AudioVideoManager, self).get_queryset().exclude(media_format="image")
+
+
+class ImageMediaObject(MediaObject):
+
+    objects = ImageManager()
+
+    class Meta:
+        proxy = True
+
+
+class AudioVideoMediaObject(MediaObject):
+
+    objects = AudioVideoManager()
+
+    class Meta:
+        proxy = True
