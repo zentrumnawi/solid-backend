@@ -2,8 +2,8 @@ from django.contrib import admin, messages
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.utils.translation import ugettext_lazy as _
 
-from .forms import MediaObjectAdminForm, MediaObjectInlineFormSet
-from .models import MediaObject
+from .forms import MediaObjectAdminForm, MediaObjectInlineFormSet, GENERAL_FIELDS, IMG_FIELDS, ImageMediaObjectForm, AudioVideoMediaObjectForm
+from .models import MediaObject, ImageMediaObject, AudioVideoMediaObject
 
 fields = [
     "profile_position",
@@ -20,10 +20,6 @@ fields = [
     ("length_value", "length_unit", "pixel_number"),
     "img_original_scale",
     "audio",
-    "audio_duration",
-
-    # Fields for "audio"/"video" selected
-    "media_duration",
 
     "description",
     "date",
@@ -35,8 +31,7 @@ readonly_fields = [
     "img_original_width",
     "img_original_height",
     "img_original_scale",
-    "audio_duration",
-    "media_duration",
+
 ]
 
 
@@ -81,6 +76,30 @@ class MediaObjectInline(GenericTabularInline):
     extra = 1
     fields = fields
     readonly_fields = readonly_fields
+
+
+class ImageMediaObjectInline(GenericTabularInline):
+    model = ImageMediaObject
+    form = ImageMediaObjectForm
+    formset = MediaObjectInlineFormSet
+    extra = 1
+    fields = GENERAL_FIELDS + IMG_FIELDS
+    readonly_fields = readonly_fields
+
+    verbose_name = _("Image")
+    verbose_name_plural = _("Images")
+
+
+class AudioVideoMediaObjectInline(GenericTabularInline):
+    model = AudioVideoMediaObject
+    form = AudioVideoMediaObjectForm
+    formset = MediaObjectInlineFormSet
+    extra = 1
+    fields = GENERAL_FIELDS
+    readonly_fields = readonly_fields
+
+    verbose_name = _("Audio/Video")
+    verbose_name_plural = _("Audios and Videos")
 
 
 class MediaObjectAdmin(DeepZoomAdmin):
