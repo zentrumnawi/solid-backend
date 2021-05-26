@@ -1,7 +1,7 @@
 from django.db import models
 
 from solid_backend.content.fields import ConcatCharField, FromToConcatField
-from solid_backend.content.models import BaseProfile, SolidBaseProfile
+from solid_backend.content.models import SolidBaseProfile
 
 
 class SampleProfile(SolidBaseProfile):

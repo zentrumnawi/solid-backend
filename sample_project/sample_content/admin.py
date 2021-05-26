@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from solid_backend.photograph.admin import PhotographInline
-from solid_backend.media_object.admin import MediaObjectInline
+from solid_backend.media_object.admin import ImageMediaObjectInline, AudioVideoMediaObjectInline
+
 
 from .models import SampleProfile
 
@@ -9,7 +9,8 @@ from .models import SampleProfile
 class SampleProfileAdmin(admin.ModelAdmin):
     list_display = ("id", "name", "tree_node")
     list_display_links = ("name",)
-    inlines = [MediaObjectInline]
+
+    inlines = [ImageMediaObjectInline, AudioVideoMediaObjectInline]
 
 
 admin.site.register(SampleProfile, SampleProfileAdmin)
