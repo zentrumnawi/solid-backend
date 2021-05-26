@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('dzi_option', models.BooleanField(default=False, verbose_name='Deep Zoom option')),
-                ('dzi_file', models.FileField(editable=False, null=True, upload_to='', verbose_name='Deep Zoom file')),
+                ('dzi_file', models.FileField(editable=False, null=True, max_length=200, upload_to='', verbose_name='Deep Zoom file')),
                 ('object_id', models.PositiveIntegerField(default=0)),
                 ('profile_position', models.PositiveSmallIntegerField(blank=True, null=True)),
                 ('media_format', models.CharField(choices=[('image', 'image'), ('audio', 'audio'), ('video', 'video')], max_length=5, verbose_name='media format')),
@@ -30,8 +30,6 @@ class Migration(migrations.Migration):
                 ('img_alt', models.CharField(blank=True, max_length=200, null=True, verbose_name='alternative text')),
                 ('description', models.TextField(blank=True, default='', null=True, verbose_name='description (Markdown)')),
                 ('audio', models.FileField(blank=True, null=True, upload_to='audio/')),
-                ('audio_duration', models.FloatField(blank=True, editable=False, null=True)),
-                ('media_duration', models.FloatField(editable=False, null=True, verbose_name='duration of audio/video file')),
                 ('title', models.CharField(blank=True, max_length=200, null=True, verbose_name='title of image/audio/video file')),
                 ('date', models.DateField(blank=True, help_text='Date of creation', null=True)),
                 ('author', models.CharField(blank=True, default='', max_length=100)),
