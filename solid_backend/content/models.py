@@ -5,8 +5,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
 
-from solid_backend.photograph.models import Photograph
 from solid_backend.media_object.models import MediaObject
+from solid_backend.photograph.models import Photograph
 
 
 class TreeNode(MPTTModel):
@@ -35,7 +35,9 @@ class TreeNode(MPTTModel):
 
 def base_profile(*args, **kwargs):
 
-    warnings.warn("BaseProfile is deprecated; use SolidBaseProfile instead.", DeprecationWarning)
+    warnings.warn(
+        "BaseProfile is deprecated; use SolidBaseProfile instead.", DeprecationWarning
+    )
 
     class _BaseProfile(models.Model):
 
@@ -56,9 +58,12 @@ def base_profile(*args, **kwargs):
 
         class Meta:
             abstract = True
+
     return _BaseProfile
 
+
 BaseProfile = base_profile()
+
 
 class SolidBaseProfile(models.Model):
     """

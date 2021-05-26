@@ -5,14 +5,19 @@ from django.utils.translation import ugettext_lazy as _
 
 
 def validate_media_object_file_extensions(value):
-    return FileExtensionValidator(allowed_extensions=["jpg", "jpeg", "mp3", "mp4"])(value)
+    return FileExtensionValidator(allowed_extensions=["jpg", "jpeg", "mp3", "mp4"])(
+        value
+    )
 
 
 class MediaObjectFormField(forms.FileField):
     """
     Form field to accept jpg, jpeg, mp3 and mp4 files.
     """
-    default_validators = [validate_media_object_file_extensions,]
+
+    default_validators = [
+        validate_media_object_file_extensions,
+    ]
 
 
 class MediaObjectInlineFormSet(BaseGenericInlineFormSet):
@@ -68,13 +73,10 @@ class MediaObjectAdminForm(forms.ModelForm):
     """
     Calculate the scale and determine the audio duration.
     """
+
     media_format = forms.ChoiceField(
-        choices=(
-            ("image", _("image")),
-            ("audio", _("audio")),
-            ("video", _("video")),
-        ),
-        widget=forms.RadioSelect()
+        choices=(("image", _("image")), ("audio", _("audio")), ("video", _("video")),),
+        widget=forms.RadioSelect(),
     )
     LENGTH_UNIT_CHOICES = [
         (1.00, "m"),
@@ -129,27 +131,35 @@ class MediaObjectAdminForm(forms.ModelForm):
 
         if cleaned_data["media_format"] == "image":
 
-            FileExtensionValidator(allowed_extensions=["jpg", "jpeg"])(cleaned_data["file"])
+            FileExtensionValidator(allowed_extensions=["jpg", "jpeg"])(
+                cleaned_data["file"]
+            )
 
             if not cleaned_data["img_alt"]:
-                raise forms.ValidationError(_("You need to provide an alternative text to be displayed for this image."))
+                raise forms.ValidationError(
+                    _(
+                        "You need to provide an alternative text to be displayed for this image."
+                    )
+                )
 
         else:
 
-            FileExtensionValidator(allowed_extensions=["mp3", "mp4"])(cleaned_data["file"])
+            FileExtensionValidator(allowed_extensions=["mp3", "mp4"])(
+                cleaned_data["file"]
+            )
 
             if any(cleaned_data.get(x, False) for x in IMG_FIELDS):
-                raise forms.ValidationError(_("You submitted value(s) for field(s) which are not supported for the media_format audio/video."))
+                raise forms.ValidationError(
+                    _(
+                        "You submitted value(s) for field(s) which are not supported for the media_format audio/video."
+                    )
+                )
 
 
 class ImageMediaObjectForm(MediaObjectAdminForm):
 
     media_format = forms.ChoiceField(
-        choices=(
-            ("image", _("image")),
-        ),
-        widget=forms.RadioSelect(),
-        initial="image"
+        choices=(("image", _("image")),), widget=forms.RadioSelect(), initial="image"
     )
 
 
@@ -158,10 +168,7 @@ class ImageMediaObjectForm(MediaObjectAdminForm):
 # clean method is unneccessary.
 class AudioVideoMediaObjectForm(forms.ModelForm):
     media_format = forms.ChoiceField(
-        choices=(
-            ("audio", _("audio")),
-            ("video", _("video")),
-        ),
+        choices=(("audio", _("audio")), ("video", _("video")),),
         widget=forms.RadioSelect(),
     )
 

@@ -133,7 +133,8 @@ class TestPhotographModelFields:
 
     def test_field_type_audio_duration(self, media_object_model_class):
         assert isinstance(
-            media_object_model_class._meta.get_field("audio_duration"), models.FloatField
+            media_object_model_class._meta.get_field("audio_duration"),
+            models.FloatField,
         )
 
     def test_field_type_profile_position(self, media_object_model_class):

@@ -8,10 +8,11 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.forms import FileField, ImageField
-from stdimage.models import JPEGFieldFile, StdImageField, JPEGField
 from django.utils.translation import ugettext_lazy as _
+from stdimage.models import JPEGField, JPEGFieldFile, StdImageField
 
 from solid_backend.openzoom import deepzoom
+
 from .forms import MediaObjectFormField
 
 options.DEFAULT_NAMES = options.DEFAULT_NAMES + ("image_field_name",)
@@ -79,7 +80,6 @@ class DeepZoom(models.Model):
 
 
 class MediaObjectFieldFile(JPEGFieldFile):
-
     def render_variations(self, replace=True):
         if self.instance.media_format == "image":
             super(MediaObjectFieldFile, self).render_variations(replace)
@@ -94,13 +94,11 @@ class MediaObjectField(StdImageField):
     A JPEGFieldField which acts like JPEGFieldField if the provided media
     is of image type and in other cases as FileField.
     """
+
     attr_class = MediaObjectFieldFile
 
     def formfield(self, **kwargs):
-        return super().formfield(**{
-            'form_class': MediaObjectFormField,
-            **kwargs,
-        })
+        return super().formfield(**{"form_class": MediaObjectFormField, **kwargs,})
 
 
 class MediaObject(DeepZoom):
@@ -115,11 +113,7 @@ class MediaObject(DeepZoom):
 
     media_format = models.CharField(
         max_length=5,
-        choices=(
-            ("image", _("image")),
-            ("audio", _("audio")),
-            ("video", _("video")),
-        ),
+        choices=(("image", _("image")), ("audio", _("audio")), ("video", _("video")),),
         verbose_name=_("media format"),
     )
 
@@ -145,19 +139,23 @@ class MediaObject(DeepZoom):
     )
     img_original_scale = models.FloatField(verbose_name="scale", null=True, blank=True)
 
-    img_alt = models.CharField(max_length=200, null=True, blank=True, verbose_name=_("alternative text"))
+    img_alt = models.CharField(
+        max_length=200, null=True, blank=True, verbose_name=_("alternative text")
+    )
 
     description = models.TextField(
         default="", null=True, blank=True, verbose_name="description (Markdown)"
     )
     audio = models.FileField(upload_to="audio/", null=True, blank=True)
 
-
-    title = models.CharField(max_length=200, null=True, blank=True, verbose_name=_("title of image/audio/video file"))
-
-    date = models.DateField(
-        null=True, blank=True, help_text=_("Date of creation")
+    title = models.CharField(
+        max_length=200,
+        null=True,
+        blank=True,
+        verbose_name=_("title of image/audio/video file"),
     )
+
+    date = models.DateField(null=True, blank=True, help_text=_("Date of creation"))
     author = models.CharField(max_length=100, default="", blank=True)
     license = models.CharField(max_length=100, default="", blank=True)
 
@@ -169,15 +167,15 @@ class MediaObject(DeepZoom):
 
 
 class ImageManager(models.Manager):
-
     def get_queryset(self):
         return super(ImageManager, self).get_queryset().filter(media_format="image")
 
 
 class AudioVideoManager(models.Manager):
-
     def get_queryset(self):
-        return super(AudioVideoManager, self).get_queryset().exclude(media_format="image")
+        return (
+            super(AudioVideoManager, self).get_queryset().exclude(media_format="image")
+        )
 
 
 class ImageMediaObject(MediaObject):

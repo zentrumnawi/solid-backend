@@ -2,15 +2,21 @@ from django.contrib import admin, messages
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.utils.translation import ugettext_lazy as _
 
-from .forms import MediaObjectAdminForm, MediaObjectInlineFormSet, GENERAL_FIELDS, IMG_FIELDS, ImageMediaObjectForm, AudioVideoMediaObjectForm
-from .models import MediaObject, ImageMediaObject, AudioVideoMediaObject
+from .forms import (
+    GENERAL_FIELDS,
+    IMG_FIELDS,
+    AudioVideoMediaObjectForm,
+    ImageMediaObjectForm,
+    MediaObjectAdminForm,
+    MediaObjectInlineFormSet,
+)
+from .models import AudioVideoMediaObject, ImageMediaObject, MediaObject
 
 fields = [
     "profile_position",
     # Data
     "media_format",
     ("file", "dzi_option"),
-
     "title",
     # Fields for "image" selected
     "img_alt",
@@ -20,7 +26,6 @@ fields = [
     ("length_value", "length_unit", "pixel_number"),
     "img_original_scale",
     "audio",
-
     "description",
     "date",
     "author",
@@ -31,7 +36,6 @@ readonly_fields = [
     "img_original_width",
     "img_original_height",
     "img_original_scale",
-
 ]
 
 
@@ -114,7 +118,10 @@ class MediaObjectAdmin(DeepZoomAdmin):
         return str(obj.profile)
 
     class Media:
-        js = ("//ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js", "media_object/js/hide_elements.js")
+        js = (
+            "//ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js",
+            "media_object/js/hide_elements.js",
+        )
         css = {
             "all": ("media_object/css/radio.css",),
         }
