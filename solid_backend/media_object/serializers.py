@@ -4,7 +4,7 @@ from .models import MediaObject
 
 
 # Class derived from django-stdimage-serializer 0.1.2
-class StdImageField(serializers.ImageField):
+class MediaFileField(serializers.ImageField):
     """
     Get all the variations of the StdImageField
     """
@@ -13,6 +13,8 @@ class StdImageField(serializers.ImageField):
         return self.get_variations_urls(obj)
 
     def to_representation(self, obj):
+        if not obj.path.endswith("jpg"):
+            return super(MediaFileField, self).to_representation(obj)
         return self.get_variations_urls(obj)
 
     def get_variations_urls(self, obj):
@@ -39,12 +41,12 @@ class StdImageField(serializers.ImageField):
                     if field_obj and hasattr(field_obj, "url"):
                         # store it, with the name of the variation type into our return object
                         return_object[key] = super(
-                            StdImageField, self
+                            MediaFileField, self
                         ).to_representation(field_obj)
 
         # Also include the original (if possible)
         if hasattr(obj, "url"):
-            return_object["original"] = super(StdImageField, self).to_representation(
+            return_object["original"] = super(MediaFileField, self).to_representation(
                 obj
             )
 
@@ -52,7 +54,7 @@ class StdImageField(serializers.ImageField):
 
 
 class MediaObjectSerializer(serializers.ModelSerializer):
-    img = StdImageField()
+    file = MediaFileField()
 
     class Meta:
         model = MediaObject
