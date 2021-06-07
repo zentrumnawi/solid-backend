@@ -32,7 +32,7 @@ class ContactView(generics.GenericAPIView):
         data = serializer.data
 
         message = EmailMessage(
-            subject=data["subject"],
+            subject="[{}] {}".format(settings.PROJECT_NAME, data["subject"]),
             body=format_message(
                 request.build_absolute_uri(),
                 data["name"],
