@@ -1,3 +1,9 @@
+Version 0.1.20 (07.06.2021)
+***************************
+- Add media_object app as extension of photpgraph app.
+- Fix the static filtering in the message app.
+- Make the subject of the emails sent by the contact app dynamically add the PROJECT_NAME
+
 Version 0.1.19 (05.05.2021)
 ***************************
 - Hotfix contact App.
