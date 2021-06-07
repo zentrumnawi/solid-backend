@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "solid_backend.message.apps.MessageConfig",
     "solid_backend.slideshow.apps.SlideshowConfig",
     "solid_backend.photograph.apps.PhotographConfig",
+    "solid_backend.media_object.apps.MediaObjectConfig",
     "django_cleanup.apps.CleanupConfig",  # Should be placed last!
 ]
 

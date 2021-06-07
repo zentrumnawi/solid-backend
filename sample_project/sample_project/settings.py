@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "solid_backend.quiz",
     "solid_backend.slideshow",
     "solid_backend.photograph",
+    "solid_backend.media_object",
     "sample_content.apps.SampleContentConfig",
     "django_cleanup.apps.CleanupConfig",  # Should be placed last!
 ]
@@ -129,7 +130,7 @@ USE_TZ = True
 # MEDIA CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = "./media"
+MEDIA_ROOT = BASE_DIR.path("media")
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = "/media/"
