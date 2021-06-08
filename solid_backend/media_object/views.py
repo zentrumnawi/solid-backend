@@ -11,4 +11,4 @@ class MediaObjectEndpoint(ReadOnlyModelViewSet):
 
     queryset = MediaObject.objects.all()
     serializer_class = MediaObjectSerializer
-    name = "photograph"
+    name = "media_object"
