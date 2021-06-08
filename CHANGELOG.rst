@@ -1,4 +1,4 @@
-Version 0.1.20 (07.06.2021)
+Version 0.1.21a1 (07.06.2021)
 ***************************
 - Add media_object app as extension of photpgraph app.
 - Fix the static filtering in the message app.
