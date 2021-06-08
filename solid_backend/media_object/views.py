@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from .models import MediaObject
-from .serializers import PhotographSerializer
+from .serializers import MediaObjectSerializer
 
 
 class MediaObjectEndpoint(ReadOnlyModelViewSet):
@@ -10,5 +10,5 @@ class MediaObjectEndpoint(ReadOnlyModelViewSet):
     """
 
     queryset = MediaObject.objects.all()
-    serializer_class = PhotographSerializer
-    name = "photograph"
+    serializer_class = MediaObjectSerializer
+    name = "media_object"

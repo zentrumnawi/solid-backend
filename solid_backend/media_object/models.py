@@ -103,7 +103,7 @@ class MediaObjectField(StdImageField):
 
 class MediaObject(DeepZoom):
     """
-    Model for a photograph.
+    Model for a media object.
     """
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
