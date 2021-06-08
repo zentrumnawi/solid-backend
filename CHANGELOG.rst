@@ -1,3 +1,9 @@
+Version 0.1.21a2 (08.06.2021)
+***************************
+- Fix naming issues
+- add MediaObject Endpoint to project urls.py
+- fix import error
+
 Version 0.1.21a1 (07.06.2021)
 ***************************
 - Add media_object app as extension of photpgraph app.
