@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "solid-backend"
-version = "0.1.19"
+version = "0.1.20"
 description = "Clean Django app for e-learning application with..."
 authors = [
 	"Christian Grossmüller <chgad.games@gmail.com>",
