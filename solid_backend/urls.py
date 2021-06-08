@@ -8,6 +8,7 @@ urlpatterns = [
     path("", include("solid_backend.glossary.urls")),
     path("", include("solid_backend.message.urls")),
     path("", include("solid_backend.photograph.urls")),
+    path("", include("solid_backend.media_object.urls")),
     path("", include("solid_backend.quiz.urls")),
     path("", include("solid_backend.slideshow.urls")),
 ]
