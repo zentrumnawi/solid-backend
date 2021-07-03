@@ -184,6 +184,7 @@ class ImageMediaObject(MediaObject):
 
     class Meta:
         proxy = True
+        image_field_name = "file"
 
 
 class AudioVideoMediaObject(MediaObject):
@@ -192,3 +193,4 @@ class AudioVideoMediaObject(MediaObject):
 
     class Meta:
         proxy = True
+        image_field_name = "file"
