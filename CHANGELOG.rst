@@ -1,3 +1,9 @@
+Version 0.1.21a3 (03.07.2021)
+***************************
+- Add proxy model migrations
+- Add missing attribute to Meta class of proxy models
+
+
 Version 0.1.21a2 (08.06.2021)
 ***************************
 - Fix naming issues
