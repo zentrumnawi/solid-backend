@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db.models import Prefetch
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
-from solid_backend.photograph.models import Photograph
+from solid_backend.media_object.models import MediaObject
 
 from .models import TreeNode
 from .serializers import TreeNodeSerializer
@@ -29,8 +29,8 @@ class ProfileEndpoint(ReadOnlyModelViewSet):
 
         # Generate a list of lookups for the profiles with their related photographs
         # ordered by their profile_positions up to level_max in the tree structure.
-        lookup = "profiles__photographs"
-        queryset = Photograph.objects.order_by("profile_position")
+        lookup = "profiles__media_objects"
+        queryset = MediaObject.objects.order_by("profile_position")
         lookup_list = [Prefetch(lookup, queryset=queryset)]
 
         for i in range(level_max):
