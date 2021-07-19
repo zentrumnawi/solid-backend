@@ -1,3 +1,9 @@
+Version 0.1.21a3 (19.07.2021)
+***************************
+- Fix sample project
+- Fix Condition in MediaFileField to recognize all variations of jpg and jpeg fiel extensions
+- Return dict of kind `{ "original": <url>}`  for audio and video files
+
 Version 0.1.21a3 (03.07.2021)
 ***************************
 - Add proxy model migrations
