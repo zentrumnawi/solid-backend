@@ -13,7 +13,7 @@ class MediaFileField(serializers.ImageField):
         return self.get_variations_urls(obj)
 
     def to_representation(self, obj):
-        if not obj.path.endswith("jpg"):
+        if not obj.path.lower().endswith(("jpg", "jpeg")):
             return super(MediaFileField, self).to_representation(obj)
         return self.get_variations_urls(obj)
 
