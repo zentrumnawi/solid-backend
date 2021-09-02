@@ -1,3 +1,7 @@
+Version 0.1.22 (02.09.2021)
+***************************
+- Amend field ordering in MediaObject inlines.
+
 Version 0.1.21 (01.09.2021)
 ***************************
 Version 0.1.21a3 (19.07.2021)
