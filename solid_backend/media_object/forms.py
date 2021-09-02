@@ -46,9 +46,18 @@ class MediaObjectInlineFormSet(BaseGenericInlineFormSet):
 
 
 # Field Lists for validating the MediaObjectForm
-GENERAL_FIELDS = [
+GENERAL_FIELDS_1 = [
+    "profile_position",
     "media_format",
     "file",
+]
+
+IMG_FIELDS_1 = [
+    "dzi_option",
+    "img_alt",
+]
+
+GENERAL_FIELDS_2 = [
     "title",
     "description",
     "date",
@@ -56,17 +65,16 @@ GENERAL_FIELDS = [
     "license",
 ]
 
-# length_unit is missing from this list since it always has a non-False default anyways
-IMG_FIELDS = [
-    "dzi_option",
-    "img_alt",
-    "dzi_file",
-    "img_original_width",
-    "img_original_height",
+IMG_FIELDS_2 = [
     ("length_value", "length_unit", "pixel_number"),
     "img_original_scale",
     "audio",
+    "dzi_file",
+    "img_original_width",
+    "img_original_height",
 ]
+# length_unit is missing from this list since it always has a non-False default anyways
+IMG_FIELDS = IMG_FIELDS_1 + IMG_FIELDS_2
 
 
 class MediaObjectAdminForm(forms.ModelForm):
