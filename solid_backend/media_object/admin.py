@@ -3,8 +3,11 @@ from django.contrib.contenttypes.admin import GenericTabularInline
 from django.utils.translation import ugettext_lazy as _
 
 from .forms import (
-    GENERAL_FIELDS,
+    GENERAL_FIELDS_1,
+    GENERAL_FIELDS_2,
     IMG_FIELDS,
+    IMG_FIELDS_1,
+    IMG_FIELDS_2,
     AudioVideoMediaObjectForm,
     ImageMediaObjectForm,
     MediaObjectAdminForm,
@@ -87,7 +90,7 @@ class ImageMediaObjectInline(GenericTabularInline):
     form = ImageMediaObjectForm
     formset = MediaObjectInlineFormSet
     extra = 1
-    fields = GENERAL_FIELDS + IMG_FIELDS
+    fields = GENERAL_FIELDS_1 + IMG_FIELDS_1 + GENERAL_FIELDS_2 + IMG_FIELDS_2
     readonly_fields = readonly_fields
 
     verbose_name = _("Image")
@@ -99,7 +102,7 @@ class AudioVideoMediaObjectInline(GenericTabularInline):
     form = AudioVideoMediaObjectForm
     formset = MediaObjectInlineFormSet
     extra = 1
-    fields = GENERAL_FIELDS
+    fields = GENERAL_FIELDS_1 + GENERAL_FIELDS_2
     readonly_fields = readonly_fields
 
     verbose_name = _("Audio/Video")
