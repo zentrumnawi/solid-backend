@@ -1,3 +1,8 @@
+Version 0.1.23 (20.09.2021)
+***************************
+- Add django-taggit to requirements
+- Add Categroies to slideshow model
+
 Version 0.1.22 (02.09.2021)
 ***************************
 - Amend field ordering in MediaObject inlines.
