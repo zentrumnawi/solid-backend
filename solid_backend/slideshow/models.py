@@ -1,4 +1,5 @@
 from django.db import models
+from taggit.managers import TaggableManager
 
 
 class Slideshow(models.Model):
@@ -12,6 +13,7 @@ class Slideshow(models.Model):
     title_image = models.OneToOneField(
         to="photograph.Photograph", on_delete=models.PROTECT, null=True, blank=True
     )
+    categories = TaggableManager()
 
     def __str__(self):
         return self.title
