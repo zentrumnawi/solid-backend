@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "mptt",
     "stdimage",
+    "taggit",
     "solid_backend.contact",
     "solid_backend.content",
     "solid_backend.glossary",

@@ -23,6 +23,7 @@ django-cleanup = "4.0.0"
 psycopg2-binary = "^2.8.5"
 mutagen = "^1.44.0"
 django-stdimage = "^5.1.1"
+django-taggit = "^1.5.1"
 
 
 [tool.poetry.dev-dependencies]
