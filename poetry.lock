@@ -42,9 +42,9 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [package.extras]
+dev = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface", "sphinx", "sphinx-rtd-theme", "pre-commit"]
 docs = ["sphinx", "sphinx-rtd-theme", "zope.interface"]
 tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface"]
-dev = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface", "sphinx", "sphinx-rtd-theme", "pre-commit"]
 
 [[package]]
 name = "backcall"
@@ -63,13 +63,13 @@ optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-regex = "*"
-typed-ast = ">=1.4.0"
-toml = ">=0.9.4"
-attrs = ">=18.1.0"
-pathspec = ">=0.6,<1"
-click = ">=6.5"
 appdirs = "*"
+attrs = ">=18.1.0"
+click = ">=6.5"
+pathspec = ">=0.6,<1"
+regex = "*"
+toml = ">=0.9.4"
+typed-ast = ">=1.4.0"
 
 [package.extras]
 d = ["aiohttp (>=3.3.2)", "aiohttp-cors"]
@@ -107,8 +107,8 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [package.dependencies]
-requests = ">=2.7.9"
 coverage = "*"
+requests = ">=2.7.9"
 
 [[package]]
 name = "colorama"
@@ -139,16 +139,16 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*"
 
 [[package]]
 name = "django"
-version = "3.0.9"
+version = "3.1.12"
 description = "A high-level Python Web framework that encourages rapid development and clean, pragmatic design."
 category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-sqlparse = ">=0.2.2"
+asgiref = ">=3.2.10,<4"
 pytz = "*"
-asgiref = ">=3.2,<4.0"
+sqlparse = ">=0.2.2"
 
 [package.extras]
 argon2 = ["argon2-cffi (>=16.1.0)"]
@@ -171,8 +171,8 @@ optional = false
 python-versions = "*"
 
 [package.dependencies]
-six = ">=1.4.0"
 coverage = "*"
+six = ">=1.4.0"
 
 [[package]]
 name = "django-debug-toolbar"
@@ -183,8 +183,8 @@ optional = false
 python-versions = ">=3.5"
 
 [package.dependencies]
-sqlparse = ">=0.2.0"
 Django = ">=1.11"
+sqlparse = ">=0.2.0"
 
 [[package]]
 name = "django-environ"
@@ -222,8 +222,8 @@ optional = false
 python-versions = ">=3.5"
 
 [package.dependencies]
-django-js-asset = "*"
 Django = ">=1.11"
+django-js-asset = "*"
 
 [[package]]
 name = "django-stdimage"
@@ -234,9 +234,9 @@ optional = false
 python-versions = "*"
 
 [package.dependencies]
-progressbar2 = ">=3.0.0"
-pillow = ">=2.5"
 Django = ">=1.11"
+pillow = ">=2.5"
+progressbar2 = ">=3.0.0"
 
 [[package]]
 name = "django-taggit"
@@ -283,10 +283,10 @@ optional = false
 python-versions = ">=3.4"
 
 [package.extras]
-tornado = ["tornado (>=0.2)"]
+eventlet = ["eventlet (>=0.9.7)"]
 gevent = ["gevent (>=0.13)"]
 setproctitle = ["setproctitle"]
-eventlet = ["eventlet (>=0.9.7)"]
+tornado = ["tornado (>=0.2)"]
 
 [[package]]
 name = "idna"
@@ -331,27 +331,27 @@ optional = false
 python-versions = ">=3.7"
 
 [package.dependencies]
-backcall = "*"
 appnope = {version = "*", markers = "sys_platform == \"darwin\""}
-pexpect = {version = "*", markers = "sys_platform != \"win32\""}
-traitlets = ">=4.2"
-jedi = ">=0.10"
-pygments = "*"
+backcall = "*"
 colorama = {version = "*", markers = "sys_platform == \"win32\""}
-prompt-toolkit = ">=2.0.0,<3.0.0 || >3.0.0,<3.0.1 || >3.0.1,<3.1.0"
-pickleshare = "*"
 decorator = "*"
+jedi = ">=0.10"
+pexpect = {version = "*", markers = "sys_platform != \"win32\""}
+pickleshare = "*"
+prompt-toolkit = ">=2.0.0,<3.0.0 || >3.0.0,<3.0.1 || >3.0.1,<3.1.0"
+pygments = "*"
+traitlets = ">=4.2"
 
 [package.extras]
-nbformat = ["nbformat"]
 all = ["Sphinx (>=1.3)", "ipykernel", "ipyparallel", "ipywidgets", "nbconvert", "nbformat", "nose (>=0.10.1)", "notebook", "numpy (>=1.14)", "pygments", "qtconsole", "requests", "testpath"]
-kernel = ["ipykernel"]
 doc = ["Sphinx (>=1.3)"]
-notebook = ["notebook", "ipywidgets"]
+kernel = ["ipykernel"]
 nbconvert = ["nbconvert"]
+nbformat = ["nbformat"]
+notebook = ["notebook", "ipywidgets"]
+parallel = ["ipyparallel"]
 qtconsole = ["qtconsole"]
 test = ["nose (>=0.10.1)", "requests", "testpath", "pygments", "nbformat", "ipykernel", "numpy (>=1.14)"]
-parallel = ["ipyparallel"]
 
 [[package]]
 name = "ipython-genutils"
@@ -370,9 +370,9 @@ optional = false
 python-versions = ">=3.6,<4.0"
 
 [package.extras]
-colors = ["colorama (>=0.4.3,<0.5.0)"]
 pipfile_deprecated_finder = ["pipreqs", "requirementslib", "tomlkit (>=0.5.3)"]
 requirements_deprecated_finder = ["pipreqs", "pip-api"]
+colors = ["colorama (>=0.4.3,<0.5.0)"]
 
 [[package]]
 name = "jedi"
@@ -494,8 +494,8 @@ optional = false
 python-versions = "*"
 
 [package.dependencies]
-six = "*"
 python-utils = ">=2.3.0"
+six = "*"
 
 [package.extras]
 docs = ["sphinx (>=1.7.4)"]
@@ -577,15 +577,15 @@ optional = false
 python-versions = ">=3.5"
 
 [package.dependencies]
+atomicwrites = {version = ">=1.0", markers = "sys_platform == \"win32\""}
+attrs = ">=17.4.0"
+colorama = {version = "*", markers = "sys_platform == \"win32\""}
+importlib-metadata = {version = ">=0.12", markers = "python_version < \"3.8\""}
 more-itertools = ">=4.0.0"
+packaging = "*"
+pluggy = ">=0.12,<1.0"
 py = ">=1.5.0"
 wcwidth = "*"
-packaging = "*"
-importlib-metadata = {version = ">=0.12", markers = "python_version < \"3.8\""}
-colorama = {version = "*", markers = "sys_platform == \"win32\""}
-attrs = ">=17.4.0"
-pluggy = ">=0.12,<1.0"
-atomicwrites = {version = ">=1.0", markers = "sys_platform == \"win32\""}
 
 [package.extras]
 checkqa-mypy = ["mypy (==v0.761)"]
@@ -600,8 +600,8 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [package.dependencies]
-pytest = ">=3.6"
 coverage = ">=4.4"
+pytest = ">=3.6"
 
 [package.extras]
 testing = ["fields", "hunter", "process-tests (==2.0.2)", "six", "pytest-xdist", "virtualenv"]
@@ -630,8 +630,8 @@ optional = false
 python-versions = "*"
 
 [package.dependencies]
-pytest = ">=3.5"
 isort = ">=4.0"
+pytest = ">=3.5"
 
 [package.extras]
 dev = ["mock"]
@@ -685,9 +685,9 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [package.dependencies]
-idna = ">=2.5,<3"
 certifi = ">=2017.4.17"
 chardet = ">=3.0.2,<4"
+idna = ">=2.5,<3"
 urllib3 = ">=1.21.1,<1.25.0 || >1.25.0,<1.25.1 || >1.25.1,<1.26"
 
 [package.extras]
@@ -735,9 +735,9 @@ optional = false
 python-versions = "*"
 
 [package.dependencies]
-six = "*"
-ipython-genutils = "*"
 decorator = "*"
+ipython-genutils = "*"
+six = "*"
 
 [package.extras]
 test = ["pytest", "mock"]
@@ -780,8 +780,8 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [package.extras]
-watchdog = ["watchdog"]
 dev = ["pytest", "pytest-timeout", "coverage", "tox", "sphinx", "pallets-sphinx-themes", "sphinx-issues"]
+watchdog = ["watchdog"]
 
 [[package]]
 name = "zipp"
@@ -798,7 +798,7 @@ testing = ["jaraco.itertools", "func-timeout"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "1cf7544d9d20d3c426c32acb779cd6b08baeea555fa47bbae6fbc36544ffd705"
+content-hash = "e9f7e643f648c9aa1a36859ced15205d9a5278e9059738d9244f3a11cd55b7c4"
 
 [metadata.files]
 appdirs = [
@@ -888,8 +888,8 @@ decorator = [
     {file = "decorator-4.4.2.tar.gz", hash = "sha256:e3a62f0520172440ca0dcc823749319382e377f37f140a0b99ef45fecb84bfe7"},
 ]
 django = [
-    {file = "Django-3.0.9-py3-none-any.whl", hash = "sha256:96fbe04e8ba0df289171e7f6970e0ff8b472bf4f909ed9e0e5beccbac7e1dbbe"},
-    {file = "Django-3.0.9.tar.gz", hash = "sha256:c22b4cd8e388f8219dc121f091e53a8701f9f5bca9aa132b5254263cab516215"},
+    {file = "Django-3.1.12-py3-none-any.whl", hash = "sha256:a523d62b7ab2908f551dabc32b99017a86aa7784e32b761708e52be3dce6d35d"},
+    {file = "Django-3.1.12.tar.gz", hash = "sha256:dc41bf07357f1f4810c1c555b685cb51f780b41e37892d6cc92b89789f2847e1"},
 ]
 django-cleanup = [
     {file = "django-cleanup-4.0.0.tar.gz", hash = "sha256:412c3f9417ddaaaa561b60237b109550b16e556db92d4616278fc7e1ad9ab0a4"},
