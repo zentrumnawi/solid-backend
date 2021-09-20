@@ -41,6 +41,7 @@ Requirements for this package are:
 * pillow 7.1.2
 * django-cleanup 4.0.0
 * psycopg2-binary 2.8.5
+* django-taggit 1.5.1
 
 Psycopg2 is important because we are using PostgreSQL specific databasefields. This means that
 you are also required to use a PostgreSQL database.
