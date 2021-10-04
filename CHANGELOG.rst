@@ -1,3 +1,7 @@
+Version 0.1.24 (04.10.2021)
+***************************
+- Add "Categories" to SlideshowAdmin
+
 Version 0.1.23 (20.09.2021)
 ***************************
 - Add django-taggit to requirements
