@@ -18,7 +18,7 @@ class SlideshowImageInline(admin.TabularInline):
 
 class SlideshowAdmin(admin.ModelAdmin):
     form = SlideshowAdminForm
-    fields = [("position", "active"), "title", "title_image"]
+    fields = [("position", "active"), "title", "title_image", "categories"]
     list_display = ["id", "title", "position", "title_image", "active"]
     list_display_links = ["title"]
     inlines = [SlideshowPageInline]
