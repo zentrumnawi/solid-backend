@@ -1,5 +1,5 @@
 from rest_framework import serializers
-
+from taggit.models import Tag
 from solid_backend.photograph.serializers import PhotographSerializer
 from solid_backend.utils.serializers import DynamicExcludeModelSerializer
 
@@ -29,3 +29,10 @@ class SlideshowSerializer(serializers.ModelSerializer):
     class Meta:
         model = Slideshow
         exclude = ["active"]
+
+
+class CategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Tag
+        fields = "__all__"
