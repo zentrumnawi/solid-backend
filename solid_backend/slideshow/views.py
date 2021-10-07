@@ -1,11 +1,13 @@
 from django.db.models import Prefetch
 from rest_framework.viewsets import ReadOnlyModelViewSet
+from taggit.models import Tag
 
 from .models import Slideshow, SlideshowImage, SlideshowPage
 from .serializers import (
     SlideshowImageSerializer,
     SlideshowPageSerializer,
     SlideshowSerializer,
+    CategorySerializer
 )
 
 
@@ -28,6 +30,16 @@ class SlideshowEndpoint(ReadOnlyModelViewSet):
             )
         )
     )
+
+    def get_queryset(self):
+        queryset = super(SlideshowEndpoint, self).get_queryset()
+        category = self.request.query_params.get("categories")
+
+        if category is not None:
+            queryset = queryset.filter(categories=category)
+
+        return queryset
+
     serializer_class = SlideshowSerializer
     name = "slideshow"
 
@@ -52,3 +64,9 @@ class SlideshowImageEndpoint(ReadOnlyModelViewSet):
     queryset = SlideshowImage.objects.order_by("page", "position")
     serializer_class = SlideshowImageSerializer
     name = "slideshowimage"
+
+
+class CategoryEndpoint(ReadOnlyModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = CategorySerializer
+    name = "category"
