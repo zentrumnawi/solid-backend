@@ -1,3 +1,7 @@
+Version 0.1.25 (08.11.2021)
+***************************
+- Minor fixes to SlideShows
+
 Version 0.1.24 (04.10.2021)
 ***************************
 - Add "Categories" to SlideshowAdmin
