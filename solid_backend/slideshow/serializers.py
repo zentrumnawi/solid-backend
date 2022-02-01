@@ -25,14 +25,18 @@ class SlideshowPageSerializer(DynamicExcludeModelSerializer):
         fields = "__all__"
 
 
-class SlideshowSerializer(serializers.ModelSerializer):
+class MinimalSlideshowSerializer(serializers.ModelSerializer):
     title_image = PhotographSerializer(required=False)
-    pages = SlideshowPageSerializer(exclude="show", many=True, required=False)
     categories = TagListSerializerField()
 
     class Meta:
         model = Slideshow
         exclude = ["active"]
+
+
+class CompleteSlideshowSerializer(MinimalSlideshowSerializer):
+
+    pages = SlideshowPageSerializer(exclude="show", many=True, required=False)
 
 
 class CategoryImageField(serializers.FileField):
