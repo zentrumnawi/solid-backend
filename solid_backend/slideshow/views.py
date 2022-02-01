@@ -70,3 +70,7 @@ class CategoryEndpoint(ReadOnlyModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = CategorySerializer
     name = "category"
+
+    def get_queryset(self):
+        queryset = super(CategoryEndpoint, self).get_queryset()
+        return queryset.filter(slideshow__active=True).distinct()
