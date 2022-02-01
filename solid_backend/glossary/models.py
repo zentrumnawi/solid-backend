@@ -12,3 +12,6 @@ class GlossaryEntry(models.Model):
 
     def __str__(self):
         return self.term
+
+    class Meta:
+        ordering = ("term",)
