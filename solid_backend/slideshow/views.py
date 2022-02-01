@@ -6,7 +6,8 @@ from .models import Slideshow, SlideshowImage, SlideshowPage
 from .serializers import (
     SlideshowImageSerializer,
     SlideshowPageSerializer,
-    SlideshowSerializer,
+    MinimalSlideshowSerializer,
+    CompleteSlideshowSerializer,
     CategorySerializer
 )
 
@@ -40,7 +41,12 @@ class SlideshowEndpoint(ReadOnlyModelViewSet):
 
         return queryset
 
-    serializer_class = SlideshowSerializer
+    def get_serializer_class(self):
+        if self.request.parser_context["view"].detail:
+            return CompleteSlideshowSerializer
+        return MinimalSlideshowSerializer
+
+    serializer_class = MinimalSlideshowSerializer
     name = "slideshow"
 
 
