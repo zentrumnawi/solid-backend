@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "sample_content.apps.SampleContentConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -52,7 +53,6 @@ INSTALLED_APPS = [
     "solid_backend.slideshow",
     "solid_backend.photograph",
     "solid_backend.media_object",
-    "sample_content.apps.SampleContentConfig",
     "django_cleanup.apps.CleanupConfig",  # Should be placed last!
 ]
 
@@ -79,6 +79,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "solid_backend.utils.context_processors.project_name_processor",
             ],
         },
     },
@@ -136,11 +137,14 @@ MEDIA_ROOT = BASE_DIR.path("media")
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = "/media/"
 
+PROJECT_NAME = "Sample Project"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = "/static/"
+
+STATICFILES_DIRS = (str(BASE_DIR.path('static')),)
 
 
 # TreeNodeSerializer profiles field serializer
