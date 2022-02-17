@@ -44,3 +44,12 @@ class SampleProfile(SolidBaseProfile):
 
     def __str__(self):
         return self.name
+
+
+class SecondSampleProfile(SolidBaseProfile):
+
+    name = models.CharField(max_length=200, default="")
+    integer = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
