@@ -14,7 +14,11 @@ from .serializers import (
 
 class SlideshowEndpoint(ReadOnlyModelViewSet):
     """
-    Endpoint that provides the database table of all active slideshows including their related pages with their related images.
+    Endpoint that provides the database table of all
+    active slideshows including their related pages with their related images.
+
+    The LIST endpoint is modified in the way that it only returns the IDs of
+    assotiated SlideShowPages not the complete objects.
     """
 
     queryset = (

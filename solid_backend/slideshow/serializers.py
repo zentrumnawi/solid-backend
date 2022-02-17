@@ -26,6 +26,7 @@ class SlideshowPageSerializer(DynamicExcludeModelSerializer):
 
 
 class MinimalSlideshowSerializer(serializers.ModelSerializer):
+    pages = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     title_image = PhotographSerializer(required=False)
     categories = TagListSerializerField()
 
