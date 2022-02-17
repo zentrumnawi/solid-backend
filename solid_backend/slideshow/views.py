@@ -6,14 +6,19 @@ from .models import Slideshow, SlideshowImage, SlideshowPage
 from .serializers import (
     SlideshowImageSerializer,
     SlideshowPageSerializer,
-    SlideshowSerializer,
+    MinimalSlideshowSerializer,
+    CompleteSlideshowSerializer,
     CategorySerializer
 )
 
 
 class SlideshowEndpoint(ReadOnlyModelViewSet):
     """
-    Endpoint that provides the database table of all active slideshows including their related pages with their related images.
+    Endpoint that provides the database table of all
+    active slideshows including their related pages with their related images.
+
+    The LIST endpoint is modified in the way that it only returns the IDs of
+    assotiated SlideShowPages not the complete objects.
     """
 
     queryset = (
@@ -40,7 +45,12 @@ class SlideshowEndpoint(ReadOnlyModelViewSet):
 
         return queryset
 
-    serializer_class = SlideshowSerializer
+    def get_serializer_class(self):
+        if self.request.parser_context["view"].detail:
+            return CompleteSlideshowSerializer
+        return MinimalSlideshowSerializer
+
+    serializer_class = MinimalSlideshowSerializer
     name = "slideshow"
 
 
@@ -70,3 +80,7 @@ class CategoryEndpoint(ReadOnlyModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = CategorySerializer
     name = "category"
+
+    def get_queryset(self):
+        queryset = super(CategoryEndpoint, self).get_queryset()
+        return queryset.filter(slideshow__active=True).distinct()
