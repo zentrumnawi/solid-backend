@@ -1,3 +1,11 @@
+Version 0.1.26 (17.02.2022)
+***************************
+- Only show return Categories with at least one active Slideshow
+- Rework SlideshowEndpoint, only retunr SlideshowPage ids in LIST, and full object in detail
+- Provide Title Image for Categories
+- Make it possible to have GlossaryEntries that have either a text or just Links
+- Sort GlosarryEntries by Alphabet
+
 Version 0.1.25 (08.11.2021)
 ***************************
 - Minor fixes to SlideShows
