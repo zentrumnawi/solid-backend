@@ -1,4 +1,4 @@
-Version 0.1.26 (17.02.2022)
+Version 0.1.27 (17.02.2022)
 ***************************
 - Only show return Categories with at least one active Slideshow
 - Rework SlideshowEndpoint, only retunr SlideshowPage ids in LIST, and full object in detail
