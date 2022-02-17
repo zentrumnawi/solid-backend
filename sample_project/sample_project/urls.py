@@ -21,4 +21,5 @@ import solid_backend
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("solid_backend.urls")),
+    path("", include("api_docs.api_docs"), name="api_docs")
 ]
