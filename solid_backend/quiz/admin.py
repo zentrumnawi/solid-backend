@@ -1,11 +1,13 @@
 from django.contrib import admin
 
 from .models import QuizAnswer, QuizQuestion
+from .forms import QuizAnswerForm
 
 
 class QuizAnswerInline(admin.TabularInline):
     model = QuizAnswer
     extra = 1
+    form = QuizAnswerForm
 
 
 class QuizQuestionAdmin(admin.ModelAdmin):
