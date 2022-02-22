@@ -12,6 +12,12 @@ class QuizQuestionAdmin(admin.ModelAdmin):
     list_display = ["id", "text"]
     inlines = [QuizAnswerInline]
 
+    class Media:
+        js = (
+            "//ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js",
+            "quiz/js/hide_columns.js",
+        )
+
 
 admin.site.register(QuizQuestion, QuizQuestionAdmin)
 
