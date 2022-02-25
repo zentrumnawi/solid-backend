@@ -10,8 +10,8 @@ let qTypeFields = {
     "SC": ["text", "correct", "feedback_correct", "feedback_incorrect"],
     "MC": ["text", "correct", "feedback_correct", "feedback_incorrect"],
     "TF": ["text", "correct", "feedback_correct", "feedback_incorrect"],
-    "RN": ["text", "feedback_correct", "feedback_incorrect", "ranking_position", "subsequences", "feedback_subsequences"],
-    "RG": ["range_value", "range_max", "range_min", "range_step", "tolerance", "feedback_correct", "feedback_incorrect",],
+    "RG": ["text", "feedback_correct", "feedback_incorrect", "ranking_position", "subsequences", "feedback_subsequences"],
+    "RN": ["range_value", "range_max", "range_min", "range_step", "tolerance", "feedback_correct", "feedback_incorrect",],
     "": allFields
 };
 
