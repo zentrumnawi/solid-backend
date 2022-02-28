@@ -1,3 +1,7 @@
+Version 0.2.0 (28.02.2022)
+***************************
+Quiz 2.0
+
 Version 0.1.27 (17.02.2022)
 ***************************
 - Only show return Categories with at least one active Slideshow
