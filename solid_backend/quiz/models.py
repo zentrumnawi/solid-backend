@@ -11,6 +11,8 @@ class QuizQuestion(models.Model):
         ("SC", "Single Choice"),
         ("MC", "Multiple Choice"),
         ("DD", "Drag and Drop"),
+        ("TF", "True or False"),
+        ("RN", "Range"),
         ("RG", "Ranking"),
         ("HS", "Hotspot"),
     ]
@@ -48,7 +50,19 @@ class QuizAnswer(models.Model):
         related_name="answers",
         related_query_name="answer",
     )
-    text = models.CharField(max_length=200, verbose_name="text (Markdown)")
-    correct = models.BooleanField()
-    feedback_correct = models.CharField(max_length=400, default="", blank=True)
-    feedback_incorrect = models.CharField(max_length=400, default="", blank=True)
+    text = models.CharField(max_length=200, null=True, blank=True, verbose_name="text (Markdown)")
+    correct = models.BooleanField(null=True, blank=True,)
+    feedback_correct = models.CharField(max_length=400, null=True, blank=True)
+    feedback_incorrect = models.CharField(max_length=400, null=True, blank=True)
+
+    ranking_position = models.IntegerField(null=True, blank=True)
+    subsequences = models.BooleanField(null=True, blank=True)
+    feedback_subsequences = models.CharField(max_length=400, blank=True, null=True)
+
+    range_value = models.FloatField(null=True, blank=True)
+    range_max = models.FloatField(null=True, blank=True)
+    range_min = models.FloatField(null=True, blank=True)
+    range_step = models.FloatField(null=True, blank=True)
+    tolerance = models.FloatField(null=True, blank=True)
+
+
