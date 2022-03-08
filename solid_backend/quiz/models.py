@@ -1,6 +1,8 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
+from django.contrib.contenttypes.fields import GenericRelation
+
 
 class QuizQuestion(models.Model):
     """
@@ -27,7 +29,7 @@ class QuizQuestion(models.Model):
     type = models.CharField(max_length=2, choices=QTYPE_CHOICES)
     difficulty = models.PositiveSmallIntegerField(choices=QDIFFICULTY_CHOICES)
     text = models.TextField(verbose_name="text (Markdown)")
-    img = models.ManyToManyField(to="photograph.Photograph", blank=True)
+    img = GenericRelation(to="media_object.MediaObject")
     tags = ArrayField(
         base_field=models.CharField(max_length=100),
         default=list,

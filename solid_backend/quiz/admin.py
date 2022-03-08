@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from .models import QuizAnswer, QuizQuestion
 from .forms import QuizAnswerFormSet
-
+from solid_backend.media_object.admin import ImageMediaObjectInline
 
 class QuizAnswerInline(admin.TabularInline):
     model = QuizAnswer
@@ -12,7 +12,10 @@ class QuizAnswerInline(admin.TabularInline):
 
 class QuizQuestionAdmin(admin.ModelAdmin):
     list_display = ["id", "text"]
-    inlines = [QuizAnswerInline]
+    inlines = [QuizAnswerInline, ImageMediaObjectInline]
+    related_lookup_fields = {
+        'generic': [['content_type', 'object_id'],],
+    }
 
     class Media:
         js = (
