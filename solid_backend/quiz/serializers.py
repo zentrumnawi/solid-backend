@@ -2,7 +2,7 @@ from django.db.models import Case, When
 from rest_framework import serializers
 from random import sample
 
-from solid_backend.photograph.serializers import PhotographSerializer
+from solid_backend.media_object.serializers import MediaObjectSerializer
 from solid_backend.utils.serializers import DynamicExcludeModelSerializer
 
 from .models import QuizAnswer, QuizQuestion
@@ -38,7 +38,7 @@ class QuizAnswerSerializer(DynamicExcludeModelSerializer):
 
 class QuizQuestionSerializer(serializers.ModelSerializer):
     answers = QuizAnswerSerializer(many=True, required=False)
-    img = PhotographSerializer(many=True, required=False)
+    img = MediaObjectSerializer(many=True, required=False)
 
     class Meta:
         model = QuizQuestion
