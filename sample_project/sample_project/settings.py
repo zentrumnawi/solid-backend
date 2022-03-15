@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "mptt",
     "stdimage",
     "taggit",
+    "django_filters",
     "solid_backend.contact",
     "solid_backend.content",
     "solid_backend.glossary",
