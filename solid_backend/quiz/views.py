@@ -1,4 +1,7 @@
 from rest_framework.viewsets import ReadOnlyModelViewSet
+from rest_framework.views import APIView, Response
+from taggit.models import TaggedItem
+from taggit.serializers import TagListSerializerField
 
 from .models import QuizAnswer, QuizQuestion
 from .serializers import QuizAnswerSerializer, QuizQuestionSerializer
@@ -22,3 +25,22 @@ class QuizAnswerEndpoint(ReadOnlyModelViewSet):
     queryset = QuizAnswer.objects.all()
     serializer_class = QuizAnswerSerializer
     name = "quizanswer"
+
+
+class QuizMetaDataEndpoint(APIView):
+
+    def get(self, request, format=None):
+        tags_used = TaggedItem.tags_for(QuizQuestion)
+        difficulties_used =list(
+            map(
+                lambda x: x["difficulty"],
+                QuizQuestion.objects.all().values("difficulty").distinct()
+            )
+        )
+        question_count = QuizQuestion.objects.count()
+        data = {
+            "tags": TagListSerializerField().to_representation(tags_used),
+            "difficulties": difficulties_used,
+            "question_count": question_count
+        }
+        return Response(data=data)
