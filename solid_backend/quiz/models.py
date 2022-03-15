@@ -4,13 +4,13 @@ from django.db.models.signals import post_delete
 from django.dispatch import receiver
 
 from django.contrib.contenttypes.fields import GenericRelation
-from taggit.models import TaggedItemBase
+from taggit.models import TaggedItem
 from taggit.managers import TaggableManager
 
 
-class TaggedQuiz(TaggedItemBase):
-
-    content_object = models.ForeignKey("QuizQuestion", on_delete=models.CASCADE)
+# class TaggedQuiz(TaggedItemBase):
+#
+#     content_object = models.ForeignKey("QuizQuestion", on_delete=models.CASCADE)
 
 
 class QuizQuestion(models.Model):
@@ -45,7 +45,7 @@ class QuizQuestion(models.Model):
         blank=True,
         help_text="If you want to add more than one tag, seperate them with commas.",
     )
-    new_tags = TaggableManager(through=TaggedQuiz, blank=True)
+    new_tags = TaggableManager(blank=True)
 
     def __str__(self):
         return self.text
@@ -78,8 +78,8 @@ class QuizAnswer(models.Model):
     tolerance = models.FloatField(null=True, blank=True)
 
 
-@receiver(post_delete, sender=TaggedQuiz)
+@receiver(post_delete, sender=TaggedItem)
 def delete_orphaned_tags(sender, instance, **kwargs):
-    n_tagged = TaggedQuiz.objects.filter(tag_id=instance.tag_id).count()
+    n_tagged = TaggedItem.objects.filter(tag_id=instance.tag_id).count()
     if n_tagged == 0:
         instance.tag.delete()
