@@ -39,13 +39,7 @@ class QuizQuestion(models.Model):
     difficulty = models.PositiveSmallIntegerField(choices=QDIFFICULTY_CHOICES)
     text = models.TextField(verbose_name="text (Markdown)")
     img = GenericRelation(to="media_object.MediaObject")
-    tags = ArrayField(
-        base_field=models.CharField(max_length=100),
-        default=list,
-        blank=True,
-        help_text="If you want to add more than one tag, seperate them with commas.",
-    )
-    new_tags = TaggableManager(blank=True)
+    tags = TaggableManager(blank=True)
 
     def __str__(self):
         return self.text
