@@ -57,7 +57,6 @@ class QuizAnswerFormSet(BaseInlineFormSet):
         :param q_type:
         :return:
         """
-        errors = []
         fields_to_check = REQUIRED_ANSWER_FIELDS[q_type] + ["question", "DELETE", "id"]
         for field in form.fields:
             if field not in fields_to_check and form.cleaned_data[field] is not None:
