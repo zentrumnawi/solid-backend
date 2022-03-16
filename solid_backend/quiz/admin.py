@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from .models import QuizAnswer, QuizQuestion
-from .forms import QuizAnswerFormSet
 from solid_backend.media_object.admin import ImageMediaObjectInline
+
+from .forms import QuizAnswerFormSet
+from .models import QuizAnswer, QuizQuestion
 
 
 class QuizAnswerInline(admin.TabularInline):

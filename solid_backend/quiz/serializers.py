@@ -1,6 +1,7 @@
+from random import sample
+
 from django.db.models import Case, When
 from rest_framework import serializers
-from random import sample
 
 from solid_backend.media_object.serializers import MediaObjectSerializer
 from solid_backend.utils.serializers import DynamicExcludeModelSerializer

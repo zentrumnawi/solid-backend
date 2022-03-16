@@ -1,10 +1,9 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
-
-from django.contrib.contenttypes.fields import GenericRelation
-from taggit.models import TaggedItem
 from taggit.managers import TaggableManager
+from taggit.models import TaggedItem
 
 
 class QuizQuestion(models.Model):

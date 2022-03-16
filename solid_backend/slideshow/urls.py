@@ -1,10 +1,10 @@
 from rest_framework.routers import SimpleRouter
 
 from .views import (
+    CategoryEndpoint,
     SlideshowEndpoint,
     SlideshowImageEndpoint,
     SlideshowPageEndpoint,
-    CategoryEndpoint,
 )
 
 app_name = "slideshow"

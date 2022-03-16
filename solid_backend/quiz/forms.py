@@ -1,6 +1,6 @@
-from django.forms.models import BaseInlineFormSet, ValidationError
-
 from functools import reduce
+
+from django.forms.models import BaseInlineFormSet, ValidationError
 
 REQUIRED_ANSWER_FIELDS = {
     "SC": ["text", "correct", "feedback_correct", "feedback_incorrect"],

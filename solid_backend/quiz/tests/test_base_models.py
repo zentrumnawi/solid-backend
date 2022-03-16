@@ -1,7 +1,7 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from taggit.managers import TaggableManager
-from django.contrib.contenttypes.fields import GenericRelation
 
 
 class TestQuizQuestionModelExists:

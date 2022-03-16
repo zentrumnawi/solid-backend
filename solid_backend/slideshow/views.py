@@ -4,11 +4,11 @@ from taggit.models import Tag
 
 from .models import Slideshow, SlideshowImage, SlideshowPage
 from .serializers import (
+    CategorySerializer,
+    CompleteSlideshowSerializer,
+    MinimalSlideshowSerializer,
     SlideshowImageSerializer,
     SlideshowPageSerializer,
-    MinimalSlideshowSerializer,
-    CompleteSlideshowSerializer,
-    CategorySerializer,
 )
 
 

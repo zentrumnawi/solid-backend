@@ -1,11 +1,12 @@
-from rest_framework.viewsets import ReadOnlyModelViewSet
-from rest_framework.views import Response
+from random import sample
+
+from django_filters import rest_framework as filters
 from rest_framework.generics import ListAPIView
+from rest_framework.views import Response
+from rest_framework.viewsets import ReadOnlyModelViewSet
+from taggit.forms import TagField
 from taggit.models import TaggedItem
 from taggit.serializers import TagListSerializerField
-from taggit.forms import TagField
-from django_filters import rest_framework as filters
-from random import sample
 
 from .models import QuizAnswer, QuizQuestion
 from .serializers import QuizAnswerSerializer, QuizQuestionSerializer
