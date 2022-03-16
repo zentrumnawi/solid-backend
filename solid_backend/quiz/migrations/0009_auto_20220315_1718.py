@@ -7,18 +7,13 @@ import taggit.managers
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('taggit', '0003_taggeditem_add_unique_index'),
-        ('quiz', '0008_quizquestion_new_tags'),
+        ("taggit", "0003_taggeditem_add_unique_index"),
+        ("quiz", "0008_quizquestion_new_tags"),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='quizquestion',
-            name='tags',
-        ),
+        migrations.RemoveField(model_name="quizquestion", name="tags",),
         migrations.RenameField(
-            model_name='quizquestion',
-            old_name='new_tags',
-            new_name="tags"
+            model_name="quizquestion", old_name="new_tags", new_name="tags"
         ),
     ]

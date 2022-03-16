@@ -1,6 +1,11 @@
 from rest_framework.routers import SimpleRouter
 
-from .views import SlideshowEndpoint, SlideshowImageEndpoint, SlideshowPageEndpoint, CategoryEndpoint
+from .views import (
+    SlideshowEndpoint,
+    SlideshowImageEndpoint,
+    SlideshowPageEndpoint,
+    CategoryEndpoint,
+)
 
 app_name = "slideshow"
 router = SimpleRouter()

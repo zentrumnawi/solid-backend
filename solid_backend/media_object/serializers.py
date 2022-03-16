@@ -14,7 +14,7 @@ class MediaFileField(serializers.ImageField):
 
     def to_representation(self, obj):
         if not obj.path.lower().endswith(("jpg", "jpeg")):
-            return {"original":super(MediaFileField, self).to_representation(obj)}
+            return {"original": super(MediaFileField, self).to_representation(obj)}
         return self.get_variations_urls(obj)
 
     def get_variations_urls(self, obj):

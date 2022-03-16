@@ -6,15 +6,27 @@ REQUIRED_ANSWER_FIELDS = {
     "SC": ["text", "correct", "feedback_correct", "feedback_incorrect"],
     "MC": ["text", "correct", "feedback_correct", "feedback_incorrect"],
     "TF": ["text", "correct", "feedback_correct", "feedback_incorrect"],
-    "RG": ["text", "feedback_correct", "feedback_incorrect", "ranking_position", "subsequences",
-           "feedback_subsequences"],
-    "RN": ["range_value", "range_max", "range_min", "range_step", "tolerance", "feedback_correct",
-           "feedback_incorrect", ],
+    "RG": [
+        "text",
+        "feedback_correct",
+        "feedback_incorrect",
+        "ranking_position",
+        "subsequences",
+        "feedback_subsequences",
+    ],
+    "RN": [
+        "range_value",
+        "range_max",
+        "range_min",
+        "range_step",
+        "tolerance",
+        "feedback_correct",
+        "feedback_incorrect",
+    ],
 }
 
 
 class QuizAnswerFormSet(BaseInlineFormSet):
-
     def clean(self):
         question_type = self.data["type"]
         for form in self.forms:
@@ -45,14 +57,14 @@ class QuizAnswerFormSet(BaseInlineFormSet):
         :param q_type:
         :return:
         """
-        errors= []
+        errors = []
         fields_to_check = REQUIRED_ANSWER_FIELDS[q_type] + ["question", "DELETE", "id"]
         for field in form.fields:
             if field not in fields_to_check and form.cleaned_data[field] is not None:
                 form.add_error(
                     "__all__",
                     "You can not provide a value for the field {} since this field"
-                    " is not required for this Question type.".format(field)
+                    " is not required for this Question type.".format(field),
                 )
 
     def validate_q_type_SC(self, forms):
@@ -63,10 +75,14 @@ class QuizAnswerFormSet(BaseInlineFormSet):
         :param forms:
         :return:
         """
-        correct_cnt = reduce(lambda a, b: a+b, map(lambda x: x.cleaned_data["correct"], forms))
+        correct_cnt = reduce(
+            lambda a, b: a + b, map(lambda x: x.cleaned_data["correct"], forms)
+        )
 
         if correct_cnt != 1:
-            raise ValidationError("Only one answer may be correct for a Question of type Single Choice.")
+            raise ValidationError(
+                "Only one answer may be correct for a Question of type Single Choice."
+            )
 
     def validate_q_type_MC(self, forms):
         """
@@ -80,7 +96,9 @@ class QuizAnswerFormSet(BaseInlineFormSet):
             # TODO: This is not checked on DELETE
             raise ValidationError("At least two answers must be given.")
 
-        correct_cnt = reduce(lambda a, b: a+b, map(lambda x: x.cleaned_data["correct"], forms))
+        correct_cnt = reduce(
+            lambda a, b: a + b, map(lambda x: x.cleaned_data["correct"], forms)
+        )
 
         if correct_cnt == 0:
             raise ValidationError("At least one answer must be correct.")
@@ -95,7 +113,9 @@ class QuizAnswerFormSet(BaseInlineFormSet):
         """
 
         if len(forms) != 1:
-            raise ValidationError("The statement of the question is either true or false. Please only provide one answer.")
+            raise ValidationError(
+                "The statement of the question is either true or false. Please only provide one answer."
+            )
 
     def validate_q_type_RG(self, forms):
         """
@@ -112,7 +132,9 @@ class QuizAnswerFormSet(BaseInlineFormSet):
         positions = map(lambda x: x.cleaned_data["ranking_position"], forms)
 
         if len(forms) != len(set(positions)):
-            raise ValidationError("Each ranking position may only exist once. Please check your input.")
+            raise ValidationError(
+                "Each ranking position may only exist once. Please check your input."
+            )
 
     def validate_q_type_RN(self, forms):
         """
@@ -131,11 +153,21 @@ class QuizAnswerFormSet(BaseInlineFormSet):
 
         form = forms[0]
 
-        if not form.cleaned_data["range_max"] > form.cleaned_data["range_value"] > form.cleaned_data["range_min"]:
-            raise ValidationError("The upper bound needs to be >= range value >= the lower bound.")
+        if (
+            not form.cleaned_data["range_max"]
+            > form.cleaned_data["range_value"]
+            > form.cleaned_data["range_min"]
+        ):
+            raise ValidationError(
+                "The upper bound needs to be >= range value >= the lower bound."
+            )
 
-        if form.cleaned_data["tolerance"] >= abs(form.cleaned_data["range_max"] - form.cleaned_data["range_min"]):
-            raise ValidationError("The error tolerance needs to be smaller than the given range.")
+        if form.cleaned_data["tolerance"] >= abs(
+            form.cleaned_data["range_max"] - form.cleaned_data["range_min"]
+        ):
+            raise ValidationError(
+                "The error tolerance needs to be smaller than the given range."
+            )
 
         if form.cleaned_data["range_step"] <= 0:
             raise ValidationError("The stepsize needs to be greater than zero.")
@@ -149,7 +181,11 @@ class QuizAnswerFormSet(BaseInlineFormSet):
         :param forms:
         :return:
         """
-        return [form for form in forms if not(form.changed_data == [] and form.initial == {})]
+        return [
+            form
+            for form in forms
+            if not (form.changed_data == [] and form.initial == {})
+        ]
 
     def check_min_correct_answer(self, forms, n_correct=1):
         pass

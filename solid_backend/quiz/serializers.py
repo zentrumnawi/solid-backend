@@ -24,12 +24,15 @@ class RandomListSerializer(serializers.ListSerializer):
         shuffled_ids = sample(orig_id_list, len(orig_id_list))
         if shuffled_ids == orig_id_list:
             shuffled_ids = reversed(shuffled_ids)
-        preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(shuffled_ids)])
-        return super(RandomListSerializer, self).to_representation(data.order_by(preserved))
+        preserved = Case(
+            *[When(pk=pk, then=pos) for pos, pk in enumerate(shuffled_ids)]
+        )
+        return super(RandomListSerializer, self).to_representation(
+            data.order_by(preserved)
+        )
 
 
 class QuizAnswerSerializer(DynamicExcludeModelSerializer):
-
     class Meta:
         model = QuizAnswer
         fields = "__all__"

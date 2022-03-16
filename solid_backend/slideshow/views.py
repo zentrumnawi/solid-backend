@@ -8,7 +8,7 @@ from .serializers import (
     SlideshowPageSerializer,
     MinimalSlideshowSerializer,
     CompleteSlideshowSerializer,
-    CategorySerializer
+    CategorySerializer,
 )
 
 

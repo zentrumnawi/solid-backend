@@ -3,8 +3,9 @@
 from django.db import migrations, models
 from solid_backend.media_object.models import MediaObjectField
 
+
 def migrate_Photograph_to_MediaObject(apps, schema_editor):
-    ContentType = apps.get_model('contenttypes', 'ContentType')
+    ContentType = apps.get_model("contenttypes", "ContentType")
     QuizQuestion = apps.get_model("quiz", "QuizQuestion")
     MediaObject = apps.get_model("media_object", "MediaObject")
     quiz_content_type = ContentType.objects.get_for_model(QuizQuestion)
@@ -39,11 +40,14 @@ def migrate_Photograph_to_MediaObject(apps, schema_editor):
                 author=img.author,
                 license=img.license,
             )
-            m.file.field = MediaObjectField(variations={
-            "large": (1200, None),
-            "medium": (900, None),
-            "small": (600, None),
-            "thumbnail": (100, 100, True)})
+            m.file.field = MediaObjectField(
+                variations={
+                    "large": (1200, None),
+                    "medium": (900, None),
+                    "small": (600, None),
+                    "thumbnail": (100, 100, True),
+                }
+            )
             m.file.render_variations()
             img.delete()
 
@@ -52,11 +56,13 @@ def migrate_MediaObject_to_Photograph(apps, schema_editor):
     QuizQuestion = apps.get_model("quiz", "QuizQuestion")
     Photograph = apps.get_model("photograph", "Photograph")
     MediaObject = apps.get_model("media_object", "MediaObject")
-    ContentType = apps.get_model('contenttypes', 'ContentType')
+    ContentType = apps.get_model("contenttypes", "ContentType")
     quiz_content_type = ContentType.objects.get_for_model(QuizQuestion)
 
     for q in QuizQuestion.objects.all():
-        for media_obj in MediaObject.objects.filter(content_type__pk=quiz_content_type.pk, object_id=q.id):
+        for media_obj in MediaObject.objects.filter(
+            content_type__pk=quiz_content_type.pk, object_id=q.id
+        ):
             _file = media_obj.file.file
             # get the original file name without path remnants
             _file.name = _file.name.split("/")[-1]
@@ -85,14 +91,27 @@ def migrate_MediaObject_to_Photograph(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('quiz', '0005_auto_20220222_1829'),
+        ("quiz", "0005_auto_20220222_1829"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='quizquestion',
-            name='type',
-            field=models.CharField(choices=[('SC', 'Single Choice'), ('MC', 'Multiple Choice'), ('DD', 'Drag and Drop'), ('TF', 'True or False'), ('RN', 'Range'), ('RG', 'Ranking'), ('HS', 'Hotspot')], max_length=2),
+            model_name="quizquestion",
+            name="type",
+            field=models.CharField(
+                choices=[
+                    ("SC", "Single Choice"),
+                    ("MC", "Multiple Choice"),
+                    ("DD", "Drag and Drop"),
+                    ("TF", "True or False"),
+                    ("RN", "Range"),
+                    ("RG", "Ranking"),
+                    ("HS", "Hotspot"),
+                ],
+                max_length=2,
+            ),
         ),
-        migrations.RunPython(migrate_Photograph_to_MediaObject, migrate_MediaObject_to_Photograph)
+        migrations.RunPython(
+            migrate_Photograph_to_MediaObject, migrate_MediaObject_to_Photograph
+        ),
     ]

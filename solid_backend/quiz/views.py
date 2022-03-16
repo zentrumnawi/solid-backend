@@ -15,7 +15,7 @@ class TagsFilter(filters.CharFilter):
     field_class = TagField
 
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('lookup_expr', 'in')
+        kwargs.setdefault("lookup_expr", "in")
         super(TagsFilter, self).__init__(*args, **kwargs)
 
 
@@ -25,7 +25,7 @@ class IntegerInFilter(filters.BaseInFilter, filters.NumberFilter):
 
 class QuizSessionFilter(filters.FilterSet):
 
-    tags = TagsFilter(field_name='tags__name', distinct=True)
+    tags = TagsFilter(field_name="tags__name", distinct=True)
     difficulty = IntegerInFilter("difficulty")
 
     class Meta:
@@ -72,19 +72,18 @@ class QuizAnswerEndpoint(ReadOnlyModelViewSet):
 
 
 class QuizMetaDataEndpoint(ListAPIView):
-
     def list(self, request, *args, **kwargs):
         tags_used = TaggedItem.tags_for(QuizQuestion)
-        difficulties_used =list(
+        difficulties_used = list(
             map(
                 lambda x: x["difficulty"],
-                QuizQuestion.objects.all().values("difficulty").distinct()
+                QuizQuestion.objects.all().values("difficulty").distinct(),
             )
         )
         question_count = QuizQuestion.objects.count()
         data = {
             "tags": TagListSerializerField().to_representation(tags_used),
             "difficulties": difficulties_used,
-            "question_count": question_count
+            "question_count": question_count,
         }
         return Response(data=data)

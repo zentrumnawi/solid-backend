@@ -4,6 +4,7 @@ from .models import QuizAnswer, QuizQuestion
 from .forms import QuizAnswerFormSet
 from solid_backend.media_object.admin import ImageMediaObjectInline
 
+
 class QuizAnswerInline(admin.TabularInline):
     model = QuizAnswer
     extra = 1
@@ -14,7 +15,7 @@ class QuizQuestionAdmin(admin.ModelAdmin):
     list_display = ["id", "text"]
     inlines = [QuizAnswerInline, ImageMediaObjectInline]
     related_lookup_fields = {
-        'generic': [['content_type', 'object_id'],],
+        "generic": [["content_type", "object_id"],],
     }
 
     class Media:

@@ -50,7 +50,9 @@ class QuizAnswer(models.Model):
         related_name="answers",
         related_query_name="answer",
     )
-    text = models.CharField(max_length=200, null=True, blank=True, verbose_name="text (Markdown)")
+    text = models.CharField(
+        max_length=200, null=True, blank=True, verbose_name="text (Markdown)"
+    )
     correct = models.BooleanField(null=True, blank=True,)
     feedback_correct = models.CharField(max_length=400, null=True, blank=True)
     feedback_incorrect = models.CharField(max_length=400, null=True, blank=True)

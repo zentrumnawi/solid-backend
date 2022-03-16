@@ -79,7 +79,9 @@ class TestQuizQuestionModelFields:
         )
 
     def test_field_type_tags(self, quiz_question_model_class):
-        assert isinstance(quiz_question_model_class._meta.get_field("tags"), TaggableManager)
+        assert isinstance(
+            quiz_question_model_class._meta.get_field("tags"), TaggableManager
+        )
 
     def test_field_attribute_values_img(
         self, quiz_question_model_class, media_object_model_class
