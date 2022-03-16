@@ -1,6 +1,14 @@
-Version 0.2.0 (28.02.2022)
+Version 0.2.0a (28.02.2022)
 ***************************
 Quiz 2.0
+- New Quiz type Ranking, Range and True/False
+- Custom admin input for QuizQuestion
+- Validation of QuizQuestion upon creation
+- QuizAnswers are shuffled before Response
+- Quiz Tags now use taggit
+- New quizmeta Endpoint to provide metadata of the existing QuizQuestions
+- New quizsession Endpoint to accept "tags", "difficulty" and "count" which provides a set of Quizanswers
+- Quiz now uses MediaObject for Images.
 
 Version 0.1.27 (17.02.2022)
 ***************************
