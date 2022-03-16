@@ -108,7 +108,7 @@ class MediaObject(DeepZoom):
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
     object_id = models.PositiveIntegerField(default=0)
-    profile = GenericForeignKey("content_type", "object_id")
+    linked_obj = GenericForeignKey("content_type", "object_id")
     profile_position = models.PositiveSmallIntegerField(null=True, blank=True)
 
     media_format = models.CharField(

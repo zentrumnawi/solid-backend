@@ -6,30 +6,20 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('media_object', '0001_initial'),
+        ("media_object", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='AudioVideoMediaObject',
-            fields=[
-            ],
-            options={
-                'proxy': True,
-                'indexes': [],
-                'constraints': [],
-            },
-            bases=('media_object.mediaobject',),
+            name="AudioVideoMediaObject",
+            fields=[],
+            options={"proxy": True, "indexes": [], "constraints": [],},
+            bases=("media_object.mediaobject",),
         ),
         migrations.CreateModel(
-            name='ImageMediaObject',
-            fields=[
-            ],
-            options={
-                'proxy': True,
-                'indexes': [],
-                'constraints': [],
-            },
-            bases=('media_object.mediaobject',),
+            name="ImageMediaObject",
+            fields=[],
+            options={"proxy": True, "indexes": [], "constraints": [],},
+            bases=("media_object.mediaobject",),
         ),
     ]

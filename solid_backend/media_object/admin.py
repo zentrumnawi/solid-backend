@@ -111,9 +111,9 @@ class AudioVideoMediaObjectInline(GenericTabularInline):
 
 class MediaObjectAdmin(DeepZoomAdmin):
     form = MediaObjectAdminForm
-    fields = ["profile"] + fields
-    readonly_fields = ["profile", "profile_position"] + readonly_fields
-    list_display = ["id", "profile", "dzi_option", "author", "license"]
+    fields = ["linked_obj"] + fields
+    readonly_fields = ["linked_obj", "profile_position"] + readonly_fields
+    list_display = ["id", "linked_obj", "dzi_option", "author", "license"]
 
     def profile(self, obj):
         if not obj.profile:
