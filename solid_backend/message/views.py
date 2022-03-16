@@ -11,6 +11,7 @@ class MessageEndpoint(ReadOnlyModelViewSet):
     """
     Provide database table of currently valid messages.
     """
+
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
     name = "message"

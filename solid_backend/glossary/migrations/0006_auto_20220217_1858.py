@@ -6,12 +6,11 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('glossary', '0005_fields_optional'),
+        ("glossary", "0005_fields_optional"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='glossaryentry',
-            options={'ordering': ('term',)},
+            name="glossaryentry", options={"ordering": ("term",)},
         ),
     ]

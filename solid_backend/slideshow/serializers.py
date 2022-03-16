@@ -41,7 +41,6 @@ class CompleteSlideshowSerializer(MinimalSlideshowSerializer):
 
 
 class CategoryImageField(serializers.FileField):
-
     def __init__(self, *args, **kwargs):
         kwargs["source"] = "*"
         super(CategoryImageField, self).__init__(*args, **kwargs)
@@ -58,7 +57,9 @@ class CategoryImageField(serializers.FileField):
         first_tagged_item = value.taggit_taggeditem_items.first()
         # Get SlideShow ContentType object
         content_type = ContentType.objects.get(id=first_tagged_item.content_type_id)
-        image = content_type.get_object_for_this_type(id=first_tagged_item.object_id).title_image.img
+        image = content_type.get_object_for_this_type(
+            id=first_tagged_item.object_id
+        ).title_image.img
         return super(CategoryImageField, self).to_representation(image.thumbnail)
 
 

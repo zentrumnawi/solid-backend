@@ -1,6 +1,6 @@
 import pytest
 
-from solid_backend.photograph.models import Photograph
+from solid_backend.media_object.models import MediaObject
 from solid_backend.quiz.models import QuizAnswer, QuizQuestion
 
 
@@ -15,5 +15,5 @@ def quiz_answer_model_class():
 
 
 @pytest.fixture
-def photograph_model_class():
-    return Photograph
+def media_object_model_class():
+    return MediaObject
