@@ -1,5 +1,7 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
+from taggit.managers import TaggableManager
+from django.contrib.contenttypes.fields import GenericRelation
 
 
 class TestQuizQuestionModelExists:
@@ -73,17 +75,17 @@ class TestQuizQuestionModelFields:
 
     def test_field_type_img(self, quiz_question_model_class):
         assert isinstance(
-            quiz_question_model_class._meta.get_field("img"), models.ManyToManyField
+            quiz_question_model_class._meta.get_field("img"), GenericRelation
         )
 
     def test_field_type_tags(self, quiz_question_model_class):
-        assert isinstance(quiz_question_model_class._meta.get_field("tags"), ArrayField)
+        assert isinstance(quiz_question_model_class._meta.get_field("tags"), TaggableManager)
 
     def test_field_attribute_values_img(
-        self, quiz_question_model_class, photograph_model_class
+        self, quiz_question_model_class, media_object_model_class
     ):
         field = quiz_question_model_class._meta.get_field("img")
-        assert issubclass(field.related_model, photograph_model_class)
+        assert issubclass(field.related_model, media_object_model_class)
 
 
 class TestQuizAnswerModelFields:
