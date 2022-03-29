@@ -1,6 +1,9 @@
 from django.db.models import Prefetch
+from django_filters import rest_framework as filters
 from rest_framework.viewsets import ReadOnlyModelViewSet
 from taggit.models import Tag
+
+from solid_backend.quiz.views import TagsFilter
 
 from .models import Slideshow, SlideshowImage, SlideshowPage
 from .serializers import (
@@ -10,6 +13,16 @@ from .serializers import (
     SlideshowImageSerializer,
     SlideshowPageSerializer,
 )
+
+
+class SlideshowFilterSet(filters.FilterSet):
+    categories = TagsFilter(field_name="categories__id")
+
+    class Meta:
+        model = Slideshow
+        fields = [
+            "categories",
+        ]
 
 
 class SlideshowEndpoint(ReadOnlyModelViewSet):
@@ -35,15 +48,8 @@ class SlideshowEndpoint(ReadOnlyModelViewSet):
             )
         )
     )
-
-    def get_queryset(self):
-        queryset = super(SlideshowEndpoint, self).get_queryset()
-        category = self.request.query_params.get("categories")
-
-        if category is not None:
-            queryset = queryset.filter(categories=category)
-
-        return queryset
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = SlideshowFilterSet
 
     def get_serializer_class(self):
         if self.request.parser_context["view"].detail:
@@ -64,6 +70,10 @@ class SlideshowPageEndpoint(ReadOnlyModelViewSet):
     )
     serializer_class = SlideshowPageSerializer
     name = "slideshowpage"
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = [
+        "show",
+    ]
 
 
 class SlideshowImageEndpoint(ReadOnlyModelViewSet):

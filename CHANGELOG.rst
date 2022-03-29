@@ -1,5 +1,11 @@
-Version 0.2.0a (28.02.2022)
-***************************
+Version 0.2.0a2 (29.03.2022)
+*****************************
+- add tags to QuizSerializer
+- SlideschowPagesEndpoint filter by show
+- Implement filter by categories with django-filter in SlideshowEndpoint
+
+Version 0.2.0a1 (28.02.2022)
+****************************
 Quiz 2.0
 - New Quiz type Ranking, Range and True/False
 - Custom admin input for QuizQuestion
@@ -38,25 +44,25 @@ Version 0.1.22 (02.09.2021)
 Version 0.1.21 (01.09.2021)
 ***************************
 Version 0.1.21a3 (19.07.2021)
-***************************
+*****************************
 - Fix sample project
 - Fix Condition in MediaFileField to recognize all variations of jpg and jpeg fiel extensions
 - Return dict of kind `{ "original": <url>}`  for audio and video files
 
 Version 0.1.21a3 (03.07.2021)
-***************************
+*****************************
 - Add proxy model migrations
 - Add missing attribute to Meta class of proxy models
 
 
 Version 0.1.21a2 (08.06.2021)
-***************************
+*****************************
 - Fix naming issues
 - add MediaObject Endpoint to project urls.py
 - fix import error
 
 Version 0.1.21a1 (07.06.2021)
-***************************
+*****************************
 - Add media_object app as extension of photpgraph app.
 - Fix the static filtering in the message app.
 - Make the subject of the emails sent by the contact app dynamically add the PROJECT_NAME
@@ -131,7 +137,7 @@ Version 0.1.6 (28.07.2020)
 
 Version 0.1.5 (22.07.2020)
 ***************************
-- Change `valid_to` field to optional in Message model. (`valid_to`=NULL stands for endless.)
+- Change `valid_to` field to optional in Message model. ( `valid_to` = NULL stands for endless.)
 - Adjust validation of `valid_from` and `valid_to`.
 - Adjust `messages` Endpoint accordingly.
 - Add Photograph `form`, `extra` and `fields` ordering to PhotographInline.
