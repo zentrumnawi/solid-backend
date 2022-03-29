@@ -45,6 +45,7 @@ class QuizQuestionSerializer(serializers.ModelSerializer):
     answers = QuizAnswerSerializer(many=True, required=False)
     img = MediaObjectSerializer(many=True, required=False)
     tags = TagListSerializerField()
+
     class Meta:
         model = QuizQuestion
         fields = "__all__"

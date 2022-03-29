@@ -1,9 +1,10 @@
 from django.db.models import Prefetch
-from rest_framework.viewsets import ReadOnlyModelViewSet
 from django_filters import rest_framework as filters
+from rest_framework.viewsets import ReadOnlyModelViewSet
 from taggit.models import Tag
 
 from solid_backend.quiz.views import TagsFilter
+
 from .models import Slideshow, SlideshowImage, SlideshowPage
 from .serializers import (
     CategorySerializer,
@@ -19,7 +20,9 @@ class SlideshowFilterSet(filters.FilterSet):
 
     class Meta:
         model = Slideshow
-        fields = ["categories", ]
+        fields = [
+            "categories",
+        ]
 
 
 class SlideshowEndpoint(ReadOnlyModelViewSet):
@@ -68,7 +71,9 @@ class SlideshowPageEndpoint(ReadOnlyModelViewSet):
     serializer_class = SlideshowPageSerializer
     name = "slideshowpage"
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_fields = ["show", ]
+    filterset_fields = [
+        "show",
+    ]
 
 
 class SlideshowImageEndpoint(ReadOnlyModelViewSet):

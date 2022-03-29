@@ -16,7 +16,7 @@ flake8:
 	flake8 .
 
 isort:
-	isort -y
+	isort .
 
 isort-check:
 	isort --check-only --diff .
