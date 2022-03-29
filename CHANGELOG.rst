@@ -1,4 +1,10 @@
-Version 0.2.0a (28.02.2022)
+Version 0.2.0a2 (28.02.2022)
+***************************
+ - add tags to QuizSerializer
+ - SlideschowPagesEndpoint filter by show
+ - Implement filter by categories with django-filter in SlideshowEndpoint
+
+Version 0.2.0a1 (28.02.2022)
 ***************************
 Quiz 2.0
 - New Quiz type Ranking, Range and True/False
