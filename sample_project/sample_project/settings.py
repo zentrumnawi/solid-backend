@@ -151,12 +151,9 @@ PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER_NAME = (
 )
 
 PROFILES_SERIALIZERS = {
-    "sampleprofile_related": (
-        "sample_content.serializers",
-        "SampleProfileSerializer",
-    ),
+    "sampleprofile_related": ("sample_content.serializers", "SampleProfileSerializer",),
     "secondsampleprofile_related": (
         "sample_content.serializers",
         "SecondSampleProfileSerializer",
-    )
+    ),
 }

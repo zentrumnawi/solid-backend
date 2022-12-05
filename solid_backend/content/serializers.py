@@ -13,10 +13,11 @@ if hasattr(settings, "PROFILES_SERIALIZERS"):
     for field_name in settings.PROFILES_SERIALIZERS:
         SERIALIZERS.append(
             (
-                field_name, getattr(
+                field_name,
+                getattr(
                     import_module(settings.PROFILES_SERIALIZER_MODULE),
                     settings.PROFILES_SERIALIZER_NAME,
-                )(many=True, required=False)
+                )(many=True, required=False),
             )
         )
 
@@ -33,5 +34,7 @@ class TreeNodeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TreeNode
-        fields = ("name", "info", "children") + tuple(settings.PROFILES_SERIALIZERS.keys())
+        fields = ("name", "info", "children") + tuple(
+            settings.PROFILES_SERIALIZERS.keys()
+        )
         depth = 2
