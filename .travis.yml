@@ -8,7 +8,7 @@ python:
   - "3.7"
 
 env:
-  - TRAVIS_CI=True PATH="$PATH:$HOME/.poetry/bin"
+  - TRAVIS_CI=True PATH="$PATH:$HOME/.local/bin"
 
 cache:
   directories:
@@ -32,7 +32,7 @@ jobs:
       script: poetry run make isort-check
 
 before_install:
-  - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+  - curl -sSL https://install.python-poetry.org  | python3 -
 
 install:
   - make init
