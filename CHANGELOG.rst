@@ -1,3 +1,7 @@
+Version 0.2.1 - Hotfix (08.12.2022)
+*****************************
+- Fix problem wher Phtograph --> MediaObject migration would run into `models.deletion.ProtectedError`
+
 Version 0.2.0 (08.12.2022)
 *****************************
 
