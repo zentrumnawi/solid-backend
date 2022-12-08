@@ -1,3 +1,8 @@
+Version 0.3.0a1 (08.12.2022)
+*****************************
+- Add support for multiple, different Profiles
+
+
 Version 0.2.0 (08.12.2022)
 *****************************
 
