@@ -77,8 +77,8 @@ class SolidBaseProfile(models.Model):
         to=TreeNode,
         on_delete=models.DO_NOTHING,
         null=True,
-        related_name="profiles",
-        related_query_name="profile",
+        related_name="%(class)s_related",
+        related_query_name="%(class)ss",
     )
 
     class Meta:
