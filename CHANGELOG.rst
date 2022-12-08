@@ -1,3 +1,7 @@
+Version 0.3.0a2 (08.12.2022)
+*****************************
+- Incorporate Hotfix 0.2.1
+
 Version 0.3.0a1 (08.12.2022)
 *****************************
 - Add support for multiple, different Profiles
