@@ -383,7 +383,7 @@ class ImageCreator(object):
         self.tile_format = tile_format
         self.tile_overlap = _clamp(int(tile_overlap), 0, 10)
         self.image_quality = _clamp(image_quality, 0, 1.0)
-        if not tile_format in IMAGE_FORMATS:
+        if tile_format not in IMAGE_FORMATS:
             self.tile_format = DEFAULT_IMAGE_FORMAT
         self.resize_filter = resize_filter
         self.copy_metadata = copy_metadata
