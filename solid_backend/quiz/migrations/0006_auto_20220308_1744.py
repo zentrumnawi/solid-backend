@@ -50,7 +50,10 @@ def migrate_Photograph_to_MediaObject(apps, schema_editor):
                 }
             )
             m.file.render_variations()
-            img.delete()
+            try:
+                img.delete()
+            except models.deletion.ProtectedError:
+                q.img.remove(img)
 
 
 def migrate_MediaObject_to_Photograph(apps, schema_editor):
