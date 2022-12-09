@@ -1,3 +1,7 @@
+Version 0.3.0a3 (09.12.2022)
+*****************************
+- Fix issue where old SERIALIZER_MODULE was used
+
 Version 0.3.0a2 (08.12.2022)
 *****************************
 - Incorporate Hotfix 0.2.1
