@@ -15,10 +15,7 @@ if hasattr(settings, "PROFILES_SERIALIZERS"):
         SERIALIZERS.append(
             (
                 field_name,
-                getattr(
-                    import_module(module),
-                    serializer,
-                )(many=True, required=False),
+                getattr(import_module(module), serializer,)(many=True, required=False),
             )
         )
 
