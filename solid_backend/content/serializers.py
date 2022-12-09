@@ -11,12 +11,13 @@ SERIALIZERS = []
 
 if hasattr(settings, "PROFILES_SERIALIZERS"):
     for field_name in settings.PROFILES_SERIALIZERS:
+        module, serializer = settings.PROFILES_SERIALIZERS[field_name]
         SERIALIZERS.append(
             (
                 field_name,
                 getattr(
-                    import_module(settings.PROFILES_SERIALIZER_MODULE),
-                    settings.PROFILES_SERIALIZER_NAME,
+                    import_module(module),
+                    serializer,
                 )(many=True, required=False),
             )
         )
