@@ -164,14 +164,14 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*"
 
 [[package]]
 name = "django"
-version = "3.0.9"
+version = "3.1.14"
 description = "A high-level Python Web framework that encourages rapid development and clean, pragmatic design."
 category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-asgiref = ">=3.2,<4.0"
+asgiref = ">=3.2.10,<4"
 pytz = "*"
 sqlparse = ">=0.2.2"
 
@@ -951,7 +951,7 @@ testing = ["func-timeout", "jaraco.itertools"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "3ed8708af04487a8185b37ea0ec40e239c71bdab3146caaf36853ca9b4732de7"
+content-hash = "063c35059da481877e193849e762d06e0396f7abe48b50d9b2b1099dda055f9f"
 
 [metadata.files]
 appdirs = [
@@ -1048,8 +1048,8 @@ decorator = [
     {file = "decorator-4.4.2.tar.gz", hash = "sha256:e3a62f0520172440ca0dcc823749319382e377f37f140a0b99ef45fecb84bfe7"},
 ]
 django = [
-    {file = "Django-3.0.9-py3-none-any.whl", hash = "sha256:96fbe04e8ba0df289171e7f6970e0ff8b472bf4f909ed9e0e5beccbac7e1dbbe"},
-    {file = "Django-3.0.9.tar.gz", hash = "sha256:c22b4cd8e388f8219dc121f091e53a8701f9f5bca9aa132b5254263cab516215"},
+    {file = "Django-3.1.14-py3-none-any.whl", hash = "sha256:0fabc786489af16ad87a8c170ba9d42bfd23f7b699bd5ef05675864e8d012859"},
+    {file = "Django-3.1.14.tar.gz", hash = "sha256:72a4a5a136a214c39cf016ccdd6b69e2aa08c7479c66d93f3a9b5e4bb9d8a347"},
 ]
 django-cleanup = [
     {file = "django-cleanup-4.0.0.tar.gz", hash = "sha256:412c3f9417ddaaaa561b60237b109550b16e556db92d4616278fc7e1ad9ab0a4"},
