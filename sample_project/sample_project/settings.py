@@ -148,6 +148,6 @@ PROFILES_SERIALIZERS = {
     "sampleprofile_related": ("sample_content.serializers", "SampleProfileSerializer"),
     "secondsampleprofile_related": (
         "sample_content.serializers",
-        "SecondSampleProfileSerializer"
+        "SecondSampleProfileSerializer",
     ),
 }

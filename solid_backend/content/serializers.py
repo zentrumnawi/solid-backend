@@ -16,11 +16,12 @@ if hasattr(settings, "PROFILES_SERIALIZERS"):
 
 
 class TreeNodeSerializer(serializers.ModelSerializer):
-
     def build_nested_field(self, field_name, relation_info, nested_depth):
         if SERIALIZERS.get(field_name) is not None:
             return SERIALIZERS.get(field_name), {"many": True, "required": False}
-        return super(TreeNodeSerializer, self).build_nested_field(field_name, relation_info, nested_depth)
+        return super(TreeNodeSerializer, self).build_nested_field(
+            field_name, relation_info, nested_depth
+        )
 
     children = RecursiveSerializer(many=True, required=False)
 
