@@ -145,9 +145,9 @@ STATIC_URL = "/static/"
 
 
 PROFILES_SERIALIZERS = {
-    "sampleprofile_related": ("sample_content.serializers", "SampleProfileSerializer",),
+    "sampleprofile_related": ("sample_content.serializers", "SampleProfileSerializer"),
     "secondsampleprofile_related": (
         "sample_content.serializers",
-        "SecondSampleProfileSerializer",
+        "SecondSampleProfileSerializer"
     ),
 }
