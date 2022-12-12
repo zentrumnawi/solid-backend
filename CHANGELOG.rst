@@ -1,3 +1,7 @@
+Version 0.3.0a4 (12.12.2022)
+*****************************
+- Re-implement profile serializer assignment in TreeNodeSerializer
+
 Version 0.3.0a3 (09.12.2022)
 *****************************
 - Fix issue where old SERIALIZER_MODULE was used
