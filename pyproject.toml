@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "solid-backend"
-version = "0.3.0a4"
+version = "0.3.0a5"
 
 description = "Clean Django app for e-learning application with..."
 authors = [
@@ -16,7 +16,7 @@ repository = "https://github.com/zentrumnawi/solid-backend"
 
 [tool.poetry.dependencies]
 python = "^3.7"
-django = "~3.0.7"
+django = "^3.0.7"
 djangorestframework = "3.11.0"
 django-mptt = "0.11.0"
 pillow = "7.1.2"

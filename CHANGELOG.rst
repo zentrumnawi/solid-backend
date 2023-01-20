@@ -1,3 +1,7 @@
+Version 0.3.0a5 (20.01.2023)
+*****************************
+- Update Django dependency to 3.2.16
+
 Version 0.3.0a4 (12.12.2022)
 *****************************
 - Re-implement profile serializer assignment in TreeNodeSerializer
