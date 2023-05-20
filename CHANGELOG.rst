@@ -1,3 +1,10 @@
+Version 0.3.1 (20.05.2023)
+*****************************
+
+- Add drf-spectacular as optional dependecy
+- Add drf-spectacular field extension for mdstring format strings
+- Add SolidModelSerializer
+
 Version 0.3.0 (20.05.2023)
 *****************************
 
