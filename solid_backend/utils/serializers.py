@@ -27,3 +27,20 @@ class RecursiveSerializer(serializers.Serializer):
     def to_representation(self, value):
         serializer = self.parent.parent.__class__(value, context=self.context)
         return serializer.data
+
+
+class HumanReadableChoiceField(serializers.ChoiceField):
+    def to_representation(self, value):
+        if not value:
+            return value
+        return str(self.grouped_choices[value])
+
+
+class SolidModelSerializer(serializers.ModelSerializer):
+
+    serializer_choice_field = HumanReadableChoiceField
+
+    def to_representation(self, instance):
+        ret = super(SolidModelSerializer, self).to_representation(instance)
+
+        return serializers.OrderedDict(filter(lambda x: not x[1] is None, ret.items()))
