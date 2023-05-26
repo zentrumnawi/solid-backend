@@ -1,15 +1,17 @@
 from django.db.models import Prefetch
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from solid_backend.media_object.models import MediaObject
 
 from .models import TreeNode
-from .serializers import NestedTreeNodeSerializer
+from .serializers import NestedTreeNodeSerializer, IdTreeNodeSerializer
 
 
-class ProfileEndpoint(ReadOnlyModelViewSet):
+class NestedProfileEndpoint(ReadOnlyModelViewSet):
     """
-    Endpoint that provides the database table of the tree structure of all profiles with their related photographs
+    Endpoint that provides the database table of the tree structure of all profiles.
     """
 
     serializer_class = NestedTreeNodeSerializer
@@ -37,3 +39,25 @@ class ProfileEndpoint(ReadOnlyModelViewSet):
             lookup_list.append(Prefetch(lookup, queryset=queryset))
 
         return TreeNode.objects.root_nodes().prefetch_related(*lookup_list)
+
+
+class IdListProfileEndpoint(ReadOnlyModelViewSet):
+    """
+    Endpoint returning the profile tree.
+    """
+
+    serializer_class = IdTreeNodeSerializer
+    queryset = TreeNode.objects.all()
+    name = "profile"
+
+    @action(
+        detail=False,
+        url_name="root",
+        url_path="root",
+    )
+    def root(self, request, *args, **kwargs):
+        queryset = TreeNode.objects.root_nodes()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+
