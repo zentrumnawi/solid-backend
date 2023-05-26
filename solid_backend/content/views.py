@@ -1,13 +1,14 @@
 from django.db.models import Prefetch
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError, ParseError
 from rest_framework.response import Response
-from rest_framework.viewsets import ReadOnlyModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet, GenericViewSet
 
 from solid_backend.media_object.models import MediaObject
 
 from .models import TreeNode
-from .serializers import NestedTreeNodeSerializer, IdTreeNodeSerializer
+from .serializers import NestedTreeNodeSerializer, IdTreeNodeSerializer, SERIALIZERS
 
 
 class NestedProfileEndpoint(ReadOnlyModelViewSet):
@@ -64,3 +65,35 @@ class IdListProfileEndpoint(ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 
+class ContentItemEndpoint(GenericViewSet):
+    name = "contentItem"
+    related_name = ""
+
+    @action(
+        detail=False,
+        url_name="list-content-item",
+        url_path="(?P<related_name>.*)",
+    )
+    def listContentItem(self, request, related_name, *args, **kwargs):
+        self.set_model_related_name(related_name)
+        self.check_related_name_exists()
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(data=serializer.data)
+
+    def get_queryset(self):
+        model = self.get_model_class(self.related_name)
+        return model.objects.all()
+
+    def get_serializer_class(self, *args, **kwargs):
+        return SERIALIZERS.get(self.related_name, None)
+
+    def get_model_class(self, related_name):
+        return self.get_serializer_class(related_name=self.related_name).Meta.model
+
+    def set_model_related_name(self, related_name):
+        self.related_name = related_name
+
+    def check_related_name_exists(self):
+        if self.related_name not in SERIALIZERS:
+            raise ParseError("The requested contentItem model does not exist.")
