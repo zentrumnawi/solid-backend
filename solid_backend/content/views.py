@@ -4,7 +4,7 @@ from rest_framework.viewsets import ReadOnlyModelViewSet
 from solid_backend.media_object.models import MediaObject
 
 from .models import TreeNode
-from .serializers import TreeNodeSerializer
+from .serializers import NestedTreeNodeSerializer
 
 
 class ProfileEndpoint(ReadOnlyModelViewSet):
@@ -12,7 +12,7 @@ class ProfileEndpoint(ReadOnlyModelViewSet):
     Endpoint that provides the database table of the tree structure of all profiles with their related photographs
     """
 
-    serializer_class = TreeNodeSerializer
+    serializer_class = NestedTreeNodeSerializer
     name = "profile"
 
     def get_queryset(self):

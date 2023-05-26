@@ -15,11 +15,11 @@ if hasattr(settings, "PROFILES_SERIALIZERS"):
         SERIALIZERS[field_name] = getattr(import_module(module), serializer)
 
 
-class TreeNodeSerializer(serializers.ModelSerializer):
+class NestedTreeNodeSerializer(serializers.ModelSerializer):
     def build_nested_field(self, field_name, relation_info, nested_depth):
         if SERIALIZERS.get(field_name) is not None:
             return SERIALIZERS.get(field_name), {"many": True, "required": False}
-        return super(TreeNodeSerializer, self).build_nested_field(
+        return super(NestedTreeNodeSerializer, self).build_nested_field(
             field_name, relation_info, nested_depth
         )
 
@@ -27,7 +27,7 @@ class TreeNodeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TreeNode
-        fields = ("name", "info", "children") + tuple(
+        fields = ("name", "info", "children", "level") + tuple(
             settings.PROFILES_SERIALIZERS.keys()
         )
         depth = 2
