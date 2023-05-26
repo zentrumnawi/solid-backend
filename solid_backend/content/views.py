@@ -1,4 +1,5 @@
 from django.db.models import Prefetch
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet
@@ -49,6 +50,8 @@ class IdListProfileEndpoint(ReadOnlyModelViewSet):
     serializer_class = IdTreeNodeSerializer
     queryset = TreeNode.objects.all()
     name = "profile"
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["level", "parent"]
 
     @action(
         detail=False,
