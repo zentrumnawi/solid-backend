@@ -74,7 +74,7 @@ class ContentItemEndpoint(GenericViewSet):
         url_name="detail-content-item",
         url_path="(?P<related_name>[a-zA-Z_]*)",
     )
-    def detailContentItem(self, request, related_name, *args, **kwargs):
+    def detail_content_item(self, request, related_name, *args, **kwargs):
         self.set_model_related_name(related_name)
         self.check_related_name_exists()
         obj = self.get_object()
@@ -86,7 +86,7 @@ class ContentItemEndpoint(GenericViewSet):
         url_name="list-content-item",
         url_path="(?P<related_name>[a-zA-Z_]*)",
     )
-    def listContentItem(self, request, related_name, *args, **kwargs):
+    def list_content_item(self, request, related_name, *args, **kwargs):
         self.set_model_related_name(related_name)
         self.check_related_name_exists()
         queryset = self.get_queryset()
