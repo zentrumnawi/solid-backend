@@ -12,7 +12,6 @@ class SampleProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = SampleProfile
         fields = "__all__"
-        depth = 1
 
 
 class SecondSampleProfileSerializer(serializers.ModelSerializer):

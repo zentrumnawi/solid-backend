@@ -26,7 +26,7 @@ class IdTreeNodeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TreeNode
-        fields = ("name", "info", "children", "level") + tuple(
+        fields = ("id", "name", "info", "children", "level") + tuple(
             settings.PROFILES_SERIALIZERS.keys()
         )
         depth = 1
