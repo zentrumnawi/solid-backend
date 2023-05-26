@@ -70,9 +70,21 @@ class ContentItemEndpoint(GenericViewSet):
     related_name = ""
 
     @action(
+        detail=True,
+        url_name="detail-content-item",
+        url_path="(?P<related_name>[a-zA-Z_]*)",
+    )
+    def detailContentItem(self, request, related_name, *args, **kwargs):
+        self.set_model_related_name(related_name)
+        self.check_related_name_exists()
+        obj = self.get_object()
+        serializer = self.get_serializer(obj)
+        return Response(data=serializer.data)
+
+    @action(
         detail=False,
         url_name="list-content-item",
-        url_path="(?P<related_name>.*)",
+        url_path="(?P<related_name>[a-zA-Z_]*)",
     )
     def listContentItem(self, request, related_name, *args, **kwargs):
         self.set_model_related_name(related_name)
