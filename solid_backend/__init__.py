@@ -1,0 +1,2 @@
+from .utils import drf_spectacular_extensions
+from drf_spectacular.extensions import OpenApiSerializerExtension
