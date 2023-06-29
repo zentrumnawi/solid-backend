@@ -1,12 +1,13 @@
 from rest_framework import serializers
 
 from solid_backend.media_object.serializers import MediaObjectSerializer
-from solid_backend.photograph.serializers import PhotographSerializer
+from solid_backend.utils.serializers import SolidModelSerializer
+
 
 from .models import SampleProfile, SecondSampleProfile
 
 
-class SampleProfileSerializer(serializers.ModelSerializer):
+class SampleProfileSerializer(SolidModelSerializer):
     media_objects = MediaObjectSerializer(many=True)
 
     class Meta:
@@ -15,7 +16,7 @@ class SampleProfileSerializer(serializers.ModelSerializer):
         depth = 1
 
 
-class SecondSampleProfileSerializer(serializers.ModelSerializer):
+class SecondSampleProfileSerializer(SolidModelSerializer):
     media_objects = MediaObjectSerializer(many=True)
 
     class Meta:

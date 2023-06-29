@@ -143,6 +143,10 @@ MEDIA_URL = "/media/"
 
 STATIC_URL = "/static/"
 
+REST_FRAMEWORK = {
+    # YOUR SETTINGS
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
 
 PROFILES_SERIALIZERS = {
     "sampleprofile_related": ("sample_content.serializers", "SampleProfileSerializer"),

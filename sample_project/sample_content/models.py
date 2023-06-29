@@ -21,6 +21,7 @@ class SampleProfile(SolidBaseProfile):
         seperators=[", ", " und "],
         default="",
         blank=True,
+        verbose_name="My Concat verbose"
     )
     color = FromToConcatField(
         max_length=100,
@@ -44,6 +45,9 @@ class SampleProfile(SolidBaseProfile):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "EXAMPLE VERBOSE NAME"
 
 
 class SecondSampleProfile(SolidBaseProfile):
