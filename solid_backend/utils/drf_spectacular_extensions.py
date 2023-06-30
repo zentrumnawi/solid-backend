@@ -14,10 +14,16 @@ except ImportError:
 
 else:
     class MDTextField(TextField):
+        """
+        Model field to declare markdown compatible fields.
+        """
         pass
 
 
     class MDSerializerField(serializers.CharField):
+        """
+        Serializer field to provide a mapping which can bedetected by the MdFieldExtension.
+        """
         pass
 
 
