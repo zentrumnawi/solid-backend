@@ -10,6 +10,7 @@ try:
     import drf_spectacular.extensions as extensions
 
 except ImportError:
+    SPECTACULAR_INSTALLED = False
     pass
 
 else:
