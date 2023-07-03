@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from .drf_spectacular_extensions import SPECTACULAR_INSTALLED
 
 
 class DynamicExcludeModelSerializer(serializers.ModelSerializer):
@@ -39,6 +40,12 @@ class HumanReadableChoiceField(serializers.ChoiceField):
 class SolidModelSerializer(serializers.ModelSerializer):
 
     serializer_choice_field = HumanReadableChoiceField
+    if SPECTACULAR_INSTALLED:
+        from .drf_spectacular_extensions import MDTextField, MDSerializerField
+        serializer_field_mapping = {
+            **serializers.ModelSerializer.serializer_field_mapping,
+            MDTextField: MDSerializerField
+        }
 
     def to_representation(self, instance):
         ret = super(SolidModelSerializer, self).to_representation(instance)
