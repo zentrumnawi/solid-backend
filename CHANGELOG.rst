@@ -1,3 +1,7 @@
+Version 0.3.3 (03.07.2023)
+*****************************
+- Fix declaration of MDTextField and related drf-spectacular detection
+
 Version 0.3.2 (29.06.2023)
 *****************************
 - Add TitleSerializerExtension
