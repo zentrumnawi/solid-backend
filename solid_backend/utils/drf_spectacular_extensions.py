@@ -83,10 +83,11 @@ else:
                 ref_name = ""
                 if "$ref" in prop_schema:
                     ref_name = prop_schema["$ref"]
-                if "allOf" in prop_schema:
+                elif "allOf" in prop_schema:
                     ref_name = prop_schema["allOf"][0]["$ref"]
-                if "oneOf" in prop_schema:
+                elif "oneOf" in prop_schema:
                     ref_name = prop_schema["oneOf"][0]["$ref"]
+                
                 if "Enum" in ref_name:
                     prop_schema["type"] = schemas.get(ref_name.rsplit("/", 1)[1])["type"]
 
