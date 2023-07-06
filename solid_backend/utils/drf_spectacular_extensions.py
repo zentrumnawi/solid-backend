@@ -54,7 +54,7 @@ else:
             return schema
 
 
-    def post_process_choice_field_type(result, generator, request, public):
+    def postprocess_choice_field_type(result, generator, request, public):
         """
         Post-Processing Hook that appends the type of the enum items to the initial prop schema.
         """
