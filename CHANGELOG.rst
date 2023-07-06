@@ -1,3 +1,7 @@
+Version 0.3.4 (06.07.2023)
+*****************************
+- Add drf-spectacular schema postprocessing hook for ChoiceFields
+
 Version 0.3.3 (03.07.2023)
 *****************************
 - Fix declaration of MDTextField and related drf-spectacular detection
