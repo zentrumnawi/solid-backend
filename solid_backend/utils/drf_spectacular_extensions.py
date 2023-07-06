@@ -1,3 +1,7 @@
+import re
+import django
+from drf_spectacular.hooks import postprocess_schema_enums
+from drf_spectacular.settings import spectacular_settings
 from rest_framework import serializers
 from django.db.models import TextField
 
@@ -48,3 +52,42 @@ else:
             if ser_meta and title:
                 schema["title"] = title
             return schema
+
+
+    def post_process_choice_field_type(result, generator, request, public):
+        """
+        Post-Processing Hook that appends the type of the enum items to the initial prop schema.
+        """
+
+        def iter_prop_containers(schema, component_name=None):
+            if not component_name:
+                for component_name, schema in schema.items():
+                    if spectacular_settings.COMPONENT_SPLIT_PATCH:
+                        component_name = re.sub('^Patched(.+)', r'\1', component_name)
+                    if spectacular_settings.COMPONENT_SPLIT_REQUEST:
+                        component_name = re.sub('(.+)Request$', r'\1', component_name)
+                    yield from iter_prop_containers(schema, component_name)
+            elif isinstance(schema, list):
+                for item in schema:
+                    yield from iter_prop_containers(item, component_name)
+            elif isinstance(schema, dict):
+                if schema.get('properties'):
+                    yield component_name, schema['properties']
+                yield from iter_prop_containers(schema.get('oneOf', []), component_name)
+                yield from iter_prop_containers(schema.get('allOf', []), component_name)
+                yield from iter_prop_containers(schema.get('anyOf', []), component_name)
+
+        schemas = result.get('components', {}).get('schemas', {})
+        for component_name, props in iter_prop_containers(schemas):
+            for prop_name, prop_schema in props.items():
+                ref_name = ""
+                if "$ref" in prop_schema:
+                    ref_name = prop_schema["$ref"]
+                if "allOf" in prop_schema:
+                    ref_name = prop_schema["allOf"][0]["$ref"]
+                if "oneOf" in prop_schema:
+                    ref_name = prop_schema["oneOf"][0]["$ref"]
+                if "Enum" in ref_name:
+                    prop_schema["type"] = schemas.get(ref_name.rsplit("/", 1)[1])["type"]
+
+        return result
