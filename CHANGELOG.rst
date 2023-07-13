@@ -1,3 +1,7 @@
+Version 0.3.5 (13.07.2023)
+*****************************
+- Correct Typo which caused problems during schema generation for MDTextFields
+
 Version 0.3.4 (06.07.2023)
 *****************************
 - Add drf-spectacular schema postprocessing hook for ChoiceFields
