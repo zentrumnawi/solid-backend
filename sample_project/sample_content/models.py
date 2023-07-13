@@ -2,6 +2,7 @@ from django.db import models
 
 from solid_backend.content.fields import ConcatCharField, FromToConcatField
 from solid_backend.content.models import SolidBaseProfile
+from solid_backend.utils.drf_spectacular_extensions import MDTextField
 
 
 class SampleProfile(SolidBaseProfile):
@@ -54,6 +55,7 @@ class SecondSampleProfile(SolidBaseProfile):
 
     name = models.CharField(max_length=200, default="")
     integer = models.IntegerField(default=0)
+    my_md_field = MDTextField(max_length=200, default="")
 
     def __str__(self):
         return self.name
