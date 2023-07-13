@@ -33,7 +33,7 @@ else:
 
 
     class MdFieldExtension(extensions.OpenApiSerializerFieldExtension):
-        target_class = "solid_backend.utils.drf_spectacluar_extensions.MDSerializerField"
+        target_class = "solid_backend.utils.drf_spectacular_extensions.MDSerializerField"
 
         def map_serializer_field(self, auto_schema, direction):
             schema = auto_schema._map_serializer_field(self.target, direction, bypass_extensions=True)
