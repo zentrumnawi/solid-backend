@@ -13,7 +13,6 @@ class SampleProfileSerializer(SolidModelSerializer):
     class Meta:
         model = SampleProfile
         fields = "__all__"
-        depth = 1
 
 
 class SecondSampleProfileSerializer(SolidModelSerializer):
