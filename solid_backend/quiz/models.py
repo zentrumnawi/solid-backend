@@ -63,6 +63,7 @@ class QuizAnswer(models.Model):
     range_value = models.FloatField(null=True, blank=True)
     range_max = models.FloatField(null=True, blank=True)
     range_min = models.FloatField(null=True, blank=True)
+    unit = models.FloatField(null=True, blank=True)
     range_step = models.FloatField(null=True, blank=True)
     tolerance = models.FloatField(null=True, blank=True)
 
