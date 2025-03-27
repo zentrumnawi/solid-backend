@@ -22,6 +22,7 @@ class SlideshowAdmin(admin.ModelAdmin):
     list_display = ["id", "title", "position", "title_image", "active"]
     list_display_links = ["title"]
     inlines = [SlideshowPageInline]
+    raw_id_fields = ["title_image"]
 
 
 admin.site.register(Slideshow, SlideshowAdmin)
@@ -71,6 +72,7 @@ class SlideshowImageAdmin(admin.ModelAdmin):
 
     page_with_position.short_description = "Page (position)"
     page_with_position.admin_order_field = "page__position"
+    raw_id_fields = ["image", "page"]
 
 
 admin.site.register(SlideshowImage, SlideshowImageAdmin)

@@ -31,6 +31,7 @@ admin.site.register(QuizQuestion, QuizQuestionAdmin)
 
 class QuizAnswerAdmin(admin.ModelAdmin):
     list_display = ["id", "question", "text", "correct"]
+    raw_id_fields = ["question"]
 
 
 admin.site.register(QuizAnswer, QuizAnswerAdmin)
