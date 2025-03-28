@@ -18,6 +18,7 @@ class QuizQuestionAdmin(admin.ModelAdmin):
     related_lookup_fields = {
         "generic": [["content_type", "object_id"],],
     }
+    search_fields = ["text"]
 
     class Media:
         js = (
@@ -31,7 +32,7 @@ admin.site.register(QuizQuestion, QuizQuestionAdmin)
 
 class QuizAnswerAdmin(admin.ModelAdmin):
     list_display = ["id", "question", "text", "correct"]
-    raw_id_fields = ["question"]
+    autocomplete_fields = ["question"]
 
 
 admin.site.register(QuizAnswer, QuizAnswerAdmin)
