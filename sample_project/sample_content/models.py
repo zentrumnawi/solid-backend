@@ -22,7 +22,7 @@ class SampleProfile(SolidBaseProfile):
         seperators=[", ", " und "],
         default="",
         blank=True,
-        verbose_name="My Concat verbose"
+        verbose_name="My Concat verbose",
     )
     color = FromToConcatField(
         max_length=100,
