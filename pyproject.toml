@@ -42,7 +42,7 @@ pytest-sugar = "0.9.3"
 coverage = "5.1"
 django-coverage-plugin = "1.8.0"
 pytest-cov = "2.9.0"
-black = "19.10b0"
+black = "22.3.0"
 flake8 = "*"
 drf-yasg = "^1.20.0"
 
