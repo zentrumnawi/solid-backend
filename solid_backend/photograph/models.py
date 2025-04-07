@@ -104,7 +104,11 @@ class Photograph(DeepZoom):
     img_original_height = models.PositiveSmallIntegerField(
         editable=False, verbose_name="img height"
     )
-    img_original_scale = models.FloatField(verbose_name="scale", null=True, blank=True,)
+    img_original_scale = models.FloatField(
+        verbose_name="scale",
+        null=True,
+        blank=True,
+    )
 
     img_alt = models.CharField(max_length=200)
     description = models.TextField(

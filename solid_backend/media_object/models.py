@@ -98,7 +98,12 @@ class MediaObjectField(StdImageField):
     attr_class = MediaObjectFieldFile
 
     def formfield(self, **kwargs):
-        return super().formfield(**{"form_class": MediaObjectFormField, **kwargs,})
+        return super().formfield(
+            **{
+                "form_class": MediaObjectFormField,
+                **kwargs,
+            }
+        )
 
 
 class MediaObject(DeepZoom):
@@ -113,7 +118,11 @@ class MediaObject(DeepZoom):
 
     media_format = models.CharField(
         max_length=5,
-        choices=(("image", _("image")), ("audio", _("audio")), ("video", _("video")),),
+        choices=(
+            ("image", _("image")),
+            ("audio", _("audio")),
+            ("video", _("video")),
+        ),
         verbose_name=_("media format"),
     )
 

@@ -16,7 +16,9 @@ class QuizQuestionAdmin(admin.ModelAdmin):
     list_display = ["id", "text"]
     inlines = [QuizAnswerInline, ImageMediaObjectInline]
     related_lookup_fields = {
-        "generic": [["content_type", "object_id"],],
+        "generic": [
+            ["content_type", "object_id"],
+        ],
     }
 
     class Media:
