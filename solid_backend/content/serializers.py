@@ -60,11 +60,29 @@ class TreeNodeLeavesSerializer(BaseTreeNodeSerializer):
         depth = 1
 
 
-class TreeNodeSerializer(serializers.ModelSerializer):
+class IdTreeNodeSerializer(serializers.ModelSerializer):
     def build_nested_field(self, field_name, relation_info, nested_depth):
         if SERIALIZERS.get(field_name) is not None:
             return SERIALIZERS.get(field_name), {"many": True, "required": False}
-        return super(TreeNodeSerializer, self).build_nested_field(
+
+        return self.build_relational_field(
+            field_name, relation_info
+        )
+
+    class Meta:
+        model = TreeNode
+        fields = ("id", "name", "info", "children", "level") + tuple(
+            settings.PROFILES_SERIALIZERS.keys()
+        )
+        depth = 1
+
+
+class NestedTreeNodeSerializer(IdTreeNodeSerializer):
+    def build_nested_field(self, field_name, relation_info, nested_depth):
+        if SERIALIZERS.get(field_name) is not None:
+            return SERIALIZERS.get(field_name), {"many": True, "required": False}
+
+        return super(NestedTreeNodeSerializer, self).build_nested_field(
             field_name, relation_info, nested_depth
         )
 
@@ -72,7 +90,7 @@ class TreeNodeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TreeNode
-        fields = ("name", "info", "children") + tuple(
+        fields = ("name", "info", "children", "level") + tuple(
             settings.PROFILES_SERIALIZERS.keys()
         )
         depth = 2

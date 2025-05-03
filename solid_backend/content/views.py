@@ -1,31 +1,35 @@
 from django.db.models import Prefetch, F
-from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import action
 import logging
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.exceptions import ValidationError, ParseError
+from rest_framework.viewsets import ReadOnlyModelViewSet, GenericViewSet
 
 from solid_backend.media_object.models import MediaObject
 
 from .models import TreeNode
 from .serializers import (
-    TreeNodeSerializer,
     TreeNodeDetailSerializer,
     TreeNodeListSerializer,
     TreeNodeChildrenSerializer,
     TreeNodeParentSerializer,
     TreeNodeLeavesSerializer,
+    NestedTreeNodeSerializer,
+    IdTreeNodeSerializer,
+    SERIALIZERS
 )
 
 # logger = logging.getLogger(__name__)
 logger = logging.getLogger(__name__)
 
 
-class ProfileEndpoint(ReadOnlyModelViewSet):
+class NestedProfileEndpoint(ReadOnlyModelViewSet):
     """
-    Endpoint that provides the database table of the tree structure of all profiles with their related photographs
+    Endpoint that provides the database table of the tree structure of all profiles.
     """
 
-    serializer_class = TreeNodeSerializer
+    serializer_class = NestedTreeNodeSerializer
     name = "profile"
 
     def get_queryset(self):
@@ -107,3 +111,70 @@ class ChildrenEndpoint(ReadOnlyModelViewSet):
             return Response(serializer.data)
         except TreeNode.DoesNotExist:
             return Response({"detail": "Node not found"}, status=404)
+        
+class IdListProfileEndpoint(ReadOnlyModelViewSet):
+    """
+    Endpoint returning the profile tree.
+    """
+
+    serializer_class = IdTreeNodeSerializer
+    queryset = TreeNode.objects.all()
+    name = "profile"
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["level", "parent"]
+
+    @action(
+        detail=False,
+        url_name="root",
+        url_path="root",
+    )
+    def root(self, request, *args, **kwargs):
+        queryset = TreeNode.objects.root_nodes()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class ContentItemEndpoint(GenericViewSet):
+    name = "contentItem"
+    related_name = ""
+
+    @action(
+        detail=True,
+        url_name="detail-content-item",
+        url_path="(?P<related_name>[a-zA-Z_]*)",
+    )
+    def detail_content_item(self, request, related_name, *args, **kwargs):
+        self.set_model_related_name(related_name)
+        self.check_related_name_exists()
+        obj = self.get_object()
+        serializer = self.get_serializer(obj)
+        return Response(data=serializer.data)
+
+    @action(
+        detail=False,
+        url_name="list-content-item",
+        url_path="(?P<related_name>[a-zA-Z_]*)",
+    )
+    def list_content_item(self, request, related_name, *args, **kwargs):
+        self.set_model_related_name(related_name)
+        self.check_related_name_exists()
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(data=serializer.data)
+
+    def get_queryset(self):
+        model = self.get_model_class(self.related_name)
+        return model.objects.all()
+
+    def get_serializer_class(self, *args, **kwargs):
+        return SERIALIZERS.get(self.related_name, None)
+
+    def get_model_class(self, related_name):
+        return self.get_serializer_class(related_name=self.related_name).Meta.model
+
+    def set_model_related_name(self, related_name):
+        self.related_name = related_name
+
+    def check_related_name_exists(self):
+        if self.related_name not in SERIALIZERS:
+            raise ParseError("The requested contentItem model does not exist.")
