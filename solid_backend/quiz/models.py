@@ -52,7 +52,10 @@ class QuizAnswer(models.Model):
     text = models.CharField(
         max_length=200, null=True, blank=True, verbose_name="text (Markdown)"
     )
-    correct = models.BooleanField(null=True, blank=True,)
+    correct = models.BooleanField(
+        null=True,
+        blank=True,
+    )
     feedback_correct = models.CharField(max_length=400, null=True, blank=True)
     feedback_incorrect = models.CharField(max_length=400, null=True, blank=True)
 
@@ -63,6 +66,7 @@ class QuizAnswer(models.Model):
     range_value = models.FloatField(null=True, blank=True)
     range_max = models.FloatField(null=True, blank=True)
     range_min = models.FloatField(null=True, blank=True)
+    unit = models.CharField(max_length=400, null=True, blank=True)
     range_step = models.FloatField(null=True, blank=True)
     tolerance = models.FloatField(null=True, blank=True)
 

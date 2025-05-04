@@ -83,7 +83,11 @@ class MediaObjectAdminForm(forms.ModelForm):
     """
 
     media_format = forms.ChoiceField(
-        choices=(("image", _("image")), ("audio", _("audio")), ("video", _("video")),),
+        choices=(
+            ("image", _("image")),
+            ("audio", _("audio")),
+            ("video", _("video")),
+        ),
         widget=forms.RadioSelect(),
     )
     LENGTH_UNIT_CHOICES = [
@@ -176,7 +180,10 @@ class ImageMediaObjectForm(MediaObjectAdminForm):
 # clean method is unneccessary.
 class AudioVideoMediaObjectForm(forms.ModelForm):
     media_format = forms.ChoiceField(
-        choices=(("audio", _("audio")), ("video", _("video")),),
+        choices=(
+            ("audio", _("audio")),
+            ("video", _("video")),
+        ),
         widget=forms.RadioSelect(),
     )
 

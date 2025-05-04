@@ -23,6 +23,7 @@ class DateOrderForm(forms.ModelForm):
 class MessageAdmin(admin.ModelAdmin):
     form = DateOrderForm
     list_display = ["id", "type", "title", "valid_from", "valid_to", "img"]
+    raw_id_fields = ["img"]
 
 
 admin.site.register(Message, MessageAdmin)

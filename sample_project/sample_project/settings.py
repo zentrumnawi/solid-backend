@@ -110,9 +110,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 
@@ -145,7 +151,7 @@ STATIC_URL = "/static/"
 
 REST_FRAMEWORK = {
     # YOUR SETTINGS
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 PROFILES_SERIALIZERS = {
@@ -157,8 +163,8 @@ PROFILES_SERIALIZERS = {
 }
 
 SPECTACULAR_SETTINGS = {
-    'POSTPROCESSING_HOOKS': [
-        'drf_spectacular.hooks.postprocess_schema_enums',
-        "solid_backend.utils.drf_spectacular_extensions.postprocess_choice_field_type"
+    "POSTPROCESSING_HOOKS": [
+        "drf_spectacular.hooks.postprocess_schema_enums",
+        "solid_backend.utils.drf_spectacular_extensions.postprocess_choice_field_type",
     ],
 }

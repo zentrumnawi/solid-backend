@@ -31,7 +31,10 @@ class ConcatWidget(forms.MultiWidget):
             # raise Exception(ret_list)
         if len(ret_list) < self.choice_cnt:
             ret_list.extend(
-                (self.choice_cnt - len(ret_list)) * ["",]
+                (self.choice_cnt - len(ret_list))
+                * [
+                    "",
+                ]
             )
         ret_list.append("Saved value: {}".format(value))
         return ret_list
