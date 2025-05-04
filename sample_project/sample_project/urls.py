@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from drf_spectacular.views import SpectacularSwaggerView, SpectacularAPIView, SpectacularRedocView
+from drf_spectacular.views import (
+    SpectacularSwaggerView,
+    SpectacularAPIView,
+    SpectacularRedocView,
+)
 
 import solid_backend
 
@@ -24,10 +28,16 @@ urlpatterns = [
     path("", include("solid_backend.urls")),
     path("", include("api_docs.api_docs"), name="api_docs"),
     # YOUR PATTERNS
-    path(r'api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path(r"api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # Optional UI:
-    path(r'api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'),
-         name='swagger-ui'),
-    path(r'api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'),
-         name='redoc'),
+    path(
+        r"api/schema/swagger-ui/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path(
+        r"api/schema/redoc/",
+        SpectacularRedocView.as_view(url_name="schema"),
+        name="redoc",
+    ),
 ]

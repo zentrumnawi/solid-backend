@@ -262,7 +262,7 @@ class DeepZoomCollection(object):
         files_path = _get_or_create_path(_get_files_path(self.source))
         for level in reversed(range(self.max_level + 1)):
             level_path = _get_or_create_path("%s/%s" % (files_path, level))
-            level_size = 2 ** level
+            level_size = 2**level
             images_per_tile = int(math.floor(self.tile_size / level_size))
             column, row = self.get_tile_position(i, level, self.tile_size)
             tile_path = "%s/%s_%s.%s" % (level_path, column, row, self.tile_format)
@@ -342,7 +342,7 @@ class DeepZoomCollection(object):
         return z_order
 
     def get_tile_position(self, z_order, level, tile_size):
-        level_size = 2 ** level
+        level_size = 2**level
         x, y = self.get_position(z_order)
         return (
             int(math.floor((x * level_size) / tile_size)),
