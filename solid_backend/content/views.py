@@ -16,6 +16,7 @@ from .serializers import (
     TreeNodeParentSerializer,
     TreeNodeLeavesSerializer,
     NestedTreeNodeSerializer,
+    LeavesWithProfilesSerializer,
     IdTreeNodeSerializer,
     SERIALIZERS
 )
@@ -34,12 +35,10 @@ class NestedProfileEndpoint(ReadOnlyModelViewSet):
 
     def get_queryset(self):
         if not hasattr(TreeNode, "profiles"):
-            logger.debug("No profiles found on TreeNode model!!!!!!!!!!!!!!!!!")
             return TreeNode.objects.root_nodes()
 
         # Get the deepest level of the tree structure.
         level_max = 0
-        logger.debug("Profiles !!!!!!!!!!!!!!!!!!")
 
         for obj in TreeNode.objects.only("level"):
             if level_max < obj.level:
@@ -66,9 +65,21 @@ class RootNodeEndpoint(ReadOnlyModelViewSet):
 
 class LeavesEndpoint(ReadOnlyModelViewSet):
     queryset = TreeNode.objects.filter(lft=F("rght") - 1)
-    serializer_class = TreeNodeLeavesSerializer
+    serializer_class = LeavesWithProfilesSerializer
     name = "leaves"
 
+class AllNodesFlatEndpoint(ReadOnlyModelViewSet):
+    queryset = TreeNode.objects.all()
+    serializer_class = LeavesWithProfilesSerializer
+    name = "all-nodes-flat"
+
+    def retrieve(self, request, *args, **kwargs):
+        
+            node = self.get_root()
+            nodes = node.get_descendants(include_self=True)  # MPTT method to get direct children
+
+            serializer = self.get_serializer(nodes, many=True)
+            return Response(serializer.data)
 
 class ChildrenEndpoint(ReadOnlyModelViewSet):
     queryset = TreeNode.objects.all()

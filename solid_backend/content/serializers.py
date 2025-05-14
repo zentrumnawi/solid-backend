@@ -94,3 +94,24 @@ class NestedTreeNodeSerializer(IdTreeNodeSerializer):
             settings.PROFILES_SERIALIZERS.keys()
         )
         depth = 2
+
+class LeavesWithProfilesSerializer(serializers.ModelSerializer):
+    has_children = serializers.SerializerMethodField()
+
+    def get_has_children(self, obj):
+        return obj.get_children().exists()
+
+    def build_nested_field(self, field_name, relation_info, nested_depth):
+        if SERIALIZERS.get(field_name) is not None:
+            return SERIALIZERS.get(field_name), {"many": True, "required": False}
+
+        return super(LeavesWithProfilesSerializer, self).build_nested_field(
+            field_name, relation_info, nested_depth
+        )
+    
+    class Meta:
+        model = TreeNode
+        fields = ("id", "name", "info", "level", "parent", "has_children") + tuple(
+            settings.PROFILES_SERIALIZERS.keys()
+        )
+        depth = 1
