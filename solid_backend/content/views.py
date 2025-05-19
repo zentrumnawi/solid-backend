@@ -5,8 +5,12 @@ import logging
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.exceptions import ValidationError, ParseError
 from rest_framework.viewsets import ReadOnlyModelViewSet, GenericViewSet
-
+from django.db.models import Q
+from django.conf import settings
+import logging
+from importlib import import_module
 from solid_backend.media_object.models import MediaObject
+from mptt.fields import TreeForeignKey
 
 from .models import TreeNode
 from .serializers import (
@@ -122,7 +126,9 @@ class ChildrenEndpoint(ReadOnlyModelViewSet):
             return Response(serializer.data)
         except TreeNode.DoesNotExist:
             return Response({"detail": "Node not found"}, status=404)
-        
+
+# curl -X GET http://localhost:8000/recursive/profiles/ | python -m json.tool
+# curl -X GET http://localhost:8000/recursive/profiles/?level=1 | python -m json.tool
 class IdListProfileEndpoint(ReadOnlyModelViewSet):
     """
     Endpoint returning the profile tree.
@@ -144,7 +150,8 @@ class IdListProfileEndpoint(ReadOnlyModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
-
+# curl -X GET http://localhost:8000/contentItem/wine_related/ | python -m json.tool
+# curl -X GET http://localhost:8000/contentItem/1/wine_related/ | python -m json.tool
 class ContentItemEndpoint(GenericViewSet):
     name = "contentItem"
     related_name = ""
@@ -188,4 +195,4 @@ class ContentItemEndpoint(GenericViewSet):
 
     def check_related_name_exists(self):
         if self.related_name not in SERIALIZERS:
-            raise ParseError("The requested contentItem model does not exist.")
+            raise ParseError(f"The requested contentItem model {self.related_name} does not exist.")
