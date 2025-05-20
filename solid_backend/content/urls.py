@@ -10,6 +10,7 @@ from .views import (
     IdListProfileEndpoint,
     ContentItemEndpoint,
     AllNodesFlatEndpoint,
+    FlatProfilesEndpoint,
 )
 
 app_name = "content"
@@ -23,5 +24,6 @@ router.register(r"profiles", NestedProfileEndpoint, basename="profile-new")
 router.register(r"recursive/profiles", IdListProfileEndpoint, basename="idlist-profile")
 router.register(r"contentItem", ContentItemEndpoint, basename="content-item")
 router.register(r"all-nodes-flat", AllNodesFlatEndpoint, basename="all-nodes-flat")
+router.register(r"flat-profiles", FlatProfilesEndpoint, basename="flat-profiles")
 urlpatterns = []
 urlpatterns += router.urls

@@ -26,7 +26,6 @@ from .serializers import (
 )
 
 # logger = logging.getLogger(__name__)
-logger = logging.getLogger(__name__)
 
 
 class NestedProfileEndpoint(ReadOnlyModelViewSet):
@@ -98,7 +97,7 @@ class ParentNodeEndpoint(ReadOnlyModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         node = self.get_object()
-        logger.debug(f"Parent node: {node.parent}")
+        # logger.debug(f"Parent node: {node.parent}")
         if not node.parent:
             return Response([])
 
@@ -196,3 +195,39 @@ class ContentItemEndpoint(GenericViewSet):
     def check_related_name_exists(self):
         if self.related_name not in SERIALIZERS:
             raise ParseError(f"The requested contentItem model {self.related_name} does not exist.")
+
+class FlatProfilesEndpoint(GenericViewSet):
+    """
+    Endpoint that returns all profiles in a flat list
+    """
+    name = "flat-profiles"
+
+    def get_queryset(self):
+        results = []
+        if SERIALIZERS:
+            for profile_type in SERIALIZERS:
+                model = SERIALIZERS[profile_type].Meta.model
+                profile_results = model.objects.all()
+                if profile_results.exists():
+                    results.extend(profile_results)
+        return results
+
+    def get_serializer_class(self):
+        return SERIALIZERS.get(self.related_name, None)
+
+    def get_serializer_for_model(self, model_name):
+        for serializer_name, serializer_class in SERIALIZERS.items():
+            if serializer_class.Meta.model.__name__.lower() == model_name.lower():
+                return serializer_class
+        return None
+
+    def list(self, request):
+        queryset = self.get_queryset()
+        response_data = []
+        for item in queryset:
+            model_name = item._meta.model_name
+            serializer_class = self.get_serializer_for_model(model_name)
+            if serializer_class:
+                serializer = serializer_class(item)
+                response_data.append(serializer.data)
+        return Response(response_data)
