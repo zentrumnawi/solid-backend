@@ -1,3 +1,10 @@
+Version 0.3.6 (04.05.2025)
+*****************************
+- Add check for non-existing image in slideshows
+- Add unit for range question type
+- Add raw id fields and autocomplete fields in admin interface
+- Explicitly set default type for foreign keys
+
 Version 0.3.5 (13.07.2023)
 *****************************
 - Correct Typo which caused problems during schema generation for MDTextFields

@@ -1,0 +1,68 @@
+name: build-pr
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      POETRY_VERSION: 1.2.0
+      POETRY_VIRTUALENVS_CREATE: false
+      PROFILES_SERIALIZER: "planty_content.serializers.WineSerializer"
+      # Database config
+      POSTGRES_DB: test_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+
+    - name: Start PostgreSQL
+      run: |
+        sudo systemctl start postgresql.service
+        sudo systemctl status postgresql.service
+        # Set up both users
+        # sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres';"
+        sudo -u postgres psql -c "CREATE USER db_user WITH PASSWORD 'db_pass';"
+        sudo -u postgres psql -c "ALTER USER db_user WITH SUPERUSER;"
+        # Create test database
+        sudo -u postgres psql -c "CREATE DATABASE test_db;"
+        sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE test_db TO db_user;"
+
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        poetry --version
+
+    - name: Cache Poetry dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cache/pip
+          ~/.cache/pypoetry
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install dependencies
+      run: |
+        poetry install
+
+    - name: Run tests
+      run: |
+        black . --check
+        poetry run pytest --cov=./
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.yml
+        fail_ci_if_error: false

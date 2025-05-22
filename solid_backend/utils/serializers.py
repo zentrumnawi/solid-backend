@@ -42,9 +42,10 @@ class SolidModelSerializer(serializers.ModelSerializer):
     serializer_choice_field = HumanReadableChoiceField
     if SPECTACULAR_INSTALLED:
         from .drf_spectacular_extensions import MDTextField, MDSerializerField
+
         serializer_field_mapping = {
             **serializers.ModelSerializer.serializer_field_mapping,
-            MDTextField: MDSerializerField
+            MDTextField: MDSerializerField,
         }
 
     def to_representation(self, instance):

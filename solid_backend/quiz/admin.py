@@ -16,8 +16,11 @@ class QuizQuestionAdmin(admin.ModelAdmin):
     list_display = ["id", "text"]
     inlines = [QuizAnswerInline, ImageMediaObjectInline]
     related_lookup_fields = {
-        "generic": [["content_type", "object_id"],],
+        "generic": [
+            ["content_type", "object_id"],
+        ],
     }
+    search_fields = ["text"]
 
     class Media:
         js = (
@@ -31,6 +34,7 @@ admin.site.register(QuizQuestion, QuizQuestionAdmin)
 
 class QuizAnswerAdmin(admin.ModelAdmin):
     list_display = ["id", "question", "text", "correct"]
+    autocomplete_fields = ["question"]
 
 
 admin.site.register(QuizAnswer, QuizAnswerAdmin)

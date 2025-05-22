@@ -18,6 +18,7 @@ REQUIRED_ANSWER_FIELDS = {
         "range_value",
         "range_max",
         "range_min",
+        "unit",
         "range_step",
         "tolerance",
         "feedback_correct",
