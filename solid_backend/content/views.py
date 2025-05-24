@@ -45,7 +45,7 @@ class ProfileEndpoint(ReadOnlyModelViewSet):
         return TreeNode.objects.root_nodes().prefetch_related(*lookup_list)
 
 
-class SearchProfileEndpoint(ReadOnlyModelViewSet):
+class SearchNodeWithProfilesEndpoint(ReadOnlyModelViewSet):
     """
     Endpoint that returns tree nodes that contain the search term in their general_information__name or general_information__synonyms fields.
     """
@@ -93,12 +93,12 @@ class SearchProfileEndpoint(ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 
-class GlobalSearchEndpoint(GenericViewSet):
+class ProfileSearchEndpoint(GenericViewSet):
     """
-    Endpoint that searches across all content types and returns their native serialized data.
+    Endpoint that searches across all profile types and returns their native serialized data.
     """
 
-    name = "global-search"
+    name = "profile-search"
 
     def get_queryset(self):
         search_term = self.request.query_params.get("q", "")
