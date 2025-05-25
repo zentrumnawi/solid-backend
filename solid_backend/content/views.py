@@ -124,7 +124,6 @@ class ProfileSearchEndpoint(GenericViewSet):
     def get_serializer_for_model(self, model_name):
         for serializer_name, serializer_class in SERIALIZERS.items():
             if serializer_class.Meta.model.__name__.lower() == model_name.lower():
-                # logger.debug(f"Serializer class: {serializer_class}")
                 return serializer_class
         return None
 
@@ -132,16 +131,13 @@ class ProfileSearchEndpoint(GenericViewSet):
     def search(self, request):
         queryset = self.get_queryset()
         # Group results by type and serialize accordingly
-        # logger.debug(f"Queryset: {[item for item in queryset]}")
-        response_data = {}
+        response_data = []
         for item in queryset:
             model_name = item._meta.model_name
-            # logger.debug(f"Model name: {model_name}")
-            if model_name not in response_data:
-                response_data[model_name] = []
             serializer_class = self.get_serializer_for_model(model_name)
             if serializer_class:
-                serializer = serializer_class(item)
-                response_data[model_name].append(serializer.data)
+                data = serializer_class(item).data
+                data["def_type"] = model_name
+                response_data.append(data)
 
         return Response(response_data)
