@@ -51,7 +51,7 @@ class SearchNodeWithProfilesEndpoint(ReadOnlyModelViewSet):
     """
 
     serializer_class = LeavesWithProfilesSerializer
-    name = "search-profile"
+    name = "search-node-with-profiles"
 
     def get_queryset(self):
         search_term = self.request.query_params.get("q", "")
@@ -62,7 +62,6 @@ class SearchNodeWithProfilesEndpoint(ReadOnlyModelViewSet):
             for profile_type in SERIALIZERS:
 
                 model_class = SERIALIZERS[profile_type].Meta.model
-                # logger.debug(f"Model class: {model_class}")
                 # Get the related query name from the model's TreeNode field
                 for field in model_class._meta.fields:
                     if (
@@ -70,17 +69,12 @@ class SearchNodeWithProfilesEndpoint(ReadOnlyModelViewSet):
                         and field.remote_field.model == TreeNode
                     ):
                         related_query_name = field.related_query_name()
-                        # logger.debug(f"Related query name: {related_query_name}")
 
                 return TreeNode.objects.filter(
                     Q(
                         **{
-                            f"{related_query_name}__general_information__name__icontains": search_term
-                        }
-                    )
-                    | Q(
-                        **{
-                            f"{related_query_name}__general_information__synonyms__icontains": search_term
+                            f"{related_query_name}__general_information__name__icontains": search_term,
+                            f"{related_query_name}__general_information__synonyms__icontains": search_term,
                         }
                     )
                 ).distinct()
@@ -130,13 +124,13 @@ class ProfileSearchEndpoint(GenericViewSet):
     @action(detail=False, methods=["get"])
     def search(self, request):
         queryset = self.get_queryset()
-        # Group results by type and serialize accordingly
         response_data = []
         for item in queryset:
             model_name = item._meta.model_name
             serializer_class = self.get_serializer_for_model(model_name)
             if serializer_class:
-                data = serializer_class(item).data
+                serializer = serializer_class(item, context={'request': request})
+                data = serializer.data
                 data["def_type"] = model_name
                 response_data.append(data)
 
