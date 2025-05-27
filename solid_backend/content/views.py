@@ -22,6 +22,7 @@ from .serializers import (
     NestedTreeNodeSerializer,
     LeavesWithProfilesSerializer,
     IdTreeNodeSerializer,
+    BaseTreeNodeSerializer,
     SERIALIZERS
 )
 
@@ -89,6 +90,15 @@ class ChildrenEndpoint(ReadOnlyModelViewSet):
     serializer_class = TreeNodeChildrenSerializer
     name = "children"
 
+class AncestorsEndpoint(ReadOnlyModelViewSet):
+    queryset = TreeNode.objects.all()
+    serializer_class = BaseTreeNodeSerializer
+    name = "ancestors"
+
+    def retrieve(self, request, *args, **kwargs):
+        node = self.get_object()
+        serializer = self.get_serializer(node.get_ancestors(include_self=True), many=True)
+        return Response(serializer.data)
 
 class ParentNodeEndpoint(ReadOnlyModelViewSet):
     queryset = TreeNode.objects.all()

@@ -11,6 +11,7 @@ from .views import (
     ContentItemEndpoint,
     AllNodesFlatEndpoint,
     FlatProfilesEndpoint,
+    AncestorsEndpoint,
 )
 
 app_name = "content"
@@ -25,5 +26,6 @@ router.register(r"recursive/profiles", IdListProfileEndpoint, basename="idlist-p
 router.register(r"contentItem", ContentItemEndpoint, basename="content-item")
 router.register(r"all-nodes-flat", AllNodesFlatEndpoint, basename="all-nodes-flat")
 router.register(r"flat-profiles", FlatProfilesEndpoint, basename="flat-profiles")
+router.register(r"ancestors", AncestorsEndpoint, basename="ancestors")
 urlpatterns = []
 urlpatterns += router.urls
