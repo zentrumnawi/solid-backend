@@ -14,11 +14,6 @@ from mptt.fields import TreeForeignKey
 
 from .models import TreeNode
 from .serializers import (
-    TreeNodeDetailSerializer,
-    TreeNodeListSerializer,
-    TreeNodeChildrenSerializer,
-    TreeNodeParentSerializer,
-    TreeNodeLeavesSerializer,
     NestedTreeNodeSerializer,
     LeavesWithProfilesSerializer,
     IdTreeNodeSerializer,
@@ -63,7 +58,7 @@ class NestedProfileEndpoint(ReadOnlyModelViewSet):
 
 class RootNodeEndpoint(ReadOnlyModelViewSet):
     queryset = TreeNode.objects.root_nodes()
-    serializer_class = TreeNodeListSerializer
+    serializer_class = BaseTreeNodeSerializer
     name = "rootnode"
 
 
@@ -80,15 +75,11 @@ class AllNodesFlatEndpoint(ReadOnlyModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         
             node = self.get_root()
-            nodes = node.get_descendants(include_self=True)  # MPTT method to get direct children
+            nodes = node.get_descendants(include_self=True)
 
             serializer = self.get_serializer(nodes, many=True)
             return Response(serializer.data)
 
-class ChildrenEndpoint(ReadOnlyModelViewSet):
-    queryset = TreeNode.objects.all()
-    serializer_class = TreeNodeChildrenSerializer
-    name = "children"
 
 class AncestorsEndpoint(ReadOnlyModelViewSet):
     queryset = TreeNode.objects.all()
@@ -102,12 +93,12 @@ class AncestorsEndpoint(ReadOnlyModelViewSet):
 
 class ParentNodeEndpoint(ReadOnlyModelViewSet):
     queryset = TreeNode.objects.all()
-    serializer_class = TreeNodeParentSerializer
+    serializer_class = BaseTreeNodeSerializer
     name = "parentnode"
 
     def retrieve(self, request, *args, **kwargs):
         node = self.get_object()
-        # logger.debug(f"Parent node: {node.parent}")
+        
         if not node.parent:
             return Response([])
 
@@ -121,7 +112,7 @@ class ChildrenEndpoint(ReadOnlyModelViewSet):
     """
 
     queryset = TreeNode.objects.all()
-    serializer_class = TreeNodeChildrenSerializer
+    serializer_class = BaseTreeNodeSerializer
     name = "children"
 
     def retrieve(self, request, *args, **kwargs):

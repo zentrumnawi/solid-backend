@@ -37,27 +37,6 @@ class TreeNodeDetailSerializer(BaseTreeNodeSerializer):
         fields = BaseTreeNodeSerializer.Meta.fields + ("child",)
 
 
-class TreeNodeListSerializer(BaseTreeNodeSerializer):
-    """For listing nodes without children"""
-
-    class Meta(BaseTreeNodeSerializer.Meta):
-        pass
-
-
-class TreeNodeChildrenSerializer(BaseTreeNodeSerializer):
-    """For getting direct children only"""
-
-    class Meta(BaseTreeNodeSerializer.Meta):
-        pass
-
-
-class TreeNodeParentSerializer(BaseTreeNodeSerializer):
-    """For getting parent node"""
-
-    class Meta(BaseTreeNodeSerializer.Meta):
-        pass
-
-
 class TreeNodeLeavesSerializer(BaseTreeNodeSerializer):
     """For getting leaves only"""
 
