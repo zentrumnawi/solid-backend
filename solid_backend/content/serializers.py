@@ -16,9 +16,16 @@ if hasattr(settings, "PROFILES_SERIALIZERS"):
 
 
 class BaseTreeNodeSerializer(serializers.ModelSerializer):
+    """For getting basic node information"""
+
+    has_children = serializers.SerializerMethodField()
+
+    def get_has_children(self, obj):
+        return obj.get_children().exists()
+    
     class Meta:
         model = TreeNode
-        fields = ("id", "name", "info")
+        fields = ("id", "name", "info", "has_children")
 
 
 class TreeNodeDetailSerializer(BaseTreeNodeSerializer):
