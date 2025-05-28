@@ -246,7 +246,7 @@ class FlatProfilesEndpoint(GenericViewSet):
             model_name = item._meta.model_name
             serializer_class = self.get_serializer_for_model(model_name)
             if serializer_class:
-                data = serializer_class(item).data
+                data = serializer_class(item, context={'request': request}).data
                 # Add profile_type to each item
                 data['def_type'] = model_name
                 response_data.append(data)
