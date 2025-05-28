@@ -29,12 +29,12 @@ class BaseTreeNodeSerializer(serializers.ModelSerializer):
 
 
 class TreeNodeDetailSerializer(BaseTreeNodeSerializer):
-    """For detailed view of a single node"""
+    """For detailed view of a single node, including children recursively"""
 
-    child = RecursiveSerializer(many=True, required=False)
+    children = RecursiveSerializer(many=True, required=False)
 
     class Meta(BaseTreeNodeSerializer.Meta):
-        fields = BaseTreeNodeSerializer.Meta.fields + ("child",)
+        fields = BaseTreeNodeSerializer.Meta.fields + ("children",)
 
 
 class TreeNodeLeavesSerializer(BaseTreeNodeSerializer):
