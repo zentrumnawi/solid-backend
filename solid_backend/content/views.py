@@ -57,17 +57,26 @@ class NestedProfileEndpoint(ReadOnlyModelViewSet):
 
 
 class RootNodeEndpoint(ReadOnlyModelViewSet):
+    """
+    Endpoint that provides the root node(s) of the tree
+    """
     queryset = TreeNode.objects.root_nodes()
     serializer_class = BaseTreeNodeSerializer
     name = "rootnode"
 
 
 class LeavesEndpoint(ReadOnlyModelViewSet):
+    """
+    Endpoint that provides the leaves of the tree
+    """
     queryset = TreeNode.objects.filter(lft=F("rght") - 1)
     serializer_class = LeavesWithProfilesSerializer
     name = "leaves"
 
 class AllNodesFlatEndpoint(ReadOnlyModelViewSet):
+    """
+    Endpoint that returns all nodes in a flat list, including profiles
+    """
     queryset = TreeNode.objects.all()
     serializer_class = LeavesWithProfilesSerializer
     name = "all-nodes-flat"
@@ -82,6 +91,9 @@ class AllNodesFlatEndpoint(ReadOnlyModelViewSet):
 
 
 class AncestorsEndpoint(ReadOnlyModelViewSet):
+    """
+    Endpoint that provides the ancestors of a specified node
+    """
     queryset = TreeNode.objects.all()
     serializer_class = BaseTreeNodeSerializer
     name = "ancestors"
@@ -92,6 +104,9 @@ class AncestorsEndpoint(ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 class ParentNodeEndpoint(ReadOnlyModelViewSet):
+    """
+    Endpoint that provides the parent node of a specified node
+    """
     queryset = TreeNode.objects.all()
     serializer_class = BaseTreeNodeSerializer
     name = "parentnode"
@@ -108,9 +123,8 @@ class ParentNodeEndpoint(ReadOnlyModelViewSet):
 
 class ChildrenEndpoint(ReadOnlyModelViewSet):
     """
-    Endpoint that provides the direct children of a specified node.
+    Endpoint that provides the direct children of a specified node
     """
-
     queryset = TreeNode.objects.all()
     serializer_class = BaseTreeNodeSerializer
     name = "children"
@@ -153,6 +167,9 @@ class IdListProfileEndpoint(ReadOnlyModelViewSet):
 # curl -X GET http://localhost:8000/contentItem/wine_related/ | python -m json.tool
 # curl -X GET http://localhost:8000/contentItem/1/wine_related/ | python -m json.tool
 class ContentItemEndpoint(GenericViewSet):
+    """
+    Endpoint that provides profiles by id, given  the profile-type (e.g. wine_related, plant-related, etc.)
+    """
     name = "contentItem"
     related_name = ""
 
