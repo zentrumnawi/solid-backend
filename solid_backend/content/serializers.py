@@ -22,7 +22,7 @@ class BaseTreeNodeSerializer(serializers.ModelSerializer):
 
     def get_has_children(self, obj):
         return obj.get_children().exists()
-    
+
     class Meta:
         model = TreeNode
         fields = ("id", "name", "info", "has_children")
@@ -51,9 +51,7 @@ class IdTreeNodeSerializer(serializers.ModelSerializer):
         if SERIALIZERS.get(field_name) is not None:
             return SERIALIZERS.get(field_name), {"many": True, "required": False}
 
-        return self.build_relational_field(
-            field_name, relation_info
-        )
+        return self.build_relational_field(field_name, relation_info)
 
     class Meta:
         model = TreeNode
@@ -81,6 +79,7 @@ class NestedTreeNodeSerializer(IdTreeNodeSerializer):
         )
         depth = 2
 
+
 class LeavesWithProfilesSerializer(serializers.ModelSerializer):
     has_children = serializers.SerializerMethodField()
 
@@ -94,7 +93,7 @@ class LeavesWithProfilesSerializer(serializers.ModelSerializer):
         return super(LeavesWithProfilesSerializer, self).build_nested_field(
             field_name, relation_info, nested_depth
         )
-    
+
     class Meta:
         model = TreeNode
         fields = ("id", "name", "info", "level", "parent", "has_children") + tuple(

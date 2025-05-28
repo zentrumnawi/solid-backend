@@ -18,7 +18,7 @@ from .serializers import (
     LeavesWithProfilesSerializer,
     IdTreeNodeSerializer,
     BaseTreeNodeSerializer,
-    SERIALIZERS
+    SERIALIZERS,
 )
 
 # logger = logging.getLogger(__name__)
@@ -60,6 +60,7 @@ class RootNodeEndpoint(ReadOnlyModelViewSet):
     """
     Endpoint that provides the root node(s) of the tree
     """
+
     queryset = TreeNode.objects.root_nodes()
     serializer_class = BaseTreeNodeSerializer
     name = "rootnode"
@@ -69,51 +70,59 @@ class LeavesEndpoint(ReadOnlyModelViewSet):
     """
     Endpoint that provides the leaves of the tree
     """
+
     queryset = TreeNode.objects.filter(lft=F("rght") - 1)
     serializer_class = LeavesWithProfilesSerializer
     name = "leaves"
+
 
 class AllNodesFlatEndpoint(ReadOnlyModelViewSet):
     """
     Endpoint that returns all nodes in a flat list, including profiles
     """
+
     queryset = TreeNode.objects.all()
     serializer_class = LeavesWithProfilesSerializer
     name = "all-nodes-flat"
 
     def retrieve(self, request, *args, **kwargs):
-        
-            node = self.get_root()
-            nodes = node.get_descendants(include_self=True)
 
-            serializer = self.get_serializer(nodes, many=True)
-            return Response(serializer.data)
+        node = self.get_root()
+        nodes = node.get_descendants(include_self=True)
+
+        serializer = self.get_serializer(nodes, many=True)
+        return Response(serializer.data)
 
 
 class AncestorsEndpoint(ReadOnlyModelViewSet):
     """
     Endpoint that provides the ancestors of a specified node
     """
+
     queryset = TreeNode.objects.all()
     serializer_class = BaseTreeNodeSerializer
     name = "ancestors"
 
     def retrieve(self, request, *args, **kwargs):
         node = self.get_object()
-        serializer = self.get_serializer(node.get_ancestors(include_self=True), many=True)
+        serializer = self.get_serializer(
+            node.get_ancestors(include_self=True), many=True
+        )
         return Response(serializer.data)
+
 
 class ParentNodeEndpoint(ReadOnlyModelViewSet):
     """
     Endpoint that provides the parent node of a specified node
     """
+
     queryset = TreeNode.objects.all()
     serializer_class = BaseTreeNodeSerializer
     name = "parentnode"
 
     def retrieve(self, request, *args, **kwargs):
         node = self.get_object()
-        
+
         if not node.parent:
             return Response([])
 
@@ -125,6 +134,7 @@ class ChildrenEndpoint(ReadOnlyModelViewSet):
     """
     Endpoint that provides the direct children of a specified node
     """
+
     queryset = TreeNode.objects.all()
     serializer_class = BaseTreeNodeSerializer
     name = "children"
@@ -140,6 +150,7 @@ class ChildrenEndpoint(ReadOnlyModelViewSet):
             return Response(serializer.data)
         except TreeNode.DoesNotExist:
             return Response({"detail": "Node not found"}, status=404)
+
 
 # curl -X GET http://localhost:8000/recursive/profiles/ | python -m json.tool
 # curl -X GET http://localhost:8000/recursive/profiles/?level=1 | python -m json.tool
@@ -164,12 +175,14 @@ class IdListProfileEndpoint(ReadOnlyModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
+
 # curl -X GET http://localhost:8000/contentItem/wine_related/ | python -m json.tool
 # curl -X GET http://localhost:8000/contentItem/1/wine_related/ | python -m json.tool
 class ContentItemEndpoint(GenericViewSet):
     """
     Endpoint that provides profiles by id, given  the profile-type (e.g. wine_related, plant-related, etc.)
     """
+
     name = "contentItem"
     related_name = ""
 
@@ -212,12 +225,16 @@ class ContentItemEndpoint(GenericViewSet):
 
     def check_related_name_exists(self):
         if self.related_name not in SERIALIZERS:
-            raise ParseError(f"The requested contentItem model {self.related_name} does not exist.")
+            raise ParseError(
+                f"The requested contentItem model {self.related_name} does not exist."
+            )
+
 
 class FlatProfilesEndpoint(GenericViewSet):
     """
     Endpoint that returns all profiles in a flat list
     """
+
     name = "flat-profiles"
 
     def get_queryset(self):
@@ -246,8 +263,8 @@ class FlatProfilesEndpoint(GenericViewSet):
             model_name = item._meta.model_name
             serializer_class = self.get_serializer_for_model(model_name)
             if serializer_class:
-                data = serializer_class(item, context={'request': request}).data
+                data = serializer_class(item, context={"request": request}).data
                 # Add profile_type to each item
-                data['def_type'] = model_name
+                data["def_type"] = model_name
                 response_data.append(data)
         return Response(response_data)
