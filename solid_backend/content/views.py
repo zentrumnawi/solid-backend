@@ -1,14 +1,10 @@
 from django.db.models import Prefetch, F
 from rest_framework.response import Response
 from rest_framework.decorators import action
-import logging
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.exceptions import ValidationError, ParseError
 from rest_framework.viewsets import ReadOnlyModelViewSet, GenericViewSet
 from django.db.models import Q
-from django.conf import settings
-import logging
-from importlib import import_module
 from solid_backend.media_object.models import MediaObject
 from mptt.fields import TreeForeignKey
 
@@ -20,8 +16,6 @@ from .serializers import (
     BaseTreeNodeSerializer,
     SERIALIZERS,
 )
-
-logger = logging.getLogger(__name__)
 
 
 class NestedProfileEndpoint(ReadOnlyModelViewSet):
@@ -54,7 +48,7 @@ class NestedProfileEndpoint(ReadOnlyModelViewSet):
             lookup_list.append(Prefetch(lookup, queryset=queryset))
 
         return TreeNode.objects.root_nodes().prefetch_related(*lookup_list)
-    
+
 
 class RootNodeEndpoint(ReadOnlyModelViewSet):
     """
@@ -358,7 +352,7 @@ class ProfileSearchEndpoint(GenericViewSet):
             model_name = item._meta.model_name
             serializer_class = self.get_serializer_for_model(model_name)
             if serializer_class:
-                serializer = serializer_class(item, context={'request': request})
+                serializer = serializer_class(item, context={"request": request})
                 data = serializer.data
                 data["def_type"] = model_name
                 response_data.append(data)
