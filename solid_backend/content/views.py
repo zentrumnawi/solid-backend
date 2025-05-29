@@ -21,7 +21,7 @@ from .serializers import (
     SERIALIZERS,
 )
 
-# logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 
 class NestedProfileEndpoint(ReadOnlyModelViewSet):
@@ -328,8 +328,12 @@ class ProfileSearchEndpoint(GenericViewSet):
         if SERIALIZERS:
             for profile_type in SERIALIZERS:
                 model = SERIALIZERS[profile_type].Meta.model
+                # This would be a way to include fields that are different for each profile type
+                # if (model._meta.model_name == "plant"):
+                #     q_sub_name = Q(general_information__sub_name__icontains=search_term)
+                # else:
+                #     q_sub_name = Q()
                 profile_results = model.objects.filter(
-                    # Q(general_information__sub_name__icontains=search_term) |
                     Q(general_information__name__icontains=search_term)
                 )
                 if profile_results.exists():
