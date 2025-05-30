@@ -1,3 +1,9 @@
+Version 0.3.7 (30.05.2025)
+*****************************
+- Add endpoint to return all profiles in a flat list
+- Add endpoints to return different parts of the tree
+- Add search endpoints for profiles and nodes with profiles
+
 Version 0.3.6 (04.05.2025)
 *****************************
 - Add check for non-existing image in slideshows

@@ -15,11 +15,58 @@ if hasattr(settings, "PROFILES_SERIALIZERS"):
         SERIALIZERS[field_name] = getattr(import_module(module), serializer)
 
 
-class TreeNodeSerializer(serializers.ModelSerializer):
+class BaseTreeNodeSerializer(serializers.ModelSerializer):
+    """For getting basic node information"""
+
+    has_children = serializers.SerializerMethodField()
+
+    def get_has_children(self, obj):
+        return obj.get_children().exists()
+
+    class Meta:
+        model = TreeNode
+        fields = ("id", "name", "info", "has_children")
+
+
+class TreeNodeDetailSerializer(BaseTreeNodeSerializer):
+    """For detailed view of a single node, including children recursively"""
+
+    children = RecursiveSerializer(many=True, required=False)
+
+    class Meta(BaseTreeNodeSerializer.Meta):
+        fields = BaseTreeNodeSerializer.Meta.fields + ("children",)
+
+
+class TreeNodeLeavesSerializer(BaseTreeNodeSerializer):
+    """For getting leaves only"""
+
+    class Meta(BaseTreeNodeSerializer.Meta):
+        model = TreeNode
+        fields = ("name", "info") + tuple(settings.PROFILES_SERIALIZERS.keys())
+        depth = 1
+
+
+class IdTreeNodeSerializer(serializers.ModelSerializer):
     def build_nested_field(self, field_name, relation_info, nested_depth):
         if SERIALIZERS.get(field_name) is not None:
             return SERIALIZERS.get(field_name), {"many": True, "required": False}
-        return super(TreeNodeSerializer, self).build_nested_field(
+
+        return self.build_relational_field(field_name, relation_info)
+
+    class Meta:
+        model = TreeNode
+        fields = ("id", "name", "info", "children", "level") + tuple(
+            settings.PROFILES_SERIALIZERS.keys()
+        )
+        depth = 1
+
+
+class NestedTreeNodeSerializer(IdTreeNodeSerializer):
+    def build_nested_field(self, field_name, relation_info, nested_depth):
+        if SERIALIZERS.get(field_name) is not None:
+            return SERIALIZERS.get(field_name), {"many": True, "required": False}
+
+        return super(NestedTreeNodeSerializer, self).build_nested_field(
             field_name, relation_info, nested_depth
         )
 
@@ -27,7 +74,29 @@ class TreeNodeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TreeNode
-        fields = ("name", "info", "children") + tuple(
+        fields = ("name", "info", "children", "level") + tuple(
             settings.PROFILES_SERIALIZERS.keys()
         )
         depth = 2
+
+
+class LeavesWithProfilesSerializer(serializers.ModelSerializer):
+    has_children = serializers.SerializerMethodField()
+
+    def get_has_children(self, obj):
+        return obj.get_children().exists()
+
+    def build_nested_field(self, field_name, relation_info, nested_depth):
+        if SERIALIZERS.get(field_name) is not None:
+            return SERIALIZERS.get(field_name), {"many": True, "required": False}
+
+        return super(LeavesWithProfilesSerializer, self).build_nested_field(
+            field_name, relation_info, nested_depth
+        )
+
+    class Meta:
+        model = TreeNode
+        fields = ("id", "name", "info", "level", "parent", "has_children") + tuple(
+            settings.PROFILES_SERIALIZERS.keys()
+        )
+        depth = 1
