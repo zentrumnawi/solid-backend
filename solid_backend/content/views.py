@@ -228,40 +228,46 @@ class FlatProfilesEndpoint(GenericViewSet):
     """
     Endpoint that returns all profiles in a flat list
     """
-
     name = "flat-profiles"
 
     def get_queryset(self):
+        return None
+    
+    def get_optimized_queryset(self, model):
+        """
+        Get an optimized queryset for a specific model.
+        Models can override this by implementing get_optimized_queryset().
+        """
+        if hasattr(model, 'get_optimized_queryset'):
+            return model.get_optimized_queryset()
+        
+        return model.objects.all()
+
+    def list(self, request):
         results = []
         if SERIALIZERS:
             for profile_type in SERIALIZERS:
                 model = SERIALIZERS[profile_type].Meta.model
-                profile_results = model.objects.all()
+                profile_results = self.get_optimized_queryset(model)
+                
                 if profile_results.exists():
                     results.extend(profile_results)
-        return results
-
-    def get_serializer_class(self):
-        return SERIALIZERS.get(self.related_name, None)
+        
+        response_data = []
+        for item in results:
+            model_name = item._meta.model_name
+            serializer_class = self.get_serializer_for_model(model_name)
+            if serializer_class:
+                data = serializer_class(item, context={"request": request}).data
+                data["def_type"] = model_name
+                response_data.append(data)
+        return Response(response_data)
 
     def get_serializer_for_model(self, model_name):
         for serializer_name, serializer_class in SERIALIZERS.items():
             if serializer_class.Meta.model.__name__.lower() == model_name.lower():
                 return serializer_class
         return None
-
-    def list(self, request):
-        queryset = self.get_queryset()
-        response_data = []
-        for item in queryset:
-            model_name = item._meta.model_name
-            serializer_class = self.get_serializer_for_model(model_name)
-            if serializer_class:
-                data = serializer_class(item, context={"request": request}).data
-                # Add profile_type to each item
-                data["def_type"] = model_name
-                response_data.append(data)
-        return Response(response_data)
 
 
 class SearchNodeWithProfilesEndpoint(ReadOnlyModelViewSet):
