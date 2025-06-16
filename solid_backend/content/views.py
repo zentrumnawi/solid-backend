@@ -241,27 +241,21 @@ class FlatProfilesEndpoint(GenericViewSet):
         """
         if hasattr(model, "get_optimized_queryset"):
             return model.get_optimized_queryset()
-
         return model.objects.all()
 
     def list(self, request):
-        results = []
-        if SERIALIZERS:
-            for profile_type in SERIALIZERS:
-                model = SERIALIZERS[profile_type].Meta.model
-                profile_results = self.get_optimized_queryset(model)
-
-                if profile_results.exists():
-                    results.extend(profile_results)
-
         response_data = []
-        for item in results:
-            model_name = item._meta.model_name
-            serializer_class = self.get_serializer_for_model(model_name)
-            if serializer_class:
-                data = serializer_class(item, context={"request": request}).data
-                data["def_type"] = model_name
-                response_data.append(data)
+        for profile_type in SERIALIZERS.keys():
+            model = SERIALIZERS[profile_type].Meta.model
+            profile_results = self.get_optimized_queryset(model)
+            # serializer_class = self.get_serializer_for_model(profile_type)
+            # Batch serialize all results for this profile type
+            serialized = SERIALIZERS[profile_type](
+                profile_results, many=True, context={"request": request}
+            ).data
+            for item in serialized:
+                item["def_type"] = model.__name__.lower()
+                response_data.append(item)
         return Response(response_data)
 
     def get_serializer_for_model(self, model_name):
@@ -329,14 +323,17 @@ class ProfileSearchEndpoint(GenericViewSet):
         if SERIALIZERS:
             for profile_type in SERIALIZERS:
                 model = SERIALIZERS[profile_type].Meta.model
-                # This would be a way to include fields that are different for each profile type
-                # if (model._meta.model_name == "plant"):
-                #     q_sub_name = Q(general_information__sub_name__icontains=search_term)
-                # else:
-                #     q_sub_name = Q()
-                profile_results = model.objects.filter(
-                    Q(general_information__name__icontains=search_term)
-                )
+
+                search = Q()
+                # If the model has a searchable_fields attribute, use it to search
+                # Otherwise, search for name
+                if hasattr(model, "searchable_fields"):
+                    for field in model.searchable_fields:
+                        search |= Q(**{f"{field}__icontains": search_term})
+                else:
+                    search |= Q(general_information__name__icontains=search_term)
+
+                profile_results = model.objects.filter(search)
                 if profile_results.exists():
                     results.extend(profile_results)
 
