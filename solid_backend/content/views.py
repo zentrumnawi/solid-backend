@@ -228,19 +228,20 @@ class FlatProfilesEndpoint(GenericViewSet):
     """
     Endpoint that returns all profiles in a flat list
     """
+
     name = "flat-profiles"
 
     def get_queryset(self):
         return None
-    
+
     def get_optimized_queryset(self, model):
         """
         Get an optimized queryset for a specific model.
         Models can override this by implementing get_optimized_queryset().
         """
-        if hasattr(model, 'get_optimized_queryset'):
+        if hasattr(model, "get_optimized_queryset"):
             return model.get_optimized_queryset()
-        
+
         return model.objects.all()
 
     def list(self, request):
@@ -249,10 +250,10 @@ class FlatProfilesEndpoint(GenericViewSet):
             for profile_type in SERIALIZERS:
                 model = SERIALIZERS[profile_type].Meta.model
                 profile_results = self.get_optimized_queryset(model)
-                
+
                 if profile_results.exists():
                     results.extend(profile_results)
-        
+
         response_data = []
         for item in results:
             model_name = item._meta.model_name

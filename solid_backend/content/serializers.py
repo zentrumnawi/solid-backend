@@ -67,25 +67,26 @@ class IdTreeNodeSerializer(serializers.ModelSerializer):
 class NestedTreeNodeSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        logger.debug("############################################################")
-        logger.debug("instance: %s", instance)
-        
+
+        # Assume leaves are the only nodes that have profiles
         if not instance.get_children().exists():
-        # Add profile data for this node
+            # Add profile data for this node
             for profile_type in SERIALIZERS.keys():
                 model = SERIALIZERS[profile_type].Meta.model
-                if hasattr(model, 'get_optimized_queryset'):
-                    logger.debug(f"can be optimized model: {model}")
-                    # Use the optimized queryset to get profiles for this node
+                if hasattr(model, "get_optimized_queryset"):
                     profiles = model.get_optimized_queryset().filter(tree_node=instance)
-                    logger.debug(f"profiles: {profiles}")
-                if profiles.exists():
-                    data[profile_type] = SERIALIZERS[profile_type](profiles, many=True, context=self.context).data
-        
+                else:
+                    profiles = model.objects.filter(tree_node=instance)
+                data[profile_type] = SERIALIZERS[profile_type](
+                    profiles, many=True, context=self.context
+                ).data
+
         # Handle children using MPTT's get_children()
         else:
             children = instance.get_children()
-            data['children'] = self.__class__(children, many=True, context=self.context).data
+            data["children"] = self.__class__(
+                children, many=True, context=self.context
+            ).data
 
         return data
 
