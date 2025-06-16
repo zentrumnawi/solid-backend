@@ -322,14 +322,17 @@ class ProfileSearchEndpoint(GenericViewSet):
         if SERIALIZERS:
             for profile_type in SERIALIZERS:
                 model = SERIALIZERS[profile_type].Meta.model
-                # This would be a way to include fields that are different for each profile type
-                # if (model._meta.model_name == "plant"):
-                #     q_sub_name = Q(general_information__sub_name__icontains=search_term)
-                # else:
-                #     q_sub_name = Q()
-                profile_results = model.objects.filter(
-                    Q(general_information__name__icontains=search_term)
-                )
+
+                search = Q()
+                # If the model has a searchable_fields attribute, use it to search
+                # Otherwise, search for name
+                if hasattr(model, "searchable_fields"):
+                    for field in model.searchable_fields:
+                        search |= Q(**{f"{field}__icontains": search_term})
+                else:
+                    search |= Q(general_information__name__icontains=search_term)
+
+                profile_results = model.objects.filter(search)
                 if profile_results.exists():
                     results.extend(profile_results)
 
