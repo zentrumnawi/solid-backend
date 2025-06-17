@@ -1,3 +1,9 @@
+Version 0.3.8 (17.06.2025)
+*****************************
+- Manage searchable_fields provided by backends
+- Add capability to use optimized queries
+- Refactor endpoint that returns all profiles in a flat list
+
 Version 0.3.7 (30.05.2025)
 *****************************
 - Add endpoint to return all profiles in a flat list
