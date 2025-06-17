@@ -1,4 +1,5 @@
 from importlib import import_module
+import logging
 
 from django.conf import settings
 from rest_framework import serializers
@@ -6,6 +7,8 @@ from rest_framework import serializers
 from solid_backend.utils.serializers import RecursiveSerializer
 
 from .models import TreeNode
+
+logger = logging.getLogger(__name__)
 
 SERIALIZERS = {}
 
@@ -61,16 +64,31 @@ class IdTreeNodeSerializer(serializers.ModelSerializer):
         depth = 1
 
 
-class NestedTreeNodeSerializer(IdTreeNodeSerializer):
-    def build_nested_field(self, field_name, relation_info, nested_depth):
-        if SERIALIZERS.get(field_name) is not None:
-            return SERIALIZERS.get(field_name), {"many": True, "required": False}
+class NestedTreeNodeSerializer(serializers.ModelSerializer):
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
 
-        return super(NestedTreeNodeSerializer, self).build_nested_field(
-            field_name, relation_info, nested_depth
-        )
+        # Assume leaves are the only nodes that have profiles
+        if not instance.get_children().exists():
+            # Add profile data for this node
+            for profile_type in SERIALIZERS.keys():
+                model = SERIALIZERS[profile_type].Meta.model
+                if hasattr(model, "get_optimized_queryset"):
+                    profiles = model.get_optimized_queryset().filter(tree_node=instance)
+                else:
+                    profiles = model.objects.filter(tree_node=instance)
+                data[profile_type] = SERIALIZERS[profile_type](
+                    profiles, many=True, context=self.context
+                ).data
 
-    children = RecursiveSerializer(many=True, required=False)
+        # Handle children using MPTT's get_children()
+        else:
+            children = instance.get_children()
+            data["children"] = self.__class__(
+                children, many=True, context=self.context
+            ).data
+
+        return data
 
     class Meta:
         model = TreeNode
