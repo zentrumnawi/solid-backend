@@ -160,9 +160,7 @@ class IdListProfileEndpoint(ReadOnlyModelViewSet):
     filterset_fields = ["level", "parent"]
 
     @action(
-        detail=False,
-        url_name="root",
-        url_path="root",
+        detail=False, url_name="root", url_path="root",
     )
     def root(self, request, *args, **kwargs):
         queryset = TreeNode.objects.root_nodes()
@@ -245,9 +243,12 @@ class FlatProfilesEndpoint(GenericViewSet):
 
     def list(self, request):
         response_data = []
+        filter_param = request.query_params.get("node_id")
         for profile_type in SERIALIZERS.keys():
             model = SERIALIZERS[profile_type].Meta.model
             profile_results = self.get_optimized_queryset(model)
+            if filter_param:
+                profile_results = profile_results.filter(tree_node__id=filter_param)
             # serializer_class = self.get_serializer_for_model(profile_type)
             # Batch serialize all results for this profile type
             serialized = SERIALIZERS[profile_type](
