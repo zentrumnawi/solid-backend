@@ -160,7 +160,9 @@ class IdListProfileEndpoint(ReadOnlyModelViewSet):
     filterset_fields = ["level", "parent"]
 
     @action(
-        detail=False, url_name="root", url_path="root",
+        detail=False,
+        url_name="root",
+        url_path="root",
     )
     def root(self, request, *args, **kwargs):
         queryset = TreeNode.objects.root_nodes()
