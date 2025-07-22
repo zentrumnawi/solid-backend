@@ -190,7 +190,9 @@ class ContentItemEndpoint(GenericViewSet):
         self.check_related_name_exists()
         obj = self.get_object()
         serializer = self.get_serializer(obj)
-        return Response(data=serializer.data)
+        data = serializer.data
+        data["def_type"] = self.related_name
+        return Response(data=data)
 
     @action(
         detail=False,
