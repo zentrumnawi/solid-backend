@@ -2,7 +2,6 @@ from django.contrib import admin
 from django import forms
 from django.conf import settings
 from .forms import GlossaryEntryAdminForm
-# from .models import Tag
 from .models import GlossaryEntry
 
 
@@ -12,7 +11,8 @@ class GlossaryEntryAdmin(admin.ModelAdmin):
 
     def get_exclude(self, request, obj=None):
         if not GlossaryEntryAdminForm.should_show_tags(self):
-            return ('tags',)
+            return ("tags",)
         return []
+
 
 admin.site.register(GlossaryEntry, GlossaryEntryAdmin)
