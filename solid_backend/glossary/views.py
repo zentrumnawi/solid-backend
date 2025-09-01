@@ -11,6 +11,10 @@ logger = logging.getLogger(__name__)
 
 
 class GlossaryEntryEndpoint(ReadOnlyModelViewSet):
+    """
+    Endpoint that provides glossary entries and optionally content of other tabs
+    """
+
     def get_queryset(self):
         return GlossaryEntry.objects.all().prefetch_related(
             Prefetch("links", queryset=GlossaryEntry.objects.order_by("term"))
