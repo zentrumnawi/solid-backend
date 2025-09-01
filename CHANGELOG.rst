@@ -1,3 +1,11 @@
+Version 0.3.9 (01.09.2025)
+*****************************
+- Set default value zero in tolerance field
+- Include profile type when querying single profile
+- Change return value of glossary entries end point to enable use of multiple tabs inside glossary
+- Introduce new database field and set default to glossary
+- Have number and name of tabs configured by importing back end
+
 Version 0.3.8 (17.06.2025)
 *****************************
 - Manage searchable_fields provided by backends

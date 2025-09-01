@@ -68,7 +68,7 @@ class QuizAnswer(models.Model):
     range_min = models.FloatField(null=True, blank=True)
     unit = models.CharField(max_length=400, null=True, blank=True)
     range_step = models.FloatField(null=True, blank=True)
-    tolerance = models.FloatField(null=True, blank=True)
+    tolerance = models.FloatField(null=True, blank=True, default=0)
 
 
 @receiver(post_delete, sender=TaggedItem)
