@@ -44,6 +44,8 @@ class QuizSessionEndpoint(ListAPIView):
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
+        if request.GET["count"] == "all":
+            return Response(self.get_serializer(queryset, many=True).data)
         question_count = int(request.GET["count"])
         if question_count < queryset.count():
             queryset = sample(list(queryset), k=question_count)
