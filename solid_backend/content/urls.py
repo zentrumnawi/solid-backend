@@ -12,11 +12,15 @@ from .views import (
     FlatProfilesEndpoint,
     AncestorsEndpoint,
     ProfileSearchEndpoint,
+    TreeNodeSearchEndpoint,
 )
 
 app_name = "content"
 router = SimpleRouter()
 router.register(r"profile-search", ProfileSearchEndpoint, basename="profile-search")
+router.register(
+    r"tree-node-search", TreeNodeSearchEndpoint, basename="tree-node-search"
+)
 router.register(r"root-nodes", RootNodeEndpoint, basename="rootnode")
 router.register(r"leaf-nodes", LeavesEndpoint, basename="leafnodes")
 router.register(r"parent-node", ParentNodeEndpoint, basename="parentnode")

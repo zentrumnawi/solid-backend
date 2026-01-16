@@ -367,3 +367,25 @@ class ProfileSearchEndpoint(GenericViewSet):
                 response_data.append(data)
 
         return Response(response_data)
+
+class TreeNodeSearchEndpoint(GenericViewSet):
+    """
+    Endpoint that searches across all tree nodes and returns their serialized data.
+    """
+
+    name = "tree-node-search"
+
+    def get_queryset(self):
+        search_term = self.request.query_params.get("q", "")
+        if not search_term:
+            return []
+        return TreeNode.objects.filter(name__icontains=search_term)
+
+    def get_serializer_class(self):
+        return BaseTreeNodeSerializer
+
+    @action(detail=False, methods=["get"])
+    def search(self, request):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
