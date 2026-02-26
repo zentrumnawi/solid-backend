@@ -20,7 +20,7 @@ django = "^3.0.7"
 djangorestframework = "3.11.0"
 django-mptt = "0.11.0"
 pillow = "7.1.2"
-django-cleanup = "4.0.0"
+django-cleanup = "4.0.1"
 psycopg2-binary = "^2.8.5"
 mutagen = "^1.44.0"
 django-stdimage = "^5.1.1"
@@ -30,7 +30,6 @@ django-filter = "^21.1"
 
 [tool.poetry.dev-dependencies]
 gunicorn = "20.0.4"
-django-environ = "0.4.5"
 werkzeug = "1.0.1"
 ipdb = "0.13.2"
 pytest = "5.3.5"
@@ -52,6 +51,7 @@ drf-spectacular = "^0.25.1"
 [tool.poetry.group.dev.dependencies]
 django-debug-toolbar = "3.0"
 pytest-sugar = "0.9.5"
+django-environ = "0.6.0"
 
 [build-system]
 requires = ["poetry>=0.12"]

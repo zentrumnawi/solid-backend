@@ -231,14 +231,14 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 name = "django-cleanup"
-version = "4.0.0"
+version = "4.0.1"
 description = "Deletes old files."
 category = "main"
 optional = false
 python-versions = "*"
 files = [
-    {file = "django-cleanup-4.0.0.tar.gz", hash = "sha256:412c3f9417ddaaaa561b60237b109550b16e556db92d4616278fc7e1ad9ab0a4"},
-    {file = "django_cleanup-4.0.0-py2.py3-none-any.whl", hash = "sha256:b2bdb590eccc1a8e0688d5c6224080d3bb4a77e5bad1688fbe452d8c3454d755"},
+    {file = "django-cleanup-4.0.1.tar.gz", hash = "sha256:4d0fd9ad3117a219e4cb3e35dd32f39c764a860ce56b820abb88ad3ec063ffd7"},
+    {file = "django_cleanup-4.0.1-py2.py3-none-any.whl", hash = "sha256:ebbad94d1ed655a8d899b00a847ceab16355a659b807d4151ffed6e5a9c10db2"},
 ]
 
 [[package]]
@@ -274,15 +274,20 @@ sqlparse = ">=0.2.0"
 
 [[package]]
 name = "django-environ"
-version = "0.4.5"
-description = "Django-environ allows you to utilize 12factor inspired environment variables to configure your Django application."
+version = "0.6.0"
+description = "A package that allows you to utilize 12factor inspired environment variables to configure your Django application."
 category = "dev"
 optional = false
-python-versions = "*"
+python-versions = ">=3.4,<4"
 files = [
-    {file = "django-environ-0.4.5.tar.gz", hash = "sha256:6c9d87660142608f63ec7d5ce5564c49b603ea8ff25da595fd6098f6dc82afde"},
-    {file = "django_environ-0.4.5-py2.py3-none-any.whl", hash = "sha256:c57b3c11ec1f319d9474e3e5a79134f40174b17c7cc024bbb2fad84646b120c4"},
+    {file = "django-environ-0.6.0.tar.gz", hash = "sha256:6b3ce447f31c5a5144671d754baa0819c9bde2fb34dcdc05ba619a97f4567e5a"},
+    {file = "django_environ-0.6.0-py2.py3-none-any.whl", hash = "sha256:f63b6489ee2113239fe60cdf94efc93a2b42ac07aefb5b5182d401b4fa820374"},
 ]
+
+[package.extras]
+develop = ["coverage[toml] (>=5.0a4)", "furo (>=2021.8.17b43,<2021.9.0)", "pytest (>=4.6.11)", "sphinx (>=3.5.0)", "sphinx-notfound-page"]
+docs = ["furo (>=2021.8.17b43,<2021.9.0)", "sphinx (>=3.5.0)", "sphinx-notfound-page"]
+testing = ["coverage[toml] (>=5.0a4)", "pytest (>=4.6.11)"]
 
 [[package]]
 name = "django-extensions"
@@ -1445,4 +1450,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.7"
-content-hash = "d757bd0fce03ac3b47e0bd02ad0b0581078b11e72216ab0eb3e515e9478c4749"
+content-hash = "1ab408028d32e4541fcc330e7464d871fc2d8168494784d7cfd433d207a91f57"
