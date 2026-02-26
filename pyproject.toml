@@ -32,7 +32,6 @@ django-filter = "^21.1"
 gunicorn = "20.0.4"
 django-environ = "0.4.5"
 werkzeug = "1.0.1"
-django-debug-toolbar = "2.2"
 ipdb = "0.13.2"
 pytest = "5.3.5"
 pytest-django = "3.9.0"
@@ -49,6 +48,11 @@ drf-yasg = "^1.20.0"
 
 [tool.poetry.group.extras.dependencies]
 drf-spectacular = "^0.25.1"
+
+
+[tool.poetry.group.dev.dependencies]
+django-debug-toolbar = "3.0"
+pytest-sugar = "0.9.5"
 
 [build-system]
 requires = ["poetry>=0.12"]
