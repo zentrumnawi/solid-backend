@@ -315,18 +315,18 @@ testing = ["coverage[toml] (>=5.0a4)", "pytest (>=4.6.11)"]
 
 [[package]]
 name = "django-extensions"
-version = "2.2.9"
+version = "3.2.3"
 description = "Extensions for Django"
 category = "dev"
 optional = false
-python-versions = "*"
+python-versions = ">=3.6"
 files = [
-    {file = "django-extensions-2.2.9.tar.gz", hash = "sha256:2f81b618ba4d1b0e58603e25012e5c74f88a4b706e0022a3b21f24f0322a6ce6"},
-    {file = "django_extensions-2.2.9-py2.py3-none-any.whl", hash = "sha256:b19182d101a441fe001c5753553a901e2ef3ff60e8fbbe38881eb4a61fdd17c4"},
+    {file = "django-extensions-3.2.3.tar.gz", hash = "sha256:44d27919d04e23b3f40231c4ab7af4e61ce832ef46d610cc650d53e68328410a"},
+    {file = "django_extensions-3.2.3-py3-none-any.whl", hash = "sha256:9600b7562f79a92cbf1fde6403c04fee314608fefbb595502e34383ae8203401"},
 ]
 
 [package.dependencies]
-six = ">=1.2"
+Django = ">=3.2"
 
 [[package]]
 name = "django-filter"
@@ -596,18 +596,20 @@ files = [
 
 [[package]]
 name = "ipdb"
-version = "0.13.2"
+version = "0.13.13"
 description = "IPython-enabled pdb"
 category = "dev"
 optional = false
-python-versions = ">=2.7"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 files = [
-    {file = "ipdb-0.13.2.tar.gz", hash = "sha256:77fb1c2a6fccdfee0136078c9ed6fe547ab00db00bebff181f1e8c9e13418d49"},
+    {file = "ipdb-0.13.13-py3-none-any.whl", hash = "sha256:45529994741c4ab6d2388bfa5d7b725c2cf7fe9deffabdb8a6113aa5ed449ed4"},
+    {file = "ipdb-0.13.13.tar.gz", hash = "sha256:e3ac6018ef05126d442af680aad863006ec19d02290561ac88b8b1c0b0cfc726"},
 ]
 
 [package.dependencies]
-ipython = {version = ">=5.1.0", markers = "python_version >= \"3.4\""}
-setuptools = "*"
+decorator = {version = "*", markers = "python_version > \"3.6\""}
+ipython = {version = ">=7.31.1", markers = "python_version > \"3.6\""}
+tomli = {version = "*", markers = "python_version > \"3.6\" and python_version < \"3.11\""}
 
 [[package]]
 name = "ipython"
@@ -1469,39 +1471,6 @@ files = [
 ]
 
 [[package]]
-name = "setuptools"
-version = "75.3.4"
-description = "Easily download, build, install, upgrade, and uninstall Python packages"
-category = "dev"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "setuptools-75.3.4-py3-none-any.whl", hash = "sha256:2dd50a7f42dddfa1d02a36f275dbe716f38ed250224f609d35fb60a09593d93e"},
-    {file = "setuptools-75.3.4.tar.gz", hash = "sha256:b4ea3f76e1633c4d2d422a5d68ab35fd35402ad71e6acaa5d7e5956eb47e8887"},
-]
-
-[package.extras]
-check = ["pytest-checkdocs (>=2.4)", "pytest-ruff (>=0.2.1)", "ruff (>=0.5.2)"]
-core = ["importlib-metadata (>=6)", "importlib-resources (>=5.10.2)", "jaraco.collections", "jaraco.functools", "jaraco.text (>=3.7)", "more-itertools", "more-itertools (>=8.8)", "packaging", "packaging (>=24)", "platformdirs (>=4.2.2)", "tomli (>=2.0.1)", "wheel (>=0.43.0)"]
-cover = ["pytest-cov"]
-doc = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "pygments-github-lexers (==0.0.5)", "pyproject-hooks (!=1.1)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-favicon", "sphinx-inline-tabs", "sphinx-lint", "sphinx-notfound-page (>=1,<2)", "sphinx-reredirects", "sphinxcontrib-towncrier", "towncrier (<24.7)"]
-enabler = ["pytest-enabler (>=2.2)"]
-test = ["build[virtualenv] (>=1.0.3)", "filelock (>=3.4.0)", "ini2toml[lite] (>=0.14)", "jaraco.develop (>=7.21)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "jaraco.test (>=5.5)", "packaging (>=23.2)", "pip (>=19.1)", "pyproject-hooks (!=1.1)", "pytest (>=6,!=8.1.*)", "pytest-home (>=0.5)", "pytest-perf", "pytest-subprocess", "pytest-timeout", "pytest-xdist (>=3)", "ruff (<=0.7.1)", "tomli-w (>=1.0.0)", "virtualenv (>=13.0.0)", "wheel (>=0.44.0)"]
-type = ["importlib-metadata (>=7.0.2)", "jaraco.develop (>=7.21)", "mypy (>=1.12.0,<1.13.0)", "pytest-mypy"]
-
-[[package]]
-name = "six"
-version = "1.17.0"
-description = "Python 2 and 3 compatibility utilities"
-category = "dev"
-optional = false
-python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
-files = [
-    {file = "six-1.17.0-py2.py3-none-any.whl", hash = "sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"},
-    {file = "six-1.17.0.tar.gz", hash = "sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81"},
-]
-
-[[package]]
 name = "sqlparse"
 version = "0.5.5"
 description = "A non-validating SQL parser."
@@ -1702,4 +1671,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "20bbbccfc0f8f970487026e4cc4e1efd504ec6e88f9aa3854521444f6eff047a"
+content-hash = "f36c1b12861c537f85d639642a59db065f6534a19816f0221ce60a82040f8554"
