@@ -16,16 +16,16 @@ repository = "https://github.com/zentrumnawi/solid-backend"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-django = "^3.0.7"
-djangorestframework = "3.11.0"
-django-mptt = "0.11.0"
-pillow = "7.1.2"
-django-cleanup = "4.0.1"
+django = "^4.1"
+djangorestframework = "3.14.0"
+django-mptt = "0.14.0"
+pillow = "10.4.0"
+django-cleanup = "8.1.0"
 psycopg2-binary = "^2.9.10"
 mutagen = "^1.44.0"
 django-stdimage = "^5.1.1"
-django-taggit = "^1.5.1"
-django-filter = "^21.1"
+django-taggit = "^4.0.0"
+django-filter = "^23.5"
 
 
 [tool.poetry.dev-dependencies]
@@ -39,9 +39,9 @@ drf-spectacular = "^0.25.1"
 
 
 [tool.poetry.group.dev.dependencies]
-django-debug-toolbar = "3.0"
+django-debug-toolbar = "4.3.0"
 pytest-sugar = "^1.1.1"
-django-environ = "0.6.0"
+django-environ = "0.11.2"
 pytest = "8.3.5"
 pytest-isort = "^4.0.0"
 pytest-django = "4.8.0"
