@@ -1,6 +1,6 @@
 import environ
 from django.conf import settings
-from django.conf.urls import url
+from django.urls import re_path
 from drf_yasg import openapi
 from drf_yasg.inspectors import SwaggerAutoSchema
 from drf_yasg.views import get_schema_view
@@ -28,17 +28,17 @@ schema_view = get_schema_view(
 
 app_name = "api_docs"
 urlpatterns = [
-    url(
+    re_path(
         r"^swagger(?P<format>.json|.yaml)$",
         schema_view.without_ui(cache_timeout=None),
         name="schema-json",
     ),
-    url(
+    re_path(
         r"^swagger/$",
         schema_view.with_ui("swagger", cache_timeout=None),
         name="schema-swagger-ui",
     ),
-    url(
+    re_path(
         r"^redoc/$",
         schema_view.with_ui("redoc", cache_timeout=None),
         name="schema-redoc",
