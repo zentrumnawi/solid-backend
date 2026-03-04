@@ -411,14 +411,14 @@ tests = ["coverage", "mock-django"]
 
 [[package]]
 name = "django-stdimage"
-version = "5.3.0"
+version = "6.0.2"
 description = "Django Standarized Image Field"
 category = "main"
 optional = false
 python-versions = "*"
 files = [
-    {file = "django-stdimage-5.3.0.tar.gz", hash = "sha256:95f2897f5a520f18e0d0097cc8cb1380db9127ead1abe66a5e048cd7bd4a2295"},
-    {file = "django_stdimage-5.3.0-py2.py3-none-any.whl", hash = "sha256:fb9d6bf86664873194fcc378193d81405aa4989eceadb4bcce6bb52588801934"},
+    {file = "django-stdimage-6.0.2.tar.gz", hash = "sha256:880ab14828be56b53f711c3afae83c219ddd5d9af00850626736feb48382bf7f"},
+    {file = "django_stdimage-6.0.2-py2.py3-none-any.whl", hash = "sha256:9a73f7da48c48074580e2b032d5bdb7164935dbe4b9dc4fb88a7e112f3d521c8"},
 ]
 
 [package.dependencies]
@@ -427,6 +427,7 @@ pillow = ">=2.5"
 
 [package.extras]
 progressbar = ["progressbar2 (>=3.0.0)"]
+test = ["pytest", "pytest-cov", "pytest-django"]
 
 [[package]]
 name = "django-taggit"
@@ -1709,4 +1710,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "87010db56020abe3b9ccea80d0b8cf3163bb4f0d164eeaad8b1982e93146f282"
+content-hash = "18e53b8c5b7b5bcb186bb630c7e69c1af74a6bd2b9dfcf9f5e7aca5c167c90e2"
