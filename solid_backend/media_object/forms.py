@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.contenttypes.forms import BaseGenericInlineFormSet
 from django.core.validators import FileExtensionValidator
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 def validate_media_object_file_extensions(value):
